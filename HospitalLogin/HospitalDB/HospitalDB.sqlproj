@@ -61,4 +61,10 @@
     <Folder Include="View" />
     <Folder Include="StoredProc" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Table\LoginDB.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostScript\Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
