@@ -62,6 +62,7 @@ namespace Hospital2
                 MessageBox.Show(EX.Message);
                 this.Show();
             }
+
         }
     }
 }

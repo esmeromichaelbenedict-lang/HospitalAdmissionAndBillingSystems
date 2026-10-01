@@ -12,8 +12,9 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\lenovo\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\lenovo\\.nuget\\packages"
+      "C:\\Users\\Jean Margarette\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Jean Margarette\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false,
