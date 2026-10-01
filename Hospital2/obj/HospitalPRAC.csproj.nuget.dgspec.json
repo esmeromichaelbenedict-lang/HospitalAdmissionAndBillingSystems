@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj": {}
+    "C:\\Users\\kimco\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj": {
+    "C:\\Users\\kimco\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj",
+        "projectUniqueName": "C:\\Users\\kimco\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj",
         "projectName": "HospitalPRAC",
-        "projectPath": "C:\\Users\\lenovo\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\obj\\",
+        "projectPath": "C:\\Users\\kimco\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\HospitalPRAC.csproj",
+        "packagesPath": "C:\\Users\\kimco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kimco\\source\\repos\\HospitalAdmissionAndBillingSystems\\Hospital2\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kimco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
