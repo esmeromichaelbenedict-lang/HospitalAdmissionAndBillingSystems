@@ -229,6 +229,7 @@
             Name = "NurseDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "NurseDashboard";
+            Load += NurseDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

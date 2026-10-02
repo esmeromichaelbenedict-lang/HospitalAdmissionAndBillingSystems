@@ -29,5 +29,10 @@ namespace Hospital2.UI.NurseDashboard
         {
 
         }
+
+        private void NurseDashboard_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
