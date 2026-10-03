@@ -29,36 +29,36 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnAdmitPatient = new Button();
             label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            listBox1 = new ListBox();
+            txtSearch = new TextBox();
+            btnSearch = new Button();
+            btnEdit = new Button();
+            btnCancel = new Button();
+            btnUpdate = new Button();
+            btnDelete = new Button();
             panel2 = new Panel();
-            textBox4 = new TextBox();
+            dtpDOB = new DateTimePicker();
+            txtContactNumber = new TextBox();
+            txtAddress = new TextBox();
+            cmbCivilStatus = new ComboBox();
+            cmbSex = new ComboBox();
+            label17 = new Label();
+            txtAge = new TextBox();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
             label7 = new Label();
-            comboBox2 = new ComboBox();
-            comboBox1 = new ComboBox();
-            textBox7 = new TextBox();
-            textBox5 = new TextBox();
-            label6 = new Label();
-            textBox3 = new TextBox();
             label5 = new Label();
-            txtFName = new TextBox();
+            txtFullName = new TextBox();
             label4 = new Label();
             label2 = new Label();
             panel3 = new Panel();
-            comboBox5 = new ComboBox();
-            comboBox4 = new ComboBox();
-            comboBox3 = new ComboBox();
-            textBox6 = new TextBox();
-            dateTimePicker1 = new DateTimePicker();
+            cmbAdmissionType = new ComboBox();
+            cmbRoom = new ComboBox();
+            cmbDoctor = new ComboBox();
+            txtReason = new TextBox();
+            dtpAdmission = new DateTimePicker();
             label15 = new Label();
             label14 = new Label();
             label13 = new Label();
@@ -73,14 +73,15 @@
             button7 = new Button();
             button8 = new Button();
             button9 = new Button();
-            button10 = new Button();
+            btnDashboard = new Button();
             btnLogout = new Button();
-            btnAdmitPatient = new Button();
+            dgvPatients = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -93,119 +94,178 @@
             panel1.Size = new Size(1076, 70);
             panel1.TabIndex = 0;
             // 
+            // btnAdmitPatient
+            // 
+            btnAdmitPatient.BackColor = Color.Lime;
+            btnAdmitPatient.FlatStyle = FlatStyle.Flat;
+            btnAdmitPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdmitPatient.Location = new Point(934, 12);
+            btnAdmitPatient.Name = "btnAdmitPatient";
+            btnAdmitPatient.Size = new Size(118, 33);
+            btnAdmitPatient.TabIndex = 12;
+            btnAdmitPatient.Text = "Admit Patient";
+            btnAdmitPatient.UseVisualStyleBackColor = false;
+            btnAdmitPatient.Click += btnAdmitPatient_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Arial Narrow", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(28, 16);
             label1.Name = "label1";
-            label1.Size = new Size(79, 29);
+            label1.Size = new Size(94, 32);
             label1.TabIndex = 0;
             label1.Text = "Patient";
             // 
-            // textBox1
+            // txtSearch
             // 
-            textBox1.Location = new Point(159, 90);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(363, 23);
-            textBox1.TabIndex = 1;
+            txtSearch.Location = new Point(159, 90);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(363, 23);
+            txtSearch.TabIndex = 1;
             // 
-            // button1
+            // btnSearch
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(548, 84);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 33);
-            button1.TabIndex = 2;
-            button1.Text = "Search";
-            button1.UseVisualStyleBackColor = true;
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSearch.Location = new Point(548, 84);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(118, 33);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
-            // button2
+            // btnEdit
             // 
-            button2.BackColor = Color.FromArgb(128, 255, 128);
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(691, 84);
-            button2.Name = "button2";
-            button2.Size = new Size(118, 33);
-            button2.TabIndex = 3;
-            button2.Text = "Edit";
-            button2.UseVisualStyleBackColor = false;
+            btnEdit.BackColor = Color.FromArgb(128, 255, 128);
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEdit.Location = new Point(691, 84);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(118, 33);
+            btnEdit.TabIndex = 3;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Click += btnEdit_Click;
             // 
-            // button3
+            // btnCancel
             // 
-            button3.BackColor = SystemColors.ActiveBorder;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Location = new Point(815, 84);
-            button3.Name = "button3";
-            button3.Size = new Size(118, 33);
-            button3.TabIndex = 4;
-            button3.Text = "Cancel";
-            button3.UseVisualStyleBackColor = false;
+            btnCancel.BackColor = SystemColors.ActiveBorder;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancel.Location = new Point(815, 84);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(118, 33);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
-            // button4
+            // btnUpdate
             // 
-            button4.BackColor = Color.FromArgb(128, 255, 128);
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(939, 84);
-            button4.Name = "button4";
-            button4.Size = new Size(118, 33);
-            button4.TabIndex = 5;
-            button4.Text = "Update";
-            button4.UseVisualStyleBackColor = false;
+            btnUpdate.BackColor = Color.FromArgb(128, 255, 128);
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnUpdate.Location = new Point(939, 84);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(118, 33);
+            btnUpdate.TabIndex = 5;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
-            // button5
+            // btnDelete
             // 
-            button5.BackColor = Color.FromArgb(255, 128, 128);
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.Location = new Point(1063, 84);
-            button5.Name = "button5";
-            button5.Size = new Size(118, 33);
-            button5.TabIndex = 6;
-            button5.Text = "Delete";
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(225, 143);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(823, 139);
-            listBox1.TabIndex = 7;
+            btnDelete.BackColor = Color.FromArgb(255, 128, 128);
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDelete.Location = new Point(1063, 84);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(118, 33);
+            btnDelete.TabIndex = 6;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.Controls.Add(textBox4);
+            panel2.Controls.Add(dtpDOB);
+            panel2.Controls.Add(txtContactNumber);
+            panel2.Controls.Add(txtAddress);
+            panel2.Controls.Add(cmbCivilStatus);
+            panel2.Controls.Add(cmbSex);
+            panel2.Controls.Add(label17);
+            panel2.Controls.Add(txtAge);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
-            panel2.Controls.Add(comboBox2);
-            panel2.Controls.Add(comboBox1);
-            panel2.Controls.Add(textBox7);
-            panel2.Controls.Add(textBox5);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(textBox3);
             panel2.Controls.Add(label5);
-            panel2.Controls.Add(txtFName);
+            panel2.Controls.Add(txtFullName);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label2);
             panel2.Location = new Point(122, 297);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 236);
+            panel2.Size = new Size(514, 251);
             panel2.TabIndex = 8;
             // 
-            // textBox4
+            // dtpDOB
             // 
-            textBox4.Location = new Point(333, 79);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(161, 23);
-            textBox4.TabIndex = 23;
+            dtpDOB.CustomFormat = "yyyy-MM-dd";
+            dtpDOB.Format = DateTimePickerFormat.Short;
+            dtpDOB.Location = new Point(102, 79);
+            dtpDOB.Name = "dtpDOB";
+            dtpDOB.Size = new Size(185, 23);
+            dtpDOB.TabIndex = 32;
+            // 
+            // txtContactNumber
+            // 
+            txtContactNumber.Location = new Point(128, 204);
+            txtContactNumber.Name = "txtContactNumber";
+            txtContactNumber.Size = new Size(142, 23);
+            txtContactNumber.TabIndex = 35;
+            // 
+            // txtAddress
+            // 
+            txtAddress.Location = new Point(102, 171);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(392, 23);
+            txtAddress.TabIndex = 34;
+            // 
+            // cmbCivilStatus
+            // 
+            cmbCivilStatus.FormattingEnabled = true;
+            cmbCivilStatus.Location = new Point(102, 142);
+            cmbCivilStatus.Name = "cmbCivilStatus";
+            cmbCivilStatus.Size = new Size(142, 23);
+            cmbCivilStatus.TabIndex = 33;
+            // 
+            // cmbSex
+            // 
+            cmbSex.FormattingEnabled = true;
+            cmbSex.Location = new Point(102, 110);
+            cmbSex.Name = "cmbSex";
+            cmbSex.Size = new Size(142, 23);
+            cmbSex.TabIndex = 32;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label17.Location = new Point(21, 112);
+            label17.Name = "label17";
+            label17.Size = new Size(34, 16);
+            label17.TabIndex = 24;
+            label17.Text = "Sex:";
+            // 
+            // txtAge
+            // 
+            txtAge.Location = new Point(333, 79);
+            txtAge.Name = "txtAge";
+            txtAge.Size = new Size(161, 23);
+            txtAge.TabIndex = 23;
             // 
             // label10
             // 
@@ -221,7 +281,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(17, 197);
+            label9.Location = new Point(17, 206);
             label9.Name = "label9";
             label9.Size = new Size(105, 16);
             label9.TabIndex = 21;
@@ -231,7 +291,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(37, 168);
+            label8.Location = new Point(21, 173);
             label8.Name = "label8";
             label8.Size = new Size(59, 16);
             label8.TabIndex = 20;
@@ -247,53 +307,6 @@
             label7.TabIndex = 19;
             label7.Text = "Civil Status:";
             // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(102, 137);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(142, 23);
-            comboBox2.TabIndex = 18;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(102, 108);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(142, 23);
-            comboBox1.TabIndex = 17;
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(102, 166);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(392, 23);
-            textBox7.TabIndex = 16;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(128, 195);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(142, 23);
-            textBox5.TabIndex = 15;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(62, 110);
-            label6.Name = "label6";
-            label6.Size = new Size(34, 16);
-            label6.TabIndex = 13;
-            label6.Text = "Sex:";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(102, 79);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(142, 23);
-            textBox3.TabIndex = 12;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -304,12 +317,12 @@
             label5.TabIndex = 11;
             label5.Text = "Date of Birth:";
             // 
-            // txtFName
+            // txtFullName
             // 
-            txtFName.Location = new Point(102, 50);
-            txtFName.Name = "txtFName";
-            txtFName.Size = new Size(392, 23);
-            txtFName.TabIndex = 10;
+            txtFullName.Location = new Point(102, 50);
+            txtFullName.Name = "txtFullName";
+            txtFullName.Size = new Size(392, 23);
+            txtFullName.TabIndex = 10;
             // 
             // label4
             // 
@@ -334,11 +347,11 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(comboBox5);
-            panel3.Controls.Add(comboBox4);
-            panel3.Controls.Add(comboBox3);
-            panel3.Controls.Add(textBox6);
-            panel3.Controls.Add(dateTimePicker1);
+            panel3.Controls.Add(cmbAdmissionType);
+            panel3.Controls.Add(cmbRoom);
+            panel3.Controls.Add(cmbDoctor);
+            panel3.Controls.Add(txtReason);
+            panel3.Controls.Add(dtpAdmission);
             panel3.Controls.Add(label15);
             panel3.Controls.Add(label14);
             panel3.Controls.Add(label13);
@@ -347,46 +360,48 @@
             panel3.Controls.Add(label3);
             panel3.Location = new Point(661, 297);
             panel3.Name = "panel3";
-            panel3.Size = new Size(520, 236);
+            panel3.Size = new Size(520, 251);
             panel3.TabIndex = 9;
             // 
-            // comboBox5
+            // cmbAdmissionType
             // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new Point(181, 166);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(218, 23);
-            comboBox5.TabIndex = 31;
+            cmbAdmissionType.FormattingEnabled = true;
+            cmbAdmissionType.Location = new Point(181, 166);
+            cmbAdmissionType.Name = "cmbAdmissionType";
+            cmbAdmissionType.Size = new Size(218, 23);
+            cmbAdmissionType.TabIndex = 31;
             // 
-            // comboBox4
+            // cmbRoom
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(181, 137);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(218, 23);
-            comboBox4.TabIndex = 30;
+            cmbRoom.FormattingEnabled = true;
+            cmbRoom.Location = new Point(181, 137);
+            cmbRoom.Name = "cmbRoom";
+            cmbRoom.Size = new Size(218, 23);
+            cmbRoom.TabIndex = 30;
             // 
-            // comboBox3
+            // cmbDoctor
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(181, 108);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(218, 23);
-            comboBox3.TabIndex = 24;
+            cmbDoctor.FormattingEnabled = true;
+            cmbDoctor.Location = new Point(181, 108);
+            cmbDoctor.Name = "cmbDoctor";
+            cmbDoctor.Size = new Size(218, 23);
+            cmbDoctor.TabIndex = 24;
             // 
-            // textBox6
+            // txtReason
             // 
-            textBox6.Location = new Point(181, 79);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(325, 23);
-            textBox6.TabIndex = 24;
+            txtReason.Location = new Point(181, 79);
+            txtReason.Name = "txtReason";
+            txtReason.Size = new Size(325, 23);
+            txtReason.TabIndex = 24;
             // 
-            // dateTimePicker1
+            // dtpAdmission
             // 
-            dateTimePicker1.Location = new Point(181, 50);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(218, 23);
-            dateTimePicker1.TabIndex = 29;
+            dtpAdmission.CustomFormat = "MMM dd, yyyy hh:mm tt";
+            dtpAdmission.Format = DateTimePickerFormat.Custom;
+            dtpAdmission.Location = new Point(181, 50);
+            dtpAdmission.Name = "dtpAdmission";
+            dtpAdmission.Size = new Size(218, 23);
+            dtpAdmission.TabIndex = 29;
             // 
             // label15
             // 
@@ -457,7 +472,7 @@
             panel4.Controls.Add(button7);
             panel4.Controls.Add(button8);
             panel4.Controls.Add(button9);
-            panel4.Controls.Add(button10);
+            panel4.Controls.Add(btnDashboard);
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(116, 583);
@@ -530,7 +545,7 @@
             // 
             // button9
             // 
-            button9.BackColor = Color.FromArgb(0, 0, 64);
+            button9.BackColor = Color.MidnightBlue;
             button9.FlatStyle = FlatStyle.Popup;
             button9.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button9.ForeColor = Color.White;
@@ -541,61 +556,59 @@
             button9.Text = "Patient";
             button9.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnDashboard
             // 
-            button10.BackColor = Color.FromArgb(0, 0, 64);
-            button10.FlatStyle = FlatStyle.Popup;
-            button10.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button10.ForeColor = Color.White;
-            button10.Location = new Point(0, 66);
-            button10.Name = "button10";
-            button10.Size = new Size(116, 41);
-            button10.TabIndex = 0;
-            button10.Text = "Dashboard";
-            button10.UseVisualStyleBackColor = false;
+            btnDashboard.BackColor = Color.FromArgb(0, 0, 64);
+            btnDashboard.FlatStyle = FlatStyle.Popup;
+            btnDashboard.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDashboard.ForeColor = Color.White;
+            btnDashboard.Location = new Point(0, 66);
+            btnDashboard.Name = "btnDashboard";
+            btnDashboard.Size = new Size(116, 41);
+            btnDashboard.TabIndex = 0;
+            btnDashboard.Text = "Dashboard";
+            btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // btnLogout
             // 
             btnLogout.BackColor = SystemColors.ActiveBorder;
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogout.Location = new Point(1049, 539);
+            btnLogout.Location = new Point(1049, 550);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(118, 33);
             btnLogout.TabIndex = 11;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
-            // btnAdmitPatient
+            // dgvPatients
             // 
-            btnAdmitPatient.BackColor = Color.Lime;
-            btnAdmitPatient.FlatStyle = FlatStyle.Flat;
-            btnAdmitPatient.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAdmitPatient.Location = new Point(934, 12);
-            btnAdmitPatient.Name = "btnAdmitPatient";
-            btnAdmitPatient.Size = new Size(118, 33);
-            btnAdmitPatient.TabIndex = 12;
-            btnAdmitPatient.Text = "Admit Patient";
-            btnAdmitPatient.UseVisualStyleBackColor = false;
+            dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPatients.Location = new Point(186, 142);
+            dgvPatients.Name = "dgvPatients";
+            dgvPatients.Size = new Size(900, 136);
+            dgvPatients.TabIndex = 12;
             // 
             // Patient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1193, 582);
+            Controls.Add(dgvPatients);
             Controls.Add(btnLogout);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
-            Controls.Add(listBox1);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnCancel);
+            Controls.Add(btnEdit);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearch);
             Controls.Add(panel1);
             Name = "Patient";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Patient";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -606,6 +619,7 @@
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -613,13 +627,13 @@
         #endregion
 
         private Panel panel1;
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private TextBox txtSearch;
+        private Button btnSearch;
+        private Button btnEdit;
+        private Button btnCancel;
+        private Button btnUpdate;
         private Label label1;
-        private Button button5;
+        private Button btnDelete;
         private ListBox listBox1;
         private Panel panel2;
         private Label label4;
@@ -636,14 +650,14 @@
         private Label label6;
         private TextBox textBox3;
         private Label label5;
-        private TextBox txtFName;
-        private TextBox textBox4;
+        private TextBox txtFullName;
+        private TextBox txtAge;
         private Label label10;
-        private ComboBox comboBox5;
-        private ComboBox comboBox4;
-        private ComboBox comboBox3;
-        private TextBox textBox6;
-        private DateTimePicker dateTimePicker1;
+        private ComboBox cmbAdmissionType;
+        private ComboBox cmbRoom;
+        private ComboBox cmbDoctor;
+        private TextBox txtReason;
+        private DateTimePicker dtpAdmission;
         private Label label15;
         private Label label14;
         private Label label13;
@@ -657,8 +671,15 @@
         private Button button7;
         private Button button8;
         private Button button9;
-        private Button button10;
+        private Button btnDashboard;
         private Button btnAdmitPatient;
         private Button btnLogout;
+        private TextBox txtContactNumber;
+        private TextBox txtAddress;
+        private ComboBox cmbCivilStatus;
+        private ComboBox cmbSex;
+        private Label label17;
+        private DataGridView dgvPatients;
+        private DateTimePicker dtpDOB;
     }
 }

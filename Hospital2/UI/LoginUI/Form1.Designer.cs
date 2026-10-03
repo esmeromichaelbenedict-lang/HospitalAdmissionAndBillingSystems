@@ -44,10 +44,9 @@
             // btnLogin
             // 
             btnLogin.BackColor = Color.CornflowerBlue;
-            btnLogin.Location = new Point(111, 350);
-            btnLogin.Margin = new Padding(4, 5, 4, 5);
+            btnLogin.Location = new Point(220, 329);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(178, 49);
+            btnLogin.Size = new Size(138, 32);
             btnLogin.TabIndex = 5;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
@@ -56,39 +55,35 @@
             // txtPassword
             // 
             txtPassword.BackColor = SystemColors.Control;
-            txtPassword.Location = new Point(42, 280);
-            txtPassword.Margin = new Padding(4, 5, 4, 5);
+            txtPassword.Location = new Point(167, 284);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(313, 30);
+            txtPassword.Size = new Size(244, 23);
             txtPassword.TabIndex = 6;
             // 
             // txtUsername
             // 
             txtUsername.BackColor = SystemColors.Control;
             txtUsername.ForeColor = SystemColors.WindowText;
-            txtUsername.Location = new Point(42, 202);
-            txtUsername.Margin = new Padding(4, 5, 4, 5);
+            txtUsername.Location = new Point(167, 233);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(313, 30);
+            txtUsername.Size = new Size(244, 23);
             txtUsername.TabIndex = 7;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(42, 174);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(167, 214);
             label1.Name = "label1";
-            label1.Size = new Size(87, 23);
+            label1.Size = new Size(60, 15);
             label1.TabIndex = 8;
             label1.Text = "Username";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(42, 252);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(167, 265);
             label2.Name = "label2";
-            label2.Size = new Size(80, 23);
+            label2.Size = new Size(57, 15);
             label2.TabIndex = 9;
             label2.Text = "Password";
             // 
@@ -102,18 +97,20 @@
             pnlLogin.Controls.Add(btnLogin);
             pnlLogin.Controls.Add(label1);
             pnlLogin.Controls.Add(label2);
-            pnlLogin.Location = new Point(442, 47);
+            pnlLogin.Location = new Point(366, 11);
+            pnlLogin.Margin = new Padding(2, 2, 2, 2);
             pnlLogin.Name = "pnlLogin";
-            pnlLogin.Size = new Size(398, 443);
+            pnlLogin.Size = new Size(586, 517);
             pnlLogin.TabIndex = 11;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Light", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(101, 108);
+            label4.Location = new Point(210, 171);
+            label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(215, 23);
+            label4.Size = new Size(174, 19);
             label4.TabIndex = 11;
             label4.Text = "Please login to your account";
             // 
@@ -121,31 +118,32 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(75, 62);
+            label3.Location = new Point(188, 134);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(262, 46);
+            label3.Size = new Size(212, 37);
             label3.TabIndex = 10;
             label3.Text = "Welcome Back!";
             // 
             // pictureBoxHospital
             // 
             pictureBoxHospital.Image = HospitalPRAC.Properties.Resources.login1;
-            pictureBoxHospital.Location = new Point(12, 12);
+            pictureBoxHospital.Location = new Point(-6, -3);
+            pictureBoxHospital.Margin = new Padding(2, 2, 2, 2);
             pictureBoxHospital.Name = "pictureBoxHospital";
-            pictureBoxHospital.Size = new Size(397, 513);
+            pictureBoxHospital.Size = new Size(359, 596);
             pictureBoxHospital.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxHospital.TabIndex = 12;
             pictureBoxHospital.TabStop = false;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkGray;
-            ClientSize = new Size(869, 537);
+            ClientSize = new Size(963, 539);
             Controls.Add(pictureBoxHospital);
             Controls.Add(pnlLogin);
-            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
