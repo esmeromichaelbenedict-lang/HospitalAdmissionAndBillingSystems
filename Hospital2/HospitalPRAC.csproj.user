@@ -20,5 +20,8 @@
     <Compile Update="UI\NurseDashboard\NurseDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UI\RoomUI\AdminRoomUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
