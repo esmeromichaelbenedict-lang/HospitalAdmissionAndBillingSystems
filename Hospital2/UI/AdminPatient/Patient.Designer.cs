@@ -38,6 +38,18 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             panel2 = new Panel();
+            txtMI = new TextBox();
+            txtLastName = new TextBox();
+            txtHeight = new TextBox();
+            label23 = new Label();
+            txtSuffix = new TextBox();
+            label22 = new Label();
+            label21 = new Label();
+            label20 = new Label();
+            label19 = new Label();
+            txtWeight = new TextBox();
+            label18 = new Label();
+            label6 = new Label();
             dtpDOB = new DateTimePicker();
             txtContactNumber = new TextBox();
             txtAddress = new TextBox();
@@ -50,17 +62,12 @@
             label8 = new Label();
             label7 = new Label();
             label5 = new Label();
-            txtFullName = new TextBox();
+            txtFirstName = new TextBox();
             label4 = new Label();
             label2 = new Label();
             panel3 = new Panel();
-            cmbAdmissionType = new ComboBox();
-            cmbRoom = new ComboBox();
-            cmbDoctor = new ComboBox();
-            txtReason = new TextBox();
-            dtpAdmission = new DateTimePicker();
-            label15 = new Label();
-            label14 = new Label();
+            txtContact = new TextBox();
+            txtAccFullName = new TextBox();
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
@@ -76,6 +83,8 @@
             btnDashboard = new Button();
             btnLogout = new Button();
             dgvPatients = new DataGridView();
+            btnAddPatient = new Button();
+            txtRelation = new TextBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -91,7 +100,7 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(115, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1076, 70);
+            panel1.Size = new Size(1257, 70);
             panel1.TabIndex = 0;
             // 
             // btnAdmitPatient
@@ -99,7 +108,7 @@
             btnAdmitPatient.BackColor = Color.Lime;
             btnAdmitPatient.FlatStyle = FlatStyle.Flat;
             btnAdmitPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdmitPatient.Location = new Point(934, 12);
+            btnAdmitPatient.Location = new Point(963, 16);
             btnAdmitPatient.Name = "btnAdmitPatient";
             btnAdmitPatient.Size = new Size(118, 33);
             btnAdmitPatient.TabIndex = 12;
@@ -141,7 +150,7 @@
             btnEdit.BackColor = Color.FromArgb(128, 255, 128);
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEdit.Location = new Point(691, 84);
+            btnEdit.Location = new Point(809, 84);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(118, 33);
             btnEdit.TabIndex = 3;
@@ -154,7 +163,7 @@
             btnCancel.BackColor = SystemColors.ActiveBorder;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancel.Location = new Point(815, 84);
+            btnCancel.Location = new Point(942, 84);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 33);
             btnCancel.TabIndex = 4;
@@ -167,7 +176,7 @@
             btnUpdate.BackColor = Color.FromArgb(128, 255, 128);
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnUpdate.Location = new Point(939, 84);
+            btnUpdate.Location = new Point(1078, 84);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(118, 33);
             btnUpdate.TabIndex = 5;
@@ -180,7 +189,7 @@
             btnDelete.BackColor = Color.FromArgb(255, 128, 128);
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(1063, 84);
+            btnDelete.Location = new Point(1240, 84);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(118, 33);
             btnDelete.TabIndex = 6;
@@ -191,6 +200,18 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.Controls.Add(txtMI);
+            panel2.Controls.Add(txtLastName);
+            panel2.Controls.Add(txtHeight);
+            panel2.Controls.Add(label23);
+            panel2.Controls.Add(txtSuffix);
+            panel2.Controls.Add(label22);
+            panel2.Controls.Add(label21);
+            panel2.Controls.Add(label20);
+            panel2.Controls.Add(label19);
+            panel2.Controls.Add(txtWeight);
+            panel2.Controls.Add(label18);
+            panel2.Controls.Add(label6);
             panel2.Controls.Add(dtpDOB);
             panel2.Controls.Add(txtContactNumber);
             panel2.Controls.Add(txtAddress);
@@ -203,13 +224,118 @@
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label5);
-            panel2.Controls.Add(txtFullName);
+            panel2.Controls.Add(txtFirstName);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(122, 297);
+            panel2.Location = new Point(185, 297);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 251);
+            panel2.Size = new Size(676, 399);
             panel2.TabIndex = 8;
+            // 
+            // txtMI
+            // 
+            txtMI.Location = new Point(615, 50);
+            txtMI.Name = "txtMI";
+            txtMI.Size = new Size(48, 23);
+            txtMI.TabIndex = 49;
+            // 
+            // txtLastName
+            // 
+            txtLastName.Location = new Point(333, 51);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(142, 23);
+            txtLastName.TabIndex = 48;
+            // 
+            // txtHeight
+            // 
+            txtHeight.Location = new Point(128, 262);
+            txtHeight.Name = "txtHeight";
+            txtHeight.Size = new Size(142, 23);
+            txtHeight.TabIndex = 47;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Location = new Point(583, 52);
+            label23.Name = "label23";
+            label23.Size = new Size(26, 17);
+            label23.TabIndex = 46;
+            label23.Text = "M.I";
+            // 
+            // txtSuffix
+            // 
+            txtSuffix.Location = new Point(529, 50);
+            txtSuffix.Name = "txtSuffix";
+            txtSuffix.Size = new Size(48, 23);
+            txtSuffix.TabIndex = 45;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(481, 52);
+            label22.Name = "label22";
+            label22.Size = new Size(42, 17);
+            label22.TabIndex = 43;
+            label22.Text = "Suffix:";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label21.Location = new Point(253, 54);
+            label21.Name = "label21";
+            label21.Size = new Size(73, 17);
+            label21.TabIndex = 42;
+            label21.Text = "Last Name:";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label20.Location = new Point(276, 263);
+            label20.Name = "label20";
+            label20.Size = new Size(19, 17);
+            label20.TabIndex = 41;
+            label20.Text = "ft.";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label19.Location = new Point(276, 234);
+            label19.Name = "label19";
+            label19.Size = new Size(22, 17);
+            label19.TabIndex = 40;
+            label19.Text = "kg";
+            // 
+            // txtWeight
+            // 
+            txtWeight.Location = new Point(128, 233);
+            txtWeight.Name = "txtWeight";
+            txtWeight.Size = new Size(142, 23);
+            txtWeight.TabIndex = 38;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label18.Location = new Point(73, 263);
+            label18.Name = "label18";
+            label18.Size = new Size(49, 17);
+            label18.TabIndex = 37;
+            label18.Text = "Height:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(71, 234);
+            label6.Name = "label6";
+            label6.Size = new Size(51, 17);
+            label6.TabIndex = 36;
+            label6.Text = "Weight:";
             // 
             // dtpDOB
             // 
@@ -253,10 +379,10 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label17.Location = new Point(21, 112);
+            label17.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label17.Location = new Point(62, 110);
             label17.Name = "label17";
-            label17.Size = new Size(34, 16);
+            label17.Size = new Size(31, 17);
             label17.TabIndex = 24;
             label17.Text = "Sex:";
             // 
@@ -280,188 +406,138 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label9.Location = new Point(17, 206);
             label9.Name = "label9";
-            label9.Size = new Size(105, 16);
+            label9.Size = new Size(107, 17);
             label9.TabIndex = 21;
             label9.Text = "Contact Number:";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(21, 173);
+            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(34, 172);
             label8.Name = "label8";
-            label8.Size = new Size(59, 16);
+            label8.Size = new Size(59, 17);
             label8.TabIndex = 20;
             label8.Text = "Address:";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.Location = new Point(20, 144);
             label7.Name = "label7";
-            label7.Size = new Size(76, 16);
+            label7.Size = new Size(73, 17);
             label7.TabIndex = 19;
             label7.Text = "Civil Status:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.Location = new Point(17, 81);
             label5.Name = "label5";
-            label5.Size = new Size(83, 16);
+            label5.Size = new Size(84, 17);
             label5.TabIndex = 11;
             label5.Text = "Date of Birth:";
             // 
-            // txtFullName
+            // txtFirstName
             // 
-            txtFullName.Location = new Point(102, 50);
-            txtFullName.Name = "txtFullName";
-            txtFullName.Size = new Size(392, 23);
-            txtFullName.TabIndex = 10;
+            txtFirstName.Location = new Point(102, 50);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new Size(142, 23);
+            txtFirstName.TabIndex = 10;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(17, 52);
+            label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(22, 54);
             label4.Name = "label4";
-            label4.Size = new Size(70, 16);
+            label4.Size = new Size(74, 17);
             label4.TabIndex = 2;
-            label4.Text = "Full Name:";
+            label4.Text = "First Name:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(17, 14);
             label2.Name = "label2";
-            label2.Size = new Size(168, 23);
+            label2.Size = new Size(201, 25);
             label2.TabIndex = 1;
             label2.Text = "Personal Information";
             // 
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(cmbAdmissionType);
-            panel3.Controls.Add(cmbRoom);
-            panel3.Controls.Add(cmbDoctor);
-            panel3.Controls.Add(txtReason);
-            panel3.Controls.Add(dtpAdmission);
-            panel3.Controls.Add(label15);
-            panel3.Controls.Add(label14);
+            panel3.Controls.Add(txtRelation);
+            panel3.Controls.Add(txtContact);
+            panel3.Controls.Add(txtAccFullName);
             panel3.Controls.Add(label13);
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(661, 297);
+            panel3.Location = new Point(867, 297);
             panel3.Name = "panel3";
-            panel3.Size = new Size(520, 251);
+            panel3.Size = new Size(438, 399);
             panel3.TabIndex = 9;
             // 
-            // cmbAdmissionType
+            // txtContact
             // 
-            cmbAdmissionType.FormattingEnabled = true;
-            cmbAdmissionType.Location = new Point(181, 166);
-            cmbAdmissionType.Name = "cmbAdmissionType";
-            cmbAdmissionType.Size = new Size(218, 23);
-            cmbAdmissionType.TabIndex = 31;
+            txtContact.Location = new Point(181, 106);
+            txtContact.Name = "txtContact";
+            txtContact.Size = new Size(164, 23);
+            txtContact.TabIndex = 28;
             // 
-            // cmbRoom
+            // txtAccFullName
             // 
-            cmbRoom.FormattingEnabled = true;
-            cmbRoom.Location = new Point(181, 137);
-            cmbRoom.Name = "cmbRoom";
-            cmbRoom.Size = new Size(218, 23);
-            cmbRoom.TabIndex = 30;
-            // 
-            // cmbDoctor
-            // 
-            cmbDoctor.FormattingEnabled = true;
-            cmbDoctor.Location = new Point(181, 108);
-            cmbDoctor.Name = "cmbDoctor";
-            cmbDoctor.Size = new Size(218, 23);
-            cmbDoctor.TabIndex = 24;
-            // 
-            // txtReason
-            // 
-            txtReason.Location = new Point(181, 79);
-            txtReason.Name = "txtReason";
-            txtReason.Size = new Size(325, 23);
-            txtReason.TabIndex = 24;
-            // 
-            // dtpAdmission
-            // 
-            dtpAdmission.CustomFormat = "MMM dd, yyyy hh:mm tt";
-            dtpAdmission.Format = DateTimePickerFormat.Custom;
-            dtpAdmission.Location = new Point(181, 50);
-            dtpAdmission.Name = "dtpAdmission";
-            dtpAdmission.Size = new Size(218, 23);
-            dtpAdmission.TabIndex = 29;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(72, 168);
-            label15.Name = "label15";
-            label15.Size = new Size(103, 16);
-            label15.TabIndex = 28;
-            label15.Text = "Admission Type:";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label14.Location = new Point(130, 144);
-            label14.Name = "label14";
-            label14.Size = new Size(45, 16);
-            label14.TabIndex = 27;
-            label14.Text = "Room:";
+            txtAccFullName.Location = new Point(181, 50);
+            txtAccFullName.Name = "txtAccFullName";
+            txtAccFullName.Size = new Size(236, 23);
+            txtAccFullName.TabIndex = 27;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label13.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label13.Location = new Point(67, 110);
             label13.Name = "label13";
-            label13.Size = new Size(108, 16);
+            label13.Size = new Size(107, 17);
             label13.TabIndex = 26;
-            label13.Text = "Admitting Doctor:";
+            label13.Text = "Contact Number:";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label12.Location = new Point(38, 81);
+            label12.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label12.Location = new Point(32, 81);
             label12.Name = "label12";
-            label12.Size = new Size(137, 16);
+            label12.Size = new Size(142, 17);
             label12.TabIndex = 25;
-            label12.Text = "Reason for Admission:";
+            label12.Text = "Relationship to patient:";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(15, 52);
+            label11.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(105, 52);
             label11.Name = "label11";
-            label11.Size = new Size(160, 16);
+            label11.Size = new Size(69, 17);
             label11.TabIndex = 24;
-            label11.Text = "Admission Date and Time:";
+            label11.Text = "Full Name:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(15, 14);
             label3.Name = "label3";
-            label3.Size = new Size(146, 23);
+            label3.Size = new Size(221, 25);
             label3.TabIndex = 2;
-            label3.Text = "Admission Details";
+            label3.Text = "Accompanaying Person";
             // 
             // panel4
             // 
@@ -475,7 +551,7 @@
             panel4.Controls.Add(btnDashboard);
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(116, 583);
+            panel4.Size = new Size(116, 751);
             panel4.TabIndex = 10;
             // 
             // panel5
@@ -508,7 +584,7 @@
             // 
             button6.BackColor = Color.FromArgb(0, 0, 64);
             button6.FlatStyle = FlatStyle.Popup;
-            button6.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button6.ForeColor = Color.White;
             button6.Location = new Point(0, 217);
             button6.Name = "button6";
@@ -521,7 +597,7 @@
             // 
             button7.BackColor = Color.FromArgb(0, 0, 64);
             button7.FlatStyle = FlatStyle.Popup;
-            button7.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button7.ForeColor = Color.White;
             button7.Location = new Point(0, 179);
             button7.Name = "button7";
@@ -534,7 +610,7 @@
             // 
             button8.BackColor = Color.FromArgb(0, 0, 64);
             button8.FlatStyle = FlatStyle.Popup;
-            button8.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button8.ForeColor = Color.White;
             button8.Location = new Point(0, 141);
             button8.Name = "button8";
@@ -545,9 +621,9 @@
             // 
             // button9
             // 
-            button9.BackColor = Color.MidnightBlue;
+            button9.BackColor = Color.FromArgb(0, 0, 64);
             button9.FlatStyle = FlatStyle.Popup;
-            button9.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button9.ForeColor = Color.White;
             button9.Location = new Point(0, 106);
             button9.Name = "button9";
@@ -560,7 +636,7 @@
             // 
             btnDashboard.BackColor = Color.FromArgb(0, 0, 64);
             btnDashboard.FlatStyle = FlatStyle.Popup;
-            btnDashboard.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDashboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDashboard.ForeColor = Color.White;
             btnDashboard.Location = new Point(0, 66);
             btnDashboard.Name = "btnDashboard";
@@ -575,7 +651,7 @@
             btnLogout.BackColor = SystemColors.ActiveBorder;
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogout.Location = new Point(1049, 550);
+            btnLogout.Location = new Point(1176, 704);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(118, 33);
             btnLogout.TabIndex = 11;
@@ -585,16 +661,36 @@
             // dgvPatients
             // 
             dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPatients.Location = new Point(186, 142);
+            dgvPatients.Location = new Point(312, 136);
             dgvPatients.Name = "dgvPatients";
             dgvPatients.Size = new Size(900, 136);
             dgvPatients.TabIndex = 12;
+            // 
+            // btnAddPatient
+            // 
+            btnAddPatient.BackColor = Color.Silver;
+            btnAddPatient.FlatStyle = FlatStyle.Flat;
+            btnAddPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddPatient.Location = new Point(676, 84);
+            btnAddPatient.Name = "btnAddPatient";
+            btnAddPatient.Size = new Size(118, 33);
+            btnAddPatient.TabIndex = 13;
+            btnAddPatient.Text = "Add Patient";
+            btnAddPatient.UseVisualStyleBackColor = false;
+            // 
+            // txtRelation
+            // 
+            txtRelation.Location = new Point(181, 79);
+            txtRelation.Name = "txtRelation";
+            txtRelation.Size = new Size(212, 23);
+            txtRelation.TabIndex = 29;
             // 
             // Patient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1193, 582);
+            ClientSize = new Size(1370, 749);
+            Controls.Add(btnAddPatient);
             Controls.Add(dgvPatients);
             Controls.Add(btnLogout);
             Controls.Add(panel4);
@@ -650,12 +746,11 @@
         private Label label6;
         private TextBox textBox3;
         private Label label5;
-        private TextBox txtFullName;
+        private TextBox txtFirstName;
         private TextBox txtAge;
         private Label label10;
         private ComboBox cmbAdmissionType;
         private ComboBox cmbRoom;
-        private ComboBox cmbDoctor;
         private TextBox txtReason;
         private DateTimePicker dtpAdmission;
         private Label label15;
@@ -681,5 +776,22 @@
         private Label label17;
         private DataGridView dgvPatients;
         private DateTimePicker dtpDOB;
+        private Button btnAddPatient;
+        private Label label21;
+        private Label label20;
+        private Label label19;
+        private TextBox textBox2;
+        private TextBox txtWeight;
+        private Label label18;
+        private Label label23;
+        private TextBox txtSuffix;
+        private Label label22;
+        private ComboBox cmbDoctor;
+        private TextBox txtMI;
+        private TextBox txtLastName;
+        private TextBox txtHeight;
+        private TextBox txtAccFullName;
+        private TextBox txtContact;
+        private TextBox txtRelation;
     }
 }

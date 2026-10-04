@@ -119,7 +119,7 @@ namespace HospitalPRAC.UI.AdminPatient
 
             selectedPatientID = Convert.ToInt32(row.Cells["PatientID"].Value);
 
-            txtFullName.Text = row.Cells["FullName"].Value?.ToString();
+            txtFirstName.Text = row.Cells["FullName"].Value?.ToString();
             dtpDOB.Value = Convert.ToDateTime(row.Cells["DateOfBirth"].Value);
             txtAge.Text = row.Cells["Age"].Value?.ToString();
             cmbSex.Text = row.Cells["Sex"].Value?.ToString();
@@ -198,7 +198,7 @@ namespace HospitalPRAC.UI.AdminPatient
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@PatientID", selectedPatientID);
-                    cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
+                    cmd.Parameters.AddWithValue("@FullName", txtFirstName.Text);
                     cmd.Parameters.AddWithValue("@DateOfBirth", dtpDOB.Value.Date);
                     cmd.Parameters.AddWithValue("@Sex", cmbSex.Text);
                     cmd.Parameters.AddWithValue("@Age", age);
@@ -317,7 +317,7 @@ namespace HospitalPRAC.UI.AdminPatient
             selectedPatientID = 0;
             selectedAdmissionID = 0;
 
-            txtFullName.Clear();
+            txtFirstName.Clear();
             txtAge.Clear();
             txtAddress.Clear();
             txtContactNumber.Clear();
