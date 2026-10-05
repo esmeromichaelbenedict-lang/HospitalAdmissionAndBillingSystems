@@ -1,4 +1,5 @@
 ﻿using HospitalPRAC.UI.AdminPatient;
+using HospitalPRAC.UI.RoomUI;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -94,6 +95,14 @@ namespace Hospital2.UI
             patientForm.Show();
             this.Hide();
 
+        }
+
+        private void btnRoom_Click(object sender, EventArgs e)
+        {
+            AdminRoomUI roomForm = new AdminRoomUI();
+            roomForm.FormClosed += (s, args) => this.Close();
+            roomForm.Show();
+            this.Hide();
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Hospital2.UI;
 using HospitalPRAC.UI.AdminPatient;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Windows.Forms;
+
 
 namespace HospitalPRAC.UI.AdminAdmitPatient
 {
