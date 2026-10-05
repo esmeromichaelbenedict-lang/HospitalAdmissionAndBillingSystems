@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
+            button3 = new Button();
             panel5 = new Panel();
             label16 = new Label();
             panel6 = new Panel();
             button6 = new Button();
             button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
+            btnAdmitting = new Button();
+            btnPatient = new Button();
             btnDashboard = new Button();
             panel1 = new Panel();
             label1 = new Label();
@@ -43,6 +44,12 @@
             txtSearch = new TextBox();
             btnSearch = new Button();
             panel2 = new Panel();
+            lblAdmitted = new Label();
+            lblRate = new Label();
+            lblBedNo = new Label();
+            lblRoomType = new Label();
+            lblRoomNo = new Label();
+            lblPatientName = new Label();
             label17 = new Label();
             label9 = new Label();
             label8 = new Label();
@@ -51,11 +58,13 @@
             label4 = new Label();
             label2 = new Label();
             panel3 = new Panel();
-            textBox2 = new TextBox();
+            cboRoomType = new ComboBox();
+            cboRoom = new ComboBox();
+            txtReason = new TextBox();
             btnTransfer = new Button();
-            dateTimePicker1 = new DateTimePicker();
+            dtpTransfer = new DateTimePicker();
             lblNewRate = new Label();
-            cbBedNo = new ComboBox();
+            cboBed = new ComboBox();
             label3 = new Label();
             label11 = new Label();
             label12 = new Label();
@@ -65,8 +74,6 @@
             label18 = new Label();
             btnEdit = new Button();
             btnCancel = new Button();
-            comboBox3 = new ComboBox();
-            comboBox4 = new ComboBox();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel1.SuspendLayout();
@@ -78,17 +85,31 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(0, 0, 64);
+            panel4.Controls.Add(button3);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(button6);
             panel4.Controls.Add(button7);
-            panel4.Controls.Add(button8);
-            panel4.Controls.Add(button9);
+            panel4.Controls.Add(btnAdmitting);
+            panel4.Controls.Add(btnPatient);
             panel4.Controls.Add(btnDashboard);
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(116, 750);
             panel4.TabIndex = 11;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(192, 0, 0);
+            button3.FlatStyle = FlatStyle.Popup;
+            button3.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(-1, 656);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 41);
+            button3.TabIndex = 39;
+            button3.Text = "Logout";
+            button3.UseVisualStyleBackColor = false;
             // 
             // panel5
             // 
@@ -142,31 +163,33 @@
             button7.Text = "Room";
             button7.UseVisualStyleBackColor = false;
             // 
-            // button8
+            // btnAdmitting
             // 
-            button8.BackColor = Color.FromArgb(0, 0, 64);
-            button8.FlatStyle = FlatStyle.Popup;
-            button8.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button8.ForeColor = Color.White;
-            button8.Location = new Point(0, 141);
-            button8.Name = "button8";
-            button8.Size = new Size(116, 41);
-            button8.TabIndex = 1;
-            button8.Text = "Admitting";
-            button8.UseVisualStyleBackColor = false;
+            btnAdmitting.BackColor = Color.FromArgb(0, 0, 64);
+            btnAdmitting.FlatStyle = FlatStyle.Popup;
+            btnAdmitting.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmitting.ForeColor = Color.White;
+            btnAdmitting.Location = new Point(0, 141);
+            btnAdmitting.Name = "btnAdmitting";
+            btnAdmitting.Size = new Size(116, 41);
+            btnAdmitting.TabIndex = 1;
+            btnAdmitting.Text = "Admitting";
+            btnAdmitting.UseVisualStyleBackColor = false;
+            btnAdmitting.Click += btnAdmitting_Click;
             // 
-            // button9
+            // btnPatient
             // 
-            button9.BackColor = Color.FromArgb(0, 0, 64);
-            button9.FlatStyle = FlatStyle.Popup;
-            button9.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button9.ForeColor = Color.White;
-            button9.Location = new Point(0, 106);
-            button9.Name = "button9";
-            button9.Size = new Size(116, 38);
-            button9.TabIndex = 1;
-            button9.Text = "Patient";
-            button9.UseVisualStyleBackColor = false;
+            btnPatient.BackColor = Color.FromArgb(0, 0, 64);
+            btnPatient.FlatStyle = FlatStyle.Popup;
+            btnPatient.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPatient.ForeColor = Color.White;
+            btnPatient.Location = new Point(0, 106);
+            btnPatient.Name = "btnPatient";
+            btnPatient.Size = new Size(116, 38);
+            btnPatient.TabIndex = 1;
+            btnPatient.Text = "Patient";
+            btnPatient.UseVisualStyleBackColor = false;
+            btnPatient.Click += btnPatient_Click;
             // 
             // btnDashboard
             // 
@@ -180,6 +203,7 @@
             btnDashboard.TabIndex = 0;
             btnDashboard.Text = "Dashboard";
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // panel1
             // 
@@ -229,6 +253,12 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.Controls.Add(lblAdmitted);
+            panel2.Controls.Add(lblRate);
+            panel2.Controls.Add(lblBedNo);
+            panel2.Controls.Add(lblRoomType);
+            panel2.Controls.Add(lblRoomNo);
+            panel2.Controls.Add(lblPatientName);
             panel2.Controls.Add(label17);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label8);
@@ -238,8 +268,68 @@
             panel2.Controls.Add(label2);
             panel2.Location = new Point(196, 404);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 270);
+            panel2.Size = new Size(514, 291);
             panel2.TabIndex = 18;
+            // 
+            // lblAdmitted
+            // 
+            lblAdmitted.AutoSize = true;
+            lblAdmitted.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAdmitted.Location = new Point(273, 205);
+            lblAdmitted.Name = "lblAdmitted";
+            lblAdmitted.Size = new Size(15, 17);
+            lblAdmitted.TabIndex = 47;
+            lblAdmitted.Text = "0";
+            // 
+            // lblRate
+            // 
+            lblRate.AutoSize = true;
+            lblRate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRate.Location = new Point(273, 171);
+            lblRate.Name = "lblRate";
+            lblRate.Size = new Size(15, 17);
+            lblRate.TabIndex = 46;
+            lblRate.Text = "0";
+            // 
+            // lblBedNo
+            // 
+            lblBedNo.AutoSize = true;
+            lblBedNo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblBedNo.Location = new Point(273, 143);
+            lblBedNo.Name = "lblBedNo";
+            lblBedNo.Size = new Size(15, 17);
+            lblBedNo.TabIndex = 45;
+            lblBedNo.Text = "0";
+            // 
+            // lblRoomType
+            // 
+            lblRoomType.AutoSize = true;
+            lblRoomType.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRoomType.Location = new Point(273, 109);
+            lblRoomType.Name = "lblRoomType";
+            lblRoomType.Size = new Size(15, 17);
+            lblRoomType.TabIndex = 44;
+            lblRoomType.Text = "0";
+            // 
+            // lblRoomNo
+            // 
+            lblRoomNo.AutoSize = true;
+            lblRoomNo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRoomNo.Location = new Point(273, 80);
+            lblRoomNo.Name = "lblRoomNo";
+            lblRoomNo.Size = new Size(15, 17);
+            lblRoomNo.TabIndex = 43;
+            lblRoomNo.Text = "0";
+            // 
+            // lblPatientName
+            // 
+            lblPatientName.AutoSize = true;
+            lblPatientName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPatientName.Location = new Point(273, 51);
+            lblPatientName.Name = "lblPatientName";
+            lblPatientName.Size = new Size(15, 17);
+            lblPatientName.TabIndex = 42;
+            lblPatientName.Text = "0";
             // 
             // label17
             // 
@@ -314,13 +404,13 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(comboBox4);
-            panel3.Controls.Add(comboBox3);
-            panel3.Controls.Add(textBox2);
+            panel3.Controls.Add(cboRoomType);
+            panel3.Controls.Add(cboRoom);
+            panel3.Controls.Add(txtReason);
             panel3.Controls.Add(btnTransfer);
-            panel3.Controls.Add(dateTimePicker1);
+            panel3.Controls.Add(dtpTransfer);
             panel3.Controls.Add(lblNewRate);
-            panel3.Controls.Add(cbBedNo);
+            panel3.Controls.Add(cboBed);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label12);
@@ -330,31 +420,49 @@
             panel3.Controls.Add(label18);
             panel3.Location = new Point(767, 404);
             panel3.Name = "panel3";
-            panel3.Size = new Size(508, 270);
+            panel3.Size = new Size(508, 291);
             panel3.TabIndex = 36;
             // 
-            // textBox2
+            // cboRoomType
             // 
-            textBox2.Location = new Point(102, 204);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(302, 23);
-            textBox2.TabIndex = 37;
+            cboRoomType.FormattingEnabled = true;
+            cboRoomType.Location = new Point(102, 50);
+            cboRoomType.Name = "cboRoomType";
+            cboRoomType.Size = new Size(233, 23);
+            cboRoomType.TabIndex = 41;
+            // 
+            // cboRoom
+            // 
+            cboRoom.FormattingEnabled = true;
+            cboRoom.Location = new Point(102, 79);
+            cboRoom.Name = "cboRoom";
+            cboRoom.Size = new Size(233, 23);
+            cboRoom.TabIndex = 40;
+            // 
+            // txtReason
+            // 
+            txtReason.Location = new Point(102, 204);
+            txtReason.Name = "txtReason";
+            txtReason.Size = new Size(302, 23);
+            txtReason.TabIndex = 37;
             // 
             // btnTransfer
             // 
-            btnTransfer.Location = new Point(207, 233);
+            btnTransfer.BackColor = Color.FromArgb(128, 128, 255);
+            btnTransfer.FlatStyle = FlatStyle.Popup;
+            btnTransfer.Location = new Point(102, 244);
             btnTransfer.Name = "btnTransfer";
-            btnTransfer.Size = new Size(83, 26);
+            btnTransfer.Size = new Size(302, 26);
             btnTransfer.TabIndex = 39;
             btnTransfer.Text = "Transfer";
-            btnTransfer.UseVisualStyleBackColor = true;
+            btnTransfer.UseVisualStyleBackColor = false;
             // 
-            // dateTimePicker1
+            // dtpTransfer
             // 
-            dateTimePicker1.Location = new Point(102, 171);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(302, 23);
-            dateTimePicker1.TabIndex = 38;
+            dtpTransfer.Location = new Point(102, 171);
+            dtpTransfer.Name = "dtpTransfer";
+            dtpTransfer.Size = new Size(302, 23);
+            dtpTransfer.TabIndex = 38;
             // 
             // lblNewRate
             // 
@@ -366,13 +474,13 @@
             lblNewRate.TabIndex = 37;
             lblNewRate.Text = "0";
             // 
-            // cbBedNo
+            // cboBed
             // 
-            cbBedNo.FormattingEnabled = true;
-            cbBedNo.Location = new Point(102, 110);
-            cbBedNo.Name = "cbBedNo";
-            cbBedNo.Size = new Size(233, 23);
-            cbBedNo.TabIndex = 36;
+            cboBed.FormattingEnabled = true;
+            cboBed.Location = new Point(102, 110);
+            cboBed.Name = "cboBed";
+            cboBed.Size = new Size(233, 23);
+            cboBed.TabIndex = 36;
             // 
             // label3
             // 
@@ -468,22 +576,6 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             // 
-            // comboBox3
-            // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(102, 79);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(233, 23);
-            comboBox3.TabIndex = 40;
-            // 
-            // comboBox4
-            // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(102, 50);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(233, 23);
-            comboBox4.TabIndex = 41;
-            // 
             // AdminRoomUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -522,8 +614,8 @@
         private Panel panel6;
         private Button button6;
         private Button button7;
-        private Button button8;
-        private Button button9;
+        private Button btnAdmitting;
+        private Button btnPatient;
         private Button btnDashboard;
         private Panel panel1;
         private Label label1;
@@ -552,13 +644,20 @@
         private Label label15;
         private Label label18;
         private Button btnTransfer;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dtpTransfer;
         private Label lblNewRate;
-        private ComboBox cbBedNo;
-        private TextBox textBox2;
-        private ComboBox comboBox4;
-        private ComboBox comboBox3;
+        private ComboBox cboBed;
+        private TextBox txtReason;
+        private ComboBox cboRoomType;
+        private ComboBox cboRoom;
         private Button btnEdit;
         private Button btnCancel;
+        private Label lblAdmitted;
+        private Label lblRate;
+        private Label lblBedNo;
+        private Label lblRoomType;
+        private Label lblRoomNo;
+        private Label lblPatientName;
+        private Button button3;
     }
 }

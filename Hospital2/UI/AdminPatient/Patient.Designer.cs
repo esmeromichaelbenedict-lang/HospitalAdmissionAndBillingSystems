@@ -66,25 +66,25 @@
             label4 = new Label();
             label2 = new Label();
             panel3 = new Panel();
-            txtContact = new TextBox();
-            txtAccFullName = new TextBox();
+            txtCompanionRelationship = new TextBox();
+            txtCompanionContact = new TextBox();
+            txtCompanionName = new TextBox();
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
             label3 = new Label();
             panel4 = new Panel();
+            button7 = new Button();
             panel5 = new Panel();
             label16 = new Label();
             panel6 = new Panel();
             button6 = new Button();
-            button7 = new Button();
+            btnRoom = new Button();
             button8 = new Button();
-            button9 = new Button();
+            btnPatient = new Button();
             btnDashboard = new Button();
-            btnLogout = new Button();
             dgvPatients = new DataGridView();
-            btnAddPatient = new Button();
-            txtRelation = new TextBox();
+            btnAdd = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -108,13 +108,12 @@
             btnAdmitPatient.BackColor = Color.Lime;
             btnAdmitPatient.FlatStyle = FlatStyle.Flat;
             btnAdmitPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdmitPatient.Location = new Point(963, 16);
+            btnAdmitPatient.Location = new Point(1108, 16);
             btnAdmitPatient.Name = "btnAdmitPatient";
             btnAdmitPatient.Size = new Size(118, 33);
             btnAdmitPatient.TabIndex = 12;
             btnAdmitPatient.Text = "Admit Patient";
             btnAdmitPatient.UseVisualStyleBackColor = false;
-            btnAdmitPatient.Click += btnAdmitPatient_Click;
             // 
             // label1
             // 
@@ -189,7 +188,7 @@
             btnDelete.BackColor = Color.FromArgb(255, 128, 128);
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(1240, 84);
+            btnDelete.Location = new Point(1223, 84);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(118, 33);
             btnDelete.TabIndex = 6;
@@ -241,7 +240,7 @@
             // 
             // txtLastName
             // 
-            txtLastName.Location = new Point(333, 51);
+            txtLastName.Location = new Point(102, 50);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new Size(142, 23);
             txtLastName.TabIndex = 48;
@@ -284,7 +283,7 @@
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label21.Location = new Point(253, 54);
+            label21.Location = new Point(20, 53);
             label21.Name = "label21";
             label21.Size = new Size(73, 17);
             label21.TabIndex = 42;
@@ -445,7 +444,7 @@
             // 
             // txtFirstName
             // 
-            txtFirstName.Location = new Point(102, 50);
+            txtFirstName.Location = new Point(333, 52);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(142, 23);
             txtFirstName.TabIndex = 10;
@@ -454,7 +453,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(22, 54);
+            label4.Location = new Point(253, 52);
             label4.Name = "label4";
             label4.Size = new Size(74, 17);
             label4.TabIndex = 2;
@@ -473,9 +472,9 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(txtRelation);
-            panel3.Controls.Add(txtContact);
-            panel3.Controls.Add(txtAccFullName);
+            panel3.Controls.Add(txtCompanionRelationship);
+            panel3.Controls.Add(txtCompanionContact);
+            panel3.Controls.Add(txtCompanionName);
             panel3.Controls.Add(label13);
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
@@ -485,19 +484,26 @@
             panel3.Size = new Size(438, 399);
             panel3.TabIndex = 9;
             // 
-            // txtContact
+            // txtCompanionRelationship
             // 
-            txtContact.Location = new Point(181, 106);
-            txtContact.Name = "txtContact";
-            txtContact.Size = new Size(164, 23);
-            txtContact.TabIndex = 28;
+            txtCompanionRelationship.Location = new Point(181, 79);
+            txtCompanionRelationship.Name = "txtCompanionRelationship";
+            txtCompanionRelationship.Size = new Size(236, 23);
+            txtCompanionRelationship.TabIndex = 29;
             // 
-            // txtAccFullName
+            // txtCompanionContact
             // 
-            txtAccFullName.Location = new Point(181, 50);
-            txtAccFullName.Name = "txtAccFullName";
-            txtAccFullName.Size = new Size(236, 23);
-            txtAccFullName.TabIndex = 27;
+            txtCompanionContact.Location = new Point(181, 106);
+            txtCompanionContact.Name = "txtCompanionContact";
+            txtCompanionContact.Size = new Size(236, 23);
+            txtCompanionContact.TabIndex = 28;
+            // 
+            // txtCompanionName
+            // 
+            txtCompanionName.Location = new Point(181, 50);
+            txtCompanionName.Name = "txtCompanionName";
+            txtCompanionName.Size = new Size(236, 23);
+            txtCompanionName.TabIndex = 27;
             // 
             // label13
             // 
@@ -542,17 +548,31 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(0, 0, 64);
+            panel4.Controls.Add(button7);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(button6);
-            panel4.Controls.Add(button7);
+            panel4.Controls.Add(btnRoom);
             panel4.Controls.Add(button8);
-            panel4.Controls.Add(button9);
+            panel4.Controls.Add(btnPatient);
             panel4.Controls.Add(btnDashboard);
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(116, 751);
             panel4.TabIndex = 10;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.FromArgb(192, 0, 0);
+            button7.FlatStyle = FlatStyle.Popup;
+            button7.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button7.ForeColor = Color.White;
+            button7.Location = new Point(-1, 656);
+            button7.Name = "button7";
+            button7.Size = new Size(117, 41);
+            button7.TabIndex = 14;
+            button7.Text = "Logout";
+            button7.UseVisualStyleBackColor = false;
             // 
             // panel5
             // 
@@ -593,18 +613,19 @@
             button6.Text = "Manage User";
             button6.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // btnRoom
             // 
-            button7.BackColor = Color.FromArgb(0, 0, 64);
-            button7.FlatStyle = FlatStyle.Popup;
-            button7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.White;
-            button7.Location = new Point(0, 179);
-            button7.Name = "button7";
-            button7.Size = new Size(116, 41);
-            button7.TabIndex = 1;
-            button7.Text = "Room";
-            button7.UseVisualStyleBackColor = false;
+            btnRoom.BackColor = Color.FromArgb(0, 0, 64);
+            btnRoom.FlatStyle = FlatStyle.Popup;
+            btnRoom.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRoom.ForeColor = Color.White;
+            btnRoom.Location = new Point(0, 179);
+            btnRoom.Name = "btnRoom";
+            btnRoom.Size = new Size(116, 41);
+            btnRoom.TabIndex = 1;
+            btnRoom.Text = "Room";
+            btnRoom.UseVisualStyleBackColor = false;
+            btnRoom.Click += btnRoom_Click_1;
             // 
             // button8
             // 
@@ -619,18 +640,18 @@
             button8.Text = "Admitting";
             button8.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnPatient
             // 
-            button9.BackColor = Color.FromArgb(0, 0, 64);
-            button9.FlatStyle = FlatStyle.Popup;
-            button9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button9.ForeColor = Color.White;
-            button9.Location = new Point(0, 106);
-            button9.Name = "button9";
-            button9.Size = new Size(116, 38);
-            button9.TabIndex = 1;
-            button9.Text = "Patient";
-            button9.UseVisualStyleBackColor = false;
+            btnPatient.BackColor = Color.MidnightBlue;
+            btnPatient.FlatStyle = FlatStyle.Popup;
+            btnPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPatient.ForeColor = Color.White;
+            btnPatient.Location = new Point(0, 106);
+            btnPatient.Name = "btnPatient";
+            btnPatient.Size = new Size(116, 38);
+            btnPatient.TabIndex = 1;
+            btnPatient.Text = "Patient";
+            btnPatient.UseVisualStyleBackColor = false;
             // 
             // btnDashboard
             // 
@@ -646,18 +667,6 @@
             btnDashboard.UseVisualStyleBackColor = false;
             btnDashboard.Click += btnDashboard_Click;
             // 
-            // btnLogout
-            // 
-            btnLogout.BackColor = SystemColors.ActiveBorder;
-            btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogout.Location = new Point(1176, 704);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(118, 33);
-            btnLogout.TabIndex = 11;
-            btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = false;
-            // 
             // dgvPatients
             // 
             dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -666,33 +675,25 @@
             dgvPatients.Size = new Size(900, 136);
             dgvPatients.TabIndex = 12;
             // 
-            // btnAddPatient
+            // btnAdd
             // 
-            btnAddPatient.BackColor = Color.Silver;
-            btnAddPatient.FlatStyle = FlatStyle.Flat;
-            btnAddPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAddPatient.Location = new Point(676, 84);
-            btnAddPatient.Name = "btnAddPatient";
-            btnAddPatient.Size = new Size(118, 33);
-            btnAddPatient.TabIndex = 13;
-            btnAddPatient.Text = "Add Patient";
-            btnAddPatient.UseVisualStyleBackColor = false;
-            // 
-            // txtRelation
-            // 
-            txtRelation.Location = new Point(181, 79);
-            txtRelation.Name = "txtRelation";
-            txtRelation.Size = new Size(212, 23);
-            txtRelation.TabIndex = 29;
+            btnAdd.BackColor = Color.Silver;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdd.Location = new Point(676, 84);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(118, 33);
+            btnAdd.TabIndex = 13;
+            btnAdd.Text = "Add Patient";
+            btnAdd.UseVisualStyleBackColor = false;
             // 
             // Patient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 749);
-            Controls.Add(btnAddPatient);
+            Controls.Add(btnAdd);
             Controls.Add(dgvPatients);
-            Controls.Add(btnLogout);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -763,12 +764,11 @@
         private Label label16;
         private Panel panel6;
         private Button button6;
-        private Button button7;
+        private Button btnRoom;
         private Button button8;
-        private Button button9;
+        private Button btnPatient;
         private Button btnDashboard;
         private Button btnAdmitPatient;
-        private Button btnLogout;
         private TextBox txtContactNumber;
         private TextBox txtAddress;
         private ComboBox cmbCivilStatus;
@@ -776,7 +776,7 @@
         private Label label17;
         private DataGridView dgvPatients;
         private DateTimePicker dtpDOB;
-        private Button btnAddPatient;
+        private Button btnAdd;
         private Label label21;
         private Label label20;
         private Label label19;
@@ -790,8 +790,9 @@
         private TextBox txtMI;
         private TextBox txtLastName;
         private TextBox txtHeight;
-        private TextBox txtAccFullName;
-        private TextBox txtContact;
-        private TextBox txtRelation;
+        private TextBox txtCompanionName;
+        private TextBox txtCompanionContact;
+        private TextBox txtCompanionRelationship;
+        private Button button7;
     }
 }
