@@ -294,9 +294,19 @@ namespace Hospital2.UI.CashierDashboard
         // ---------------------------------------------------------
         private void btnView_Click(object sender, EventArgs e)
         {
-            Patient_Bill_List_Downpayment patient_Bill_List_Downpayment = new Patient_Bill_List_Downpayment();
-            patient_Bill_List_Downpayment.FormClosed += (s, args) => this.Close();
-            patient_Bill_List_Downpayment.Show();
+            if (selectedPatientId < 0)
+            {
+                MessageBox.Show(
+                    "Pumili muna ng patient sa list.",
+                    "View",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            var billing = new Patient_Bill_List_Downpayment(selectedPatientId);
+            billing.ShowDialog(this);
             this.Hide();
         }
 
