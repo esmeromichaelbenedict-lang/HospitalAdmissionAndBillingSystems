@@ -226,7 +226,7 @@
             panel2.Controls.Add(txtFirstName);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(185, 297);
+            panel2.Location = new Point(159, 327);
             panel2.Name = "panel2";
             panel2.Size = new Size(676, 399);
             panel2.TabIndex = 8;
@@ -370,6 +370,7 @@
             // cmbSex
             // 
             cmbSex.FormattingEnabled = true;
+            cmbSex.Items.AddRange(new object[] { "Male", "Female" });
             cmbSex.Location = new Point(102, 110);
             cmbSex.Name = "cmbSex";
             cmbSex.Size = new Size(142, 23);
@@ -389,7 +390,7 @@
             // 
             txtAge.Location = new Point(333, 79);
             txtAge.Name = "txtAge";
-            txtAge.Size = new Size(161, 23);
+            txtAge.Size = new Size(142, 23);
             txtAge.TabIndex = 23;
             // 
             // label10
@@ -479,7 +480,7 @@
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(867, 297);
+            panel3.Location = new Point(867, 327);
             panel3.Name = "panel3";
             panel3.Size = new Size(438, 399);
             panel3.TabIndex = 9;
@@ -672,7 +673,7 @@
             dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPatients.Location = new Point(312, 136);
             dgvPatients.Name = "dgvPatients";
-            dgvPatients.Size = new Size(900, 136);
+            dgvPatients.Size = new Size(900, 172);
             dgvPatients.TabIndex = 12;
             // 
             // btnAdd
