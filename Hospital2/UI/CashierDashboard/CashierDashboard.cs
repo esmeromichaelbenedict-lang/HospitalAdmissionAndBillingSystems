@@ -195,7 +195,7 @@ namespace Hospital2.UI.CashierDashboard
 
             lblSex.Text = Val(row, "Sex");
             lblAddress.Text = Val(row, "Address");
-            lblContact.Text = Val(row, "ContactNumber");
+            lblContactNo.Text = Val(row, "ContactNumber");
 
             // --- Accompanying person at Bed Information ---
             LoadCompanion(selectedPatientId);
@@ -314,7 +314,7 @@ namespace Hospital2.UI.CashierDashboard
             lblAge.Text = "";
             lblSex.Text = "";
             lblAddress.Text = "";
-            lblContact.Text = "";
+            lblContactNo.Text = "";
 
             lblAccName.Text = "";
             lblAccRelationship.Text = "";
