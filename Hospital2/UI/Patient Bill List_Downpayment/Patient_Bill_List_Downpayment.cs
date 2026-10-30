@@ -22,6 +22,7 @@ namespace HospitalPRAC
         private int admissionId = -1;       // pinakabagong admission ng patient
         private decimal totalBill = 0m;     // kabuuang singil
         private decimal paid = 0m;          // kabuuang nabayad na (downpayment + payment)
+        private bool openingPayment = false; // para hindi dalawang beses mabuksan ang Payment form
 
         private DataTable charges;          // mga singil: room, consultation, services
         private DataTable paymentRows;      // mga bayad na ibabawas sa bill
@@ -44,7 +45,11 @@ namespace HospitalPRAC
             btnDownPayment.Click -= btnDownPayment_Click;
             btnDownPayment.Click += btnDownPayment_Click;
 
+            // Isang handler lang ang btnPayment: ang pagbukas ng Payment module.
+            // Inalis muna ang dalawang lumang handler para hindi ito mag-double (kahit
+            // naka-connect sila sa Designer).
             btnPayment.Click -= btnPayment_Click;
+            btnPayment.Click -= btnPayment_Click_1;
             btnPayment.Click += btnPayment_Click;
 
             dgvBills.CellFormatting -= dgvBills_CellFormatting;
@@ -455,9 +460,50 @@ namespace HospitalPRAC
             SavePayment(TypeDownpayment);
         }
 
+        // Pag pinindot ang Payment button -> pupunta sa Payment module (kasama ang data ng patient)
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            SavePayment(TypePayment);
+            OpenPaymentModule();
+        }
+
+        // Lumang handler (baka naka-connect pa sa Designer). Pareho lang ang ginagawa.
+        private void btnPayment_Click_1(object sender, EventArgs e)
+        {
+            OpenPaymentModule();
+        }
+
+        private void OpenPaymentModule()
+        {
+            if (openingPayment) return;   // iwas double-click
+
+            if (patientId < 0 || admissionId < 0)
+            {
+                MessageBox.Show("Walang admission ang patient na ito, kaya walang mababayaran.",
+                    "Payment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            openingPayment = true;
+            try
+            {
+                using (var paymentForm = new Payment(patientId))
+                {
+                    Hide();                       
+                    paymentForm.ShowDialog();     
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hindi mabuksan ang Payment form:\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                openingPayment = false;
+                Show();                           
+                Activate();
+                LoadAdmissionAndBill();          
+            }
         }
 
         private void SavePayment(string type)
@@ -469,7 +515,7 @@ namespace HospitalPRAC
                 return;
             }
 
-            // Basahin ang amount (inaalis ang peso sign at espasyo)
+          
             string text = txtAmount.Text.Replace("₱", "").Trim();
 
             decimal amount;
@@ -490,7 +536,7 @@ namespace HospitalPRAC
                 return;
             }
 
-            // Kunin ulit ang pinakabagong bayad bago i-check (para tama kahit may ibang nag-save)
+          
             LoadPayments();
             decimal remaining = totalBill - paid;
 
@@ -539,7 +585,6 @@ namespace HospitalPRAC
                 return;
             }
 
-            // Na-save na: i-refresh ang grid at ang mga total
             LoadPayments();
             RefreshBillView();
             txtAmount.Clear();
@@ -547,10 +592,6 @@ namespace HospitalPRAC
             MessageBox.Show(type + " na " + Money(amount) + " ay na-save.", type,
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        // ---------------------------------------------------------
-        // 7. Helpers
-        // ---------------------------------------------------------
         private void ClearAll()
         {
             lblLastName.Text = "";
@@ -590,14 +631,14 @@ namespace HospitalPRAC
             return dt;
         }
 
-        // "Deposit" (luma) at "Downpayment" ay parehong downpayment
+
         private static bool IsDownpayment(string type)
         {
             return string.Equals(type, "Deposit", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(type, TypeDownpayment, StringComparison.OrdinalIgnoreCase);
         }
 
-        // Ligtas na pagkuha ng text (walang error kapag NULL)
+       
         private static string Str(SqlDataReader r, string col)
         {
             return r[col] == DBNull.Value ? "" : r[col].ToString().Trim();
@@ -605,7 +646,7 @@ namespace HospitalPRAC
 
         private static string Money(decimal value)
         {
-            return "₱" + value.ToString("N2");   // peso sign
+            return "₱" + value.ToString("N2");   
         }
 
         private static int ComputeAge(DateTime birthdate)
