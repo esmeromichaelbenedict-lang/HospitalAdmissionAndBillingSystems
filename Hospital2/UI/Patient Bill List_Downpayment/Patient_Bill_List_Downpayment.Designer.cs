@@ -78,9 +78,9 @@
             lblPreviousPayments = new Label();
             lblRemainingBalance = new Label();
             panel1 = new Panel();
+            btnBack = new Button();
             panel2 = new Panel();
             panel3 = new Panel();
-            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBills).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -117,6 +117,7 @@
             // label28
             // 
             label28.AutoSize = true;
+            label28.BackColor = SystemColors.ControlLight;
             label28.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label28.Location = new Point(525, 231);
             label28.Name = "label28";
@@ -173,6 +174,7 @@
             // lblSex
             // 
             lblSex.AutoSize = true;
+            lblSex.BackColor = SystemColors.ControlLight;
             lblSex.Location = new Point(229, 245);
             lblSex.Name = "lblSex";
             lblSex.Size = new Size(13, 15);
@@ -184,13 +186,14 @@
             label15.AutoSize = true;
             label15.Location = new Point(21, 124);
             label15.Name = "label15";
-            label15.Size = new Size(27, 15);
+            label15.Size = new Size(28, 15);
             label15.TabIndex = 49;
             label15.Text = "Sex:";
             // 
             // lblAge
             // 
             lblAge.AutoSize = true;
+            lblAge.BackColor = SystemColors.ControlLight;
             lblAge.Location = new Point(438, 207);
             lblAge.Name = "lblAge";
             lblAge.Size = new Size(13, 15);
@@ -200,6 +203,7 @@
             // lblBirthdate
             // 
             lblBirthdate.AutoSize = true;
+            lblBirthdate.BackColor = SystemColors.ControlLight;
             lblBirthdate.Location = new Point(229, 207);
             lblBirthdate.Name = "lblBirthdate";
             lblBirthdate.Size = new Size(13, 15);
@@ -209,6 +213,7 @@
             // label12
             // 
             label12.AutoSize = true;
+            label12.BackColor = SystemColors.ControlLight;
             label12.Location = new Point(314, 207);
             label12.Name = "label12";
             label12.Size = new Size(31, 15);
@@ -227,6 +232,7 @@
             // lblMI
             // 
             lblMI.AutoSize = true;
+            lblMI.BackColor = SystemColors.ControlLight;
             lblMI.Location = new Point(600, 172);
             lblMI.Name = "lblMI";
             lblMI.Size = new Size(13, 15);
@@ -236,6 +242,7 @@
             // lblFirstName
             // 
             lblFirstName.AutoSize = true;
+            lblFirstName.BackColor = SystemColors.ControlLight;
             lblFirstName.Location = new Point(438, 172);
             lblFirstName.Name = "lblFirstName";
             lblFirstName.Size = new Size(13, 15);
@@ -245,6 +252,7 @@
             // label8
             // 
             label8.AutoSize = true;
+            label8.BackColor = SystemColors.ControlLight;
             label8.Location = new Point(531, 172);
             label8.Name = "label8";
             label8.Size = new Size(30, 15);
@@ -254,6 +262,7 @@
             // label7
             // 
             label7.AutoSize = true;
+            label7.BackColor = SystemColors.ControlLight;
             label7.Location = new Point(314, 172);
             label7.Name = "label7";
             label7.Size = new Size(67, 15);
@@ -281,6 +290,7 @@
             // lblLastName
             // 
             lblLastName.AutoSize = true;
+            lblLastName.BackColor = SystemColors.ControlLight;
             lblLastName.Location = new Point(229, 172);
             lblLastName.Name = "lblLastName";
             lblLastName.Size = new Size(13, 15);
@@ -328,6 +338,7 @@
             // lblAccRelationship
             // 
             lblAccRelationship.AutoSize = true;
+            lblAccRelationship.BackColor = SystemColors.ControlLight;
             lblAccRelationship.Location = new Point(229, 435);
             lblAccRelationship.Name = "lblAccRelationship";
             lblAccRelationship.Size = new Size(13, 15);
@@ -372,10 +383,11 @@
             // 
             // dgvBills
             // 
+            dgvBills.BackgroundColor = SystemColors.ControlLight;
             dgvBills.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBills.Location = new Point(17, 51);
             dgvBills.Name = "dgvBills";
-            dgvBills.Size = new Size(426, 179);
+            dgvBills.Size = new Size(452, 179);
             dgvBills.TabIndex = 66;
             // 
             // label4
@@ -416,6 +428,7 @@
             btnPayment.TabIndex = 70;
             btnPayment.Text = "Payment";
             btnPayment.UseVisualStyleBackColor = false;
+            btnPayment.Click += btnPayment_Click_1;
             // 
             // label6
             // 
@@ -432,7 +445,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(34, 249);
             label9.Name = "label9";
-            label9.Size = new Size(52, 15);
+            label9.Size = new Size(51, 15);
             label9.TabIndex = 72;
             label9.Text = "Total Bill";
             // 
@@ -477,7 +490,7 @@
             label18.AutoSize = true;
             label18.Location = new Point(26, 548);
             label18.Name = "label18";
-            label18.Size = new Size(100, 15);
+            label18.Size = new Size(99, 15);
             label18.TabIndex = 77;
             label18.Text = "Admission Type:  ";
             // 
@@ -541,11 +554,23 @@
             panel1.Controls.Add(btnBack);
             panel1.Location = new Point(-1, -1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1318, 88);
+            panel1.Size = new Size(1371, 88);
             panel1.TabIndex = 84;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.Gray;
+            btnBack.FlatStyle = FlatStyle.Popup;
+            btnBack.Location = new Point(27, 31);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(106, 29);
+            btnBack.TabIndex = 0;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
+            panel2.BackColor = SystemColors.ControlLight;
             panel2.Controls.Add(label1);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label11);
@@ -575,11 +600,12 @@
             panel2.Controls.Add(label5);
             panel2.Location = new Point(26, 121);
             panel2.Name = "panel2";
-            panel2.Size = new Size(791, 616);
+            panel2.Size = new Size(791, 583);
             panel2.TabIndex = 85;
             // 
             // panel3
             // 
+            panel3.BackColor = SystemColors.ControlLight;
             panel3.Controls.Add(dgvBills);
             panel3.Controls.Add(lblTotalBill);
             panel3.Controls.Add(lblPreviousPayments);
@@ -590,19 +616,8 @@
             panel3.Controls.Add(label9);
             panel3.Location = new Point(836, 121);
             panel3.Name = "panel3";
-            panel3.Size = new Size(463, 511);
+            panel3.Size = new Size(490, 511);
             panel3.TabIndex = 86;
-            // 
-            // btnBack
-            // 
-            btnBack.BackColor = Color.Gray;
-            btnBack.FlatStyle = FlatStyle.Popup;
-            btnBack.Location = new Point(27, 31);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(106, 29);
-            btnBack.TabIndex = 0;
-            btnBack.Text = "Back";
-            btnBack.UseVisualStyleBackColor = false;
             // 
             // Patient_Bill_List_Downpayment
             // 
@@ -624,8 +639,8 @@
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(lblLastName);
-            Controls.Add(panel2);
             Controls.Add(panel3);
+            Controls.Add(panel2);
             Name = "Patient_Bill_List_Downpayment";
             Text = "Patient_Bill_List_Downpayment";
             ((System.ComponentModel.ISupportInitialize)dgvBills).EndInit();
