@@ -77,13 +77,20 @@
             lblTotalBill = new Label();
             lblPreviousPayments = new Label();
             lblRemainingBalance = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBills).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // lblAdmissionDate
             // 
             lblAdmissionDate.AutoSize = true;
-            lblAdmissionDate.Location = new Point(189, 536);
+            lblAdmissionDate.Location = new Point(203, 485);
             lblAdmissionDate.Name = "lblAdmissionDate";
             lblAdmissionDate.Size = new Size(13, 15);
             lblAdmissionDate.TabIndex = 59;
@@ -92,7 +99,7 @@
             // label30
             // 
             label30.AutoSize = true;
-            label30.Location = new Point(46, 536);
+            label30.Location = new Point(26, 485);
             label30.Name = "label30";
             label30.Size = new Size(92, 15);
             label30.TabIndex = 58;
@@ -101,7 +108,7 @@
             // lblBedNo
             // 
             lblBedNo.AutoSize = true;
-            lblBedNo.Location = new Point(550, 245);
+            lblBedNo.Location = new Point(596, 198);
             lblBedNo.Name = "lblBedNo";
             lblBedNo.Size = new Size(13, 15);
             lblBedNo.TabIndex = 57;
@@ -110,25 +117,27 @@
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new Point(453, 180);
+            label28.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label28.Location = new Point(525, 231);
             label28.Name = "label28";
-            label28.Size = new Size(93, 15);
+            label28.Size = new Size(202, 32);
             label28.TabIndex = 56;
             label28.Text = "Bed Information";
             // 
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(31, 306);
+            label21.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(3, 232);
             label21.Name = "label21";
-            label21.Size = new Size(127, 15);
+            label21.Size = new Size(271, 32);
             label21.TabIndex = 55;
             label21.Text = "Accompanying person";
             // 
             // lblContact
             // 
             lblContact.AutoSize = true;
-            lblContact.Location = new Point(197, 268);
+            lblContact.Location = new Point(203, 198);
             lblContact.Name = "lblContact";
             lblContact.Size = new Size(13, 15);
             lblContact.TabIndex = 54;
@@ -137,7 +146,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(46, 268);
+            label19.Location = new Point(21, 198);
             label19.Name = "label19";
             label19.Size = new Size(97, 15);
             label19.TabIndex = 53;
@@ -146,7 +155,7 @@
             // lblAddress
             // 
             lblAddress.AutoSize = true;
-            lblAddress.Location = new Point(242, 230);
+            lblAddress.Location = new Point(203, 160);
             lblAddress.Name = "lblAddress";
             lblAddress.Size = new Size(13, 15);
             lblAddress.TabIndex = 52;
@@ -155,7 +164,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(46, 230);
+            label17.Location = new Point(21, 160);
             label17.Name = "label17";
             label17.Size = new Size(52, 15);
             label17.TabIndex = 51;
@@ -164,7 +173,7 @@
             // lblSex
             // 
             lblSex.AutoSize = true;
-            lblSex.Location = new Point(157, 194);
+            lblSex.Location = new Point(229, 245);
             lblSex.Name = "lblSex";
             lblSex.Size = new Size(13, 15);
             lblSex.TabIndex = 50;
@@ -173,16 +182,16 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(43, 194);
+            label15.Location = new Point(21, 124);
             label15.Name = "label15";
-            label15.Size = new Size(28, 15);
+            label15.Size = new Size(27, 15);
             label15.TabIndex = 49;
             label15.Text = "Sex:";
             // 
             // lblAge
             // 
             lblAge.AutoSize = true;
-            lblAge.Location = new Point(366, 156);
+            lblAge.Location = new Point(438, 207);
             lblAge.Name = "lblAge";
             lblAge.Size = new Size(13, 15);
             lblAge.TabIndex = 48;
@@ -191,7 +200,7 @@
             // lblBirthdate
             // 
             lblBirthdate.AutoSize = true;
-            lblBirthdate.Location = new Point(157, 156);
+            lblBirthdate.Location = new Point(229, 207);
             lblBirthdate.Name = "lblBirthdate";
             lblBirthdate.Size = new Size(13, 15);
             lblBirthdate.TabIndex = 47;
@@ -200,7 +209,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(242, 156);
+            label12.Location = new Point(314, 207);
             label12.Name = "label12";
             label12.Size = new Size(31, 15);
             label12.TabIndex = 46;
@@ -209,7 +218,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(43, 156);
+            label11.Location = new Point(21, 86);
             label11.Name = "label11";
             label11.Size = new Size(58, 15);
             label11.TabIndex = 45;
@@ -218,7 +227,7 @@
             // lblMI
             // 
             lblMI.AutoSize = true;
-            lblMI.Location = new Point(528, 121);
+            lblMI.Location = new Point(600, 172);
             lblMI.Name = "lblMI";
             lblMI.Size = new Size(13, 15);
             lblMI.TabIndex = 44;
@@ -227,7 +236,7 @@
             // lblFirstName
             // 
             lblFirstName.AutoSize = true;
-            lblFirstName.Location = new Point(366, 121);
+            lblFirstName.Location = new Point(438, 172);
             lblFirstName.Name = "lblFirstName";
             lblFirstName.Size = new Size(13, 15);
             lblFirstName.TabIndex = 43;
@@ -236,7 +245,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(459, 121);
+            label8.Location = new Point(531, 172);
             label8.Name = "label8";
             label8.Size = new Size(30, 15);
             label8.TabIndex = 42;
@@ -245,7 +254,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(242, 121);
+            label7.Location = new Point(314, 172);
             label7.Name = "label7";
             label7.Size = new Size(67, 15);
             label7.TabIndex = 41;
@@ -254,7 +263,7 @@
             // lblRoomNo
             // 
             lblRoomNo.AutoSize = true;
-            lblRoomNo.Location = new Point(550, 215);
+            lblRoomNo.Location = new Point(596, 160);
             lblRoomNo.Name = "lblRoomNo";
             lblRoomNo.Size = new Size(13, 15);
             lblRoomNo.TabIndex = 40;
@@ -263,7 +272,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(468, 245);
+            label5.Location = new Point(514, 198);
             label5.Name = "label5";
             label5.Size = new Size(52, 15);
             label5.TabIndex = 39;
@@ -272,7 +281,7 @@
             // lblLastName
             // 
             lblLastName.AutoSize = true;
-            lblLastName.Location = new Point(157, 121);
+            lblLastName.Location = new Point(229, 172);
             lblLastName.Name = "lblLastName";
             lblLastName.Size = new Size(13, 15);
             lblLastName.TabIndex = 38;
@@ -281,7 +290,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(468, 215);
+            label3.Location = new Point(514, 160);
             label3.Name = "label3";
             label3.Size = new Size(64, 15);
             label3.TabIndex = 37;
@@ -290,7 +299,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(43, 121);
+            label2.Location = new Point(21, 51);
             label2.Name = "label2";
             label2.Size = new Size(66, 15);
             label2.TabIndex = 36;
@@ -299,16 +308,18 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 91);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(3, 9);
             label1.Name = "label1";
-            label1.Size = new Size(110, 15);
+            label1.Size = new Size(239, 32);
             label1.TabIndex = 35;
             label1.Text = "Patient Information";
             // 
             // lblAccContact
             // 
             lblAccContact.AutoSize = true;
-            lblAccContact.Location = new Point(197, 423);
+            lblAccContact.Location = new Point(203, 353);
             lblAccContact.Name = "lblAccContact";
             lblAccContact.Size = new Size(13, 15);
             lblAccContact.TabIndex = 65;
@@ -317,7 +328,7 @@
             // lblAccRelationship
             // 
             lblAccRelationship.AutoSize = true;
-            lblAccRelationship.Location = new Point(157, 384);
+            lblAccRelationship.Location = new Point(229, 435);
             lblAccRelationship.Name = "lblAccRelationship";
             lblAccRelationship.Size = new Size(13, 15);
             lblAccRelationship.TabIndex = 64;
@@ -326,7 +337,7 @@
             // lblAccName
             // 
             lblAccName.AutoSize = true;
-            lblAccName.Location = new Point(260, 346);
+            lblAccName.Location = new Point(203, 276);
             lblAccName.Name = "lblAccName";
             lblAccName.Size = new Size(13, 15);
             lblAccName.TabIndex = 63;
@@ -335,7 +346,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(46, 423);
+            label24.Location = new Point(21, 353);
             label24.Name = "label24";
             label24.Size = new Size(97, 15);
             label24.TabIndex = 62;
@@ -344,7 +355,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(46, 384);
+            label23.Location = new Point(23, 314);
             label23.Name = "label23";
             label23.Size = new Size(75, 15);
             label23.TabIndex = 61;
@@ -353,7 +364,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(46, 346);
+            label22.Location = new Point(23, 276);
             label22.Name = "label22";
             label22.Size = new Size(64, 15);
             label22.TabIndex = 60;
@@ -362,7 +373,7 @@
             // dgvBills
             // 
             dgvBills.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBills.Location = new Point(864, 121);
+            dgvBills.Location = new Point(17, 51);
             dgvBills.Name = "dgvBills";
             dgvBills.Size = new Size(426, 179);
             dgvBills.TabIndex = 66;
@@ -370,9 +381,10 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(835, 86);
+            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(3, 9);
             label4.Name = "label4";
-            label4.Size = new Size(44, 15);
+            label4.Size = new Size(96, 32);
             label4.TabIndex = 67;
             label4.Text = "Bill List";
             // 
@@ -385,44 +397,49 @@
             // 
             // btnDownPayment
             // 
+            btnDownPayment.BackColor = Color.LightCyan;
+            btnDownPayment.FlatStyle = FlatStyle.Popup;
             btnDownPayment.Location = new Point(1154, 502);
             btnDownPayment.Name = "btnDownPayment";
             btnDownPayment.Size = new Size(136, 36);
             btnDownPayment.TabIndex = 69;
             btnDownPayment.Text = "DownPayment";
-            btnDownPayment.UseVisualStyleBackColor = true;
+            btnDownPayment.UseVisualStyleBackColor = false;
             // 
             // btnPayment
             // 
+            btnPayment.BackColor = Color.FromArgb(128, 255, 128);
+            btnPayment.FlatStyle = FlatStyle.Popup;
             btnPayment.Location = new Point(1154, 562);
             btnPayment.Name = "btnPayment";
             btnPayment.Size = new Size(136, 36);
             btnPayment.TabIndex = 70;
             btnPayment.Text = "Payment";
-            btnPayment.UseVisualStyleBackColor = true;
+            btnPayment.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(31, 472);
+            label6.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(3, 402);
             label6.Name = "label6";
-            label6.Size = new Size(164, 15);
+            label6.Size = new Size(300, 32);
             label6.TabIndex = 71;
-            label6.Text = "ADMISSION INFORMATION    ";
+            label6.Text = "Admission Information   ";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(876, 332);
+            label9.Location = new Point(34, 249);
             label9.Name = "label9";
-            label9.Size = new Size(51, 15);
+            label9.Size = new Size(52, 15);
             label9.TabIndex = 72;
             label9.Text = "Total Bill";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(876, 370);
+            label10.Location = new Point(34, 290);
             label10.Name = "label10";
             label10.Size = new Size(107, 15);
             label10.TabIndex = 73;
@@ -431,7 +448,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(876, 410);
+            label13.Location = new Point(34, 329);
             label13.Name = "label13";
             label13.Size = new Size(108, 15);
             label13.TabIndex = 74;
@@ -440,7 +457,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(46, 502);
+            label14.Location = new Point(23, 452);
             label14.Name = "label14";
             label14.Size = new Size(80, 15);
             label14.TabIndex = 75;
@@ -449,7 +466,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(43, 570);
+            label16.Location = new Point(26, 516);
             label16.Name = "label16";
             label16.Size = new Size(105, 15);
             label16.TabIndex = 76;
@@ -458,16 +475,16 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(43, 601);
+            label18.Location = new Point(26, 548);
             label18.Name = "label18";
-            label18.Size = new Size(99, 15);
+            label18.Size = new Size(100, 15);
             label18.TabIndex = 77;
             label18.Text = "Admission Type:  ";
             // 
             // lblAdmissionId
             // 
             lblAdmissionId.AutoSize = true;
-            lblAdmissionId.Location = new Point(189, 502);
+            lblAdmissionId.Location = new Point(203, 452);
             lblAdmissionId.Name = "lblAdmissionId";
             lblAdmissionId.Size = new Size(13, 15);
             lblAdmissionId.TabIndex = 78;
@@ -476,7 +493,7 @@
             // lblDoctor
             // 
             lblDoctor.AutoSize = true;
-            lblDoctor.Location = new Point(189, 570);
+            lblDoctor.Location = new Point(203, 516);
             lblDoctor.Name = "lblDoctor";
             lblDoctor.Size = new Size(13, 15);
             lblDoctor.TabIndex = 79;
@@ -485,7 +502,7 @@
             // lblAdmissionType
             // 
             lblAdmissionType.AutoSize = true;
-            lblAdmissionType.Location = new Point(189, 601);
+            lblAdmissionType.Location = new Point(203, 548);
             lblAdmissionType.Name = "lblAdmissionType";
             lblAdmissionType.Size = new Size(13, 15);
             lblAdmissionType.TabIndex = 80;
@@ -494,7 +511,7 @@
             // lblTotalBill
             // 
             lblTotalBill.AutoSize = true;
-            lblTotalBill.Location = new Point(1217, 332);
+            lblTotalBill.Location = new Point(375, 249);
             lblTotalBill.Name = "lblTotalBill";
             lblTotalBill.Size = new Size(13, 15);
             lblTotalBill.TabIndex = 81;
@@ -503,7 +520,7 @@
             // lblPreviousPayments
             // 
             lblPreviousPayments.AutoSize = true;
-            lblPreviousPayments.Location = new Point(1217, 370);
+            lblPreviousPayments.Location = new Point(375, 290);
             lblPreviousPayments.Name = "lblPreviousPayments";
             lblPreviousPayments.Size = new Size(13, 15);
             lblPreviousPayments.TabIndex = 82;
@@ -512,69 +529,111 @@
             // lblRemainingBalance
             // 
             lblRemainingBalance.AutoSize = true;
-            lblRemainingBalance.Location = new Point(1217, 410);
+            lblRemainingBalance.Location = new Point(375, 329);
             lblRemainingBalance.Name = "lblRemainingBalance";
             lblRemainingBalance.Size = new Size(13, 15);
             lblRemainingBalance.TabIndex = 83;
             lblRemainingBalance.Text = "0";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.Controls.Add(btnBack);
+            panel1.Location = new Point(-1, -1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1318, 88);
+            panel1.TabIndex = 84;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(label11);
+            panel2.Controls.Add(label15);
+            panel2.Controls.Add(lblAdmissionId);
+            panel2.Controls.Add(lblDoctor);
+            panel2.Controls.Add(lblAdmissionType);
+            panel2.Controls.Add(label17);
+            panel2.Controls.Add(label19);
+            panel2.Controls.Add(label21);
+            panel2.Controls.Add(label18);
+            panel2.Controls.Add(label22);
+            panel2.Controls.Add(label16);
+            panel2.Controls.Add(lblBedNo);
+            panel2.Controls.Add(label23);
+            panel2.Controls.Add(label14);
+            panel2.Controls.Add(lblAdmissionDate);
+            panel2.Controls.Add(label24);
+            panel2.Controls.Add(lblAccContact);
+            panel2.Controls.Add(lblAccName);
+            panel2.Controls.Add(lblContact);
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(lblRoomNo);
+            panel2.Controls.Add(lblAddress);
+            panel2.Controls.Add(label30);
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(label5);
+            panel2.Location = new Point(26, 121);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(791, 616);
+            panel2.TabIndex = 85;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(dgvBills);
+            panel3.Controls.Add(lblTotalBill);
+            panel3.Controls.Add(lblPreviousPayments);
+            panel3.Controls.Add(lblRemainingBalance);
+            panel3.Controls.Add(label4);
+            panel3.Controls.Add(label13);
+            panel3.Controls.Add(label10);
+            panel3.Controls.Add(label9);
+            panel3.Location = new Point(836, 121);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(463, 511);
+            panel3.TabIndex = 86;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.Gray;
+            btnBack.FlatStyle = FlatStyle.Popup;
+            btnBack.Location = new Point(27, 31);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(106, 29);
+            btnBack.TabIndex = 0;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = false;
             // 
             // Patient_Bill_List_Downpayment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 749);
-            Controls.Add(lblRemainingBalance);
-            Controls.Add(lblPreviousPayments);
-            Controls.Add(lblTotalBill);
-            Controls.Add(lblAdmissionType);
-            Controls.Add(lblDoctor);
-            Controls.Add(lblAdmissionId);
-            Controls.Add(label18);
-            Controls.Add(label16);
-            Controls.Add(label14);
-            Controls.Add(label13);
-            Controls.Add(label10);
-            Controls.Add(label9);
-            Controls.Add(label6);
+            Controls.Add(panel1);
             Controls.Add(btnPayment);
             Controls.Add(btnDownPayment);
             Controls.Add(txtAmount);
-            Controls.Add(label4);
-            Controls.Add(dgvBills);
-            Controls.Add(lblAccContact);
             Controls.Add(lblAccRelationship);
-            Controls.Add(lblAccName);
-            Controls.Add(label24);
-            Controls.Add(label23);
-            Controls.Add(label22);
-            Controls.Add(lblAdmissionDate);
-            Controls.Add(label30);
-            Controls.Add(lblBedNo);
             Controls.Add(label28);
-            Controls.Add(label21);
-            Controls.Add(lblContact);
-            Controls.Add(label19);
-            Controls.Add(lblAddress);
-            Controls.Add(label17);
             Controls.Add(lblSex);
-            Controls.Add(label15);
             Controls.Add(lblAge);
             Controls.Add(lblBirthdate);
             Controls.Add(label12);
-            Controls.Add(label11);
             Controls.Add(lblMI);
             Controls.Add(lblFirstName);
             Controls.Add(label8);
             Controls.Add(label7);
-            Controls.Add(lblRoomNo);
-            Controls.Add(label5);
             Controls.Add(lblLastName);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(panel2);
+            Controls.Add(panel3);
             Name = "Patient_Bill_List_Downpayment";
             Text = "Patient_Bill_List_Downpayment";
             ((System.ComponentModel.ISupportInitialize)dgvBills).EndInit();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -630,5 +689,9 @@
         private Label lblTotalBill;
         private Label lblPreviousPayments;
         private Label lblRemainingBalance;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Button btnBack;
     }
 }
