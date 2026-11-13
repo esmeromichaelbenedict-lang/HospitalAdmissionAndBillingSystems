@@ -7,7 +7,7 @@ namespace HospitalPRAC.BusinessLogic.Controller
 {
     /// <summary>
     /// Business logic for the billing page: builds the bill (every room the patient stayed in,
-    /// consultation, services), subtracts the payments, and checks a payment before it is saved.
+    /// consultation, services, medicines), subtracts the payments, and checks a payment before it is saved.
     /// </summary>
     public class BillingController
     {
@@ -100,6 +100,15 @@ namespace HospitalPRAC.BusinessLogic.Controller
                 string name = string.IsNullOrWhiteSpace(service.ServiceName)
                     ? "(unknown service)" : service.ServiceName;
                 charges.Add(new BillLine("Service", name, service.Price));
+            }
+
+            // 4b) Medicines and supplies added by the nurse
+            foreach (MedicineCharge med in _repository.GetMedicines(admission.AdmissionId))
+            {
+                string name = string.IsNullOrWhiteSpace(med.Name) ? "(unknown medicine)" : med.Name;
+                charges.Add(new BillLine("Medicine",
+                    name + " - " + med.Quantity + " x " + Money(med.UnitPrice),
+                    med.Quantity * med.UnitPrice));
             }
 
             // 5) Payments already made (shown as negative, they are subtracted)
