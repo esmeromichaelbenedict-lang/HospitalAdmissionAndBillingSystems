@@ -30,11 +30,11 @@
         {
             panel1 = new Panel();
             label1 = new Label();
-            cbAnalgesics = new ComboBox();
-            cbBetaBlockers = new ComboBox();
-            cbIVFluids = new ComboBox();
-            cbSyringeIVCannula = new ComboBox();
-            textBox1 = new TextBox();
+            cmbAnalgesics = new ComboBox();
+            cmbBetaBlockers = new ComboBox();
+            cmbIVFluids = new ComboBox();
+            cmbSyringeIVCannula = new ComboBox();
+            txtSearch = new TextBox();
             btnSearch = new Button();
             btnAdd = new Button();
             label2 = new Label();
@@ -42,19 +42,19 @@
             label4 = new Label();
             label5 = new Label();
             panel2 = new Panel();
-            label26 = new Label();
-            label25 = new Label();
-            label24 = new Label();
+            lblBed = new Label();
+            lblRoom = new Label();
+            lblRoomType = new Label();
             label23 = new Label();
             label22 = new Label();
             label21 = new Label();
             label20 = new Label();
-            label19 = new Label();
-            label18 = new Label();
-            label17 = new Label();
-            label16 = new Label();
-            label15 = new Label();
-            lblFname = new Label();
+            lblWeight = new Label();
+            lblHeight = new Label();
+            lblSex = new Label();
+            lblAge = new Label();
+            lblDOB = new Label();
+            lblFullName = new Label();
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
@@ -64,11 +64,11 @@
             label7 = new Label();
             panel3 = new Panel();
             label6 = new Label();
-            dataGridView1 = new DataGridView();
+            dgvPatients = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -92,49 +92,49 @@
             label1.TabIndex = 0;
             label1.Text = "Welcome back, Nurse! ";
             // 
-            // cbAnalgesics
+            // cmbAnalgesics
             // 
-            cbAnalgesics.FormattingEnabled = true;
-            cbAnalgesics.Location = new Point(214, 26);
-            cbAnalgesics.Margin = new Padding(3, 2, 3, 2);
-            cbAnalgesics.Name = "cbAnalgesics";
-            cbAnalgesics.Size = new Size(266, 23);
-            cbAnalgesics.TabIndex = 1;
+            cmbAnalgesics.FormattingEnabled = true;
+            cmbAnalgesics.Location = new Point(214, 26);
+            cmbAnalgesics.Margin = new Padding(3, 2, 3, 2);
+            cmbAnalgesics.Name = "cmbAnalgesics";
+            cmbAnalgesics.Size = new Size(266, 23);
+            cmbAnalgesics.TabIndex = 1;
             // 
-            // cbBetaBlockers
+            // cmbBetaBlockers
             // 
-            cbBetaBlockers.FormattingEnabled = true;
-            cbBetaBlockers.Location = new Point(214, 64);
-            cbBetaBlockers.Margin = new Padding(3, 2, 3, 2);
-            cbBetaBlockers.Name = "cbBetaBlockers";
-            cbBetaBlockers.Size = new Size(266, 23);
-            cbBetaBlockers.TabIndex = 2;
+            cmbBetaBlockers.FormattingEnabled = true;
+            cmbBetaBlockers.Location = new Point(214, 64);
+            cmbBetaBlockers.Margin = new Padding(3, 2, 3, 2);
+            cmbBetaBlockers.Name = "cmbBetaBlockers";
+            cmbBetaBlockers.Size = new Size(266, 23);
+            cmbBetaBlockers.TabIndex = 2;
             // 
-            // cbIVFluids
+            // cmbIVFluids
             // 
-            cbIVFluids.FormattingEnabled = true;
-            cbIVFluids.Location = new Point(214, 101);
-            cbIVFluids.Margin = new Padding(3, 2, 3, 2);
-            cbIVFluids.Name = "cbIVFluids";
-            cbIVFluids.Size = new Size(266, 23);
-            cbIVFluids.TabIndex = 3;
+            cmbIVFluids.FormattingEnabled = true;
+            cmbIVFluids.Location = new Point(214, 101);
+            cmbIVFluids.Margin = new Padding(3, 2, 3, 2);
+            cmbIVFluids.Name = "cmbIVFluids";
+            cmbIVFluids.Size = new Size(266, 23);
+            cmbIVFluids.TabIndex = 3;
             // 
-            // cbSyringeIVCannula
+            // cmbSyringeIVCannula
             // 
-            cbSyringeIVCannula.FormattingEnabled = true;
-            cbSyringeIVCannula.Location = new Point(214, 140);
-            cbSyringeIVCannula.Margin = new Padding(3, 2, 3, 2);
-            cbSyringeIVCannula.Name = "cbSyringeIVCannula";
-            cbSyringeIVCannula.Size = new Size(266, 23);
-            cbSyringeIVCannula.TabIndex = 4;
+            cmbSyringeIVCannula.FormattingEnabled = true;
+            cmbSyringeIVCannula.Location = new Point(214, 140);
+            cmbSyringeIVCannula.Margin = new Padding(3, 2, 3, 2);
+            cmbSyringeIVCannula.Name = "cmbSyringeIVCannula";
+            cmbSyringeIVCannula.Size = new Size(266, 23);
+            cmbSyringeIVCannula.TabIndex = 4;
             // 
-            // textBox1
+            // txtSearch
             // 
-            textBox1.Location = new Point(10, 65);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(562, 23);
-            textBox1.TabIndex = 5;
+            txtSearch.Location = new Point(10, 65);
+            txtSearch.Margin = new Padding(3, 2, 3, 2);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(562, 23);
+            txtSearch.TabIndex = 5;
             // 
             // btnSearch
             // 
@@ -203,19 +203,19 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.Controls.Add(label26);
-            panel2.Controls.Add(label25);
-            panel2.Controls.Add(label24);
+            panel2.Controls.Add(lblBed);
+            panel2.Controls.Add(lblRoom);
+            panel2.Controls.Add(lblRoomType);
             panel2.Controls.Add(label23);
             panel2.Controls.Add(label22);
             panel2.Controls.Add(label21);
             panel2.Controls.Add(label20);
-            panel2.Controls.Add(label19);
-            panel2.Controls.Add(label18);
-            panel2.Controls.Add(label17);
-            panel2.Controls.Add(label16);
-            panel2.Controls.Add(label15);
-            panel2.Controls.Add(lblFname);
+            panel2.Controls.Add(lblWeight);
+            panel2.Controls.Add(lblHeight);
+            panel2.Controls.Add(lblSex);
+            panel2.Controls.Add(lblAge);
+            panel2.Controls.Add(lblDOB);
+            panel2.Controls.Add(lblFullName);
             panel2.Controls.Add(label13);
             panel2.Controls.Add(label12);
             panel2.Controls.Add(label11);
@@ -223,39 +223,39 @@
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
-            panel2.Location = new Point(10, 107);
+            panel2.Location = new Point(39, 372);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
             panel2.Size = new Size(571, 292);
             panel2.TabIndex = 12;
             panel2.Paint += panel2_Paint;
             // 
-            // label26
+            // lblBed
             // 
-            label26.AutoSize = true;
-            label26.Location = new Point(448, 143);
-            label26.Name = "label26";
-            label26.Size = new Size(13, 15);
-            label26.TabIndex = 18;
-            label26.Text = "0";
+            lblBed.AutoSize = true;
+            lblBed.Location = new Point(448, 143);
+            lblBed.Name = "lblBed";
+            lblBed.Size = new Size(13, 15);
+            lblBed.TabIndex = 18;
+            lblBed.Text = "0";
             // 
-            // label25
+            // lblRoom
             // 
-            label25.AutoSize = true;
-            label25.Location = new Point(448, 101);
-            label25.Name = "label25";
-            label25.Size = new Size(13, 15);
-            label25.TabIndex = 17;
-            label25.Text = "0";
+            lblRoom.AutoSize = true;
+            lblRoom.Location = new Point(448, 101);
+            lblRoom.Name = "lblRoom";
+            lblRoom.Size = new Size(13, 15);
+            lblRoom.TabIndex = 17;
+            lblRoom.Text = "0";
             // 
-            // label24
+            // lblRoomType
             // 
-            label24.AutoSize = true;
-            label24.Location = new Point(448, 64);
-            label24.Name = "label24";
-            label24.Size = new Size(13, 15);
-            label24.TabIndex = 16;
-            label24.Text = "0";
+            lblRoomType.AutoSize = true;
+            lblRoomType.Location = new Point(448, 64);
+            lblRoomType.Name = "lblRoomType";
+            lblRoomType.Size = new Size(13, 15);
+            lblRoomType.TabIndex = 16;
+            lblRoomType.Text = "0";
             // 
             // label23
             // 
@@ -294,59 +294,59 @@
             label20.TabIndex = 12;
             label20.Text = "Room Information";
             // 
-            // label19
+            // lblWeight
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(120, 215);
-            label19.Name = "label19";
-            label19.Size = new Size(13, 15);
-            label19.TabIndex = 11;
-            label19.Text = "0";
+            lblWeight.AutoSize = true;
+            lblWeight.Location = new Point(120, 215);
+            lblWeight.Name = "lblWeight";
+            lblWeight.Size = new Size(13, 15);
+            lblWeight.TabIndex = 11;
+            lblWeight.Text = "0";
             // 
-            // label18
+            // lblHeight
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(120, 177);
-            label18.Name = "label18";
-            label18.Size = new Size(13, 15);
-            label18.TabIndex = 10;
-            label18.Text = "0";
+            lblHeight.AutoSize = true;
+            lblHeight.Location = new Point(120, 177);
+            lblHeight.Name = "lblHeight";
+            lblHeight.Size = new Size(13, 15);
+            lblHeight.TabIndex = 10;
+            lblHeight.Text = "0";
             // 
-            // label17
+            // lblSex
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(120, 143);
-            label17.Name = "label17";
-            label17.Size = new Size(13, 15);
-            label17.TabIndex = 9;
-            label17.Text = "0";
+            lblSex.AutoSize = true;
+            lblSex.Location = new Point(120, 143);
+            lblSex.Name = "lblSex";
+            lblSex.Size = new Size(13, 15);
+            lblSex.TabIndex = 9;
+            lblSex.Text = "0";
             // 
-            // label16
+            // lblAge
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(120, 250);
-            label16.Name = "label16";
-            label16.Size = new Size(13, 15);
-            label16.TabIndex = 9;
-            label16.Text = "0";
+            lblAge.AutoSize = true;
+            lblAge.Location = new Point(120, 250);
+            lblAge.Name = "lblAge";
+            lblAge.Size = new Size(13, 15);
+            lblAge.TabIndex = 9;
+            lblAge.Text = "0";
             // 
-            // label15
+            // lblDOB
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(120, 104);
-            label15.Name = "label15";
-            label15.Size = new Size(13, 15);
-            label15.TabIndex = 8;
-            label15.Text = "0";
+            lblDOB.AutoSize = true;
+            lblDOB.Location = new Point(120, 104);
+            lblDOB.Name = "lblDOB";
+            lblDOB.Size = new Size(13, 15);
+            lblDOB.TabIndex = 8;
+            lblDOB.Text = "0";
             // 
-            // lblFname
+            // lblFullName
             // 
-            lblFname.AutoSize = true;
-            lblFname.Location = new Point(120, 64);
-            lblFname.Name = "lblFname";
-            lblFname.Size = new Size(13, 15);
-            lblFname.TabIndex = 7;
-            lblFname.Text = "0";
+            lblFullName.AutoSize = true;
+            lblFullName.Location = new Point(120, 64);
+            lblFullName.Name = "lblFullName";
+            lblFullName.Size = new Size(13, 15);
+            lblFullName.TabIndex = 7;
+            lblFullName.Text = "0";
             // 
             // label13
             // 
@@ -415,19 +415,19 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(cbSyringeIVCannula);
+            panel3.Controls.Add(cmbSyringeIVCannula);
             panel3.Controls.Add(label5);
-            panel3.Controls.Add(cbIVFluids);
+            panel3.Controls.Add(cmbIVFluids);
             panel3.Controls.Add(btnAdd);
             panel3.Controls.Add(label4);
-            panel3.Controls.Add(cbBetaBlockers);
+            panel3.Controls.Add(cmbBetaBlockers);
             panel3.Controls.Add(label3);
-            panel3.Controls.Add(cbAnalgesics);
+            panel3.Controls.Add(cmbAnalgesics);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(637, 107);
+            panel3.Location = new Point(701, 372);
             panel3.Margin = new Padding(3, 2, 3, 2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(630, 274);
+            panel3.Size = new Size(630, 292);
             panel3.TabIndex = 13;
             // 
             // label6
@@ -435,31 +435,31 @@
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(12, 413);
+            label6.Location = new Point(210, 101);
             label6.Name = "label6";
             label6.Size = new Size(88, 20);
             label6.TabIndex = 15;
             label6.Text = "Patient List";
             // 
-            // dataGridView1
+            // dgvPatients
             // 
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 436);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(560, 185);
-            dataGridView1.TabIndex = 16;
+            dgvPatients.BackgroundColor = Color.White;
+            dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPatients.Location = new Point(226, 124);
+            dgvPatients.Name = "dgvPatients";
+            dgvPatients.Size = new Size(875, 223);
+            dgvPatients.TabIndex = 16;
             // 
             // NurseDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 749);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvPatients);
             Controls.Add(label6);
             Controls.Add(panel2);
             Controls.Add(btnSearch);
-            Controls.Add(textBox1);
+            Controls.Add(txtSearch);
             Controls.Add(panel1);
             Controls.Add(panel3);
             Name = "NurseDashboard";
@@ -471,7 +471,7 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -480,11 +480,11 @@
 
         private Panel panel1;
         private Label label1;
-        private ComboBox cbAnalgesics;
-        private ComboBox cbBetaBlockers;
-        private ComboBox cbIVFluids;
-        private ComboBox cbSyringeIVCannula;
-        private TextBox textBox1;
+        private ComboBox cmbAnalgesics;
+        private ComboBox cmbBetaBlockers;
+        private ComboBox cmbIVFluids;
+        private ComboBox cmbSyringeIVCannula;
+        private TextBox txtSearch;
         private Button btnSearch;
         private Button btnAdd;
         private Label label2;
@@ -495,14 +495,14 @@
         private Panel panel3;
         private Label label7;
         private Label label6;
-        private DataGridView dataGridView1;
+        private DataGridView dgvPatients;
         private Label label8;
-        private Label label19;
-        private Label label18;
-        private Label label17;
-        private Label label16;
-        private Label label15;
-        private Label lblFname;
+        private Label lblWeight;
+        private Label lblHeight;
+        private Label lblSex;
+        private Label lblAge;
+        private Label lblDOB;
+        private Label lblFullName;
         private Label label13;
         private Label label12;
         private Label label11;
@@ -511,9 +511,9 @@
         private Label label22;
         private Label label21;
         private Label label20;
-        private Label label26;
-        private Label label25;
-        private Label label24;
+        private Label lblBed;
+        private Label lblRoom;
+        private Label lblRoomType;
         private Label label23;
     }
 }

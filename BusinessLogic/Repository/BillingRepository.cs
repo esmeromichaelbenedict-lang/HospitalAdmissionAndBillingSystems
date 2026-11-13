@@ -9,6 +9,7 @@ namespace HospitalPRAC.BusinessLogic.Repository
         PatientRecord? GetPatient(int patientId);
         BillAdmission? GetLatestAdmission(int patientId);
         List<ServiceItem> GetServices(int admissionId);
+        List<MedicineCharge> GetMedicines(int admissionId);
         List<RoomTransferStay> GetRoomTransfers(int admissionId, int patientId, DateTime since);
         List<PaymentRecord> GetPayments(int admissionId);
         void AddPayment(int admissionId, string paymentType, decimal amount);
@@ -131,6 +132,36 @@ namespace HospitalPRAC.BusinessLogic.Repository
                     ServiceID = r["ServiceID"] == DBNull.Value ? 0 : Convert.ToInt32(r["ServiceID"]),
                     ServiceName = Str(r, "ServiceName") ?? string.Empty,
                     Price = r["price"] == DBNull.Value ? 0m : Convert.ToDecimal(r["price"])
+                });
+            }
+            return list;
+        }
+
+        // Medicines and supplies the nurse added to this admission.
+        public List<MedicineCharge> GetMedicines(int admissionId)
+        {
+            const string query = @"
+                SELECT m.medicine_name, am.quantity, am.unit_price
+                FROM admission_medicines am
+                JOIN Medicines m ON m.medicine_id = am.medicine_id
+                WHERE am.admission_id = @aid
+                ORDER BY am.admission_medicine_id";
+
+            var list = new List<MedicineCharge>();
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@aid", admissionId);
+            conn.Open();
+            using var r = cmd.ExecuteReader();
+
+            while (r.Read())
+            {
+                list.Add(new MedicineCharge
+                {
+                    Name = Str(r, "medicine_name") ?? string.Empty,
+                    Quantity = r["quantity"] == DBNull.Value ? 1 : Convert.ToInt32(r["quantity"]),
+                    UnitPrice = r["unit_price"] == DBNull.Value ? 0m : Convert.ToDecimal(r["unit_price"])
                 });
             }
             return list;
