@@ -19,5 +19,15 @@ namespace Hospital2.UI.NurseDashboard
         {
 
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
