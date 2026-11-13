@@ -295,9 +295,9 @@
             label20.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label20.Location = new Point(276, 263);
             label20.Name = "label20";
-            label20.Size = new Size(19, 17);
+            label20.Size = new Size(25, 17);
             label20.TabIndex = 41;
-            label20.Text = "ft.";
+            label20.Text = "cm";
             // 
             // label19
             // 
@@ -362,6 +362,7 @@
             // cmbCivilStatus
             // 
             cmbCivilStatus.FormattingEnabled = true;
+            cmbCivilStatus.Items.AddRange(new object[] { "Single", "", "Married", "", "Widowed", "", "Separated", "", "Annulled", "", "Divorced" });
             cmbCivilStatus.Location = new Point(102, 142);
             cmbCivilStatus.Name = "cmbCivilStatus";
             cmbCivilStatus.Size = new Size(142, 23);
@@ -640,6 +641,7 @@
             button8.TabIndex = 1;
             button8.Text = "Admitting";
             button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
             // 
             // btnPatient
             // 
@@ -687,6 +689,7 @@
             btnAdd.TabIndex = 13;
             btnAdd.Text = "Add Patient";
             btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // Patient
             // 

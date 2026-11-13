@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="Hospital2/HospitalPRAC.csproj" />
+  <Project Path="BusinessLogic/BusinessLogic.csproj" Id="323b74fb-ca08-43f5-a397-e4df727083fc" />
+  <Project Path="Hospital2/HospitalUI.csproj" />
+  <Project Path="HospitalDB/HospitalDB.sqlproj" Id="14ed5856-4c2c-4918-b3b6-36012a5748f1">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="Model/Model.csproj" Id="9e06bf02-02ec-4126-acc4-bb7ff4a168e6" />
 </Solution>

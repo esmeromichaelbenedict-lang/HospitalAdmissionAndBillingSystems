@@ -1,511 +1,313 @@
 ﻿using Hospital2.UI;
+using HospitalPRAC.BusinessLogic.Controller;
+using HospitalPRAC.Model;
 using HospitalPRAC.UI.AdminPatient;
-using Microsoft.Data.SqlClient;
-using System.Data;
-
+using System.ComponentModel;
 
 namespace HospitalPRAC.UI.AdminAdmitPatient
 {
     public partial class AdmitPatient : Form
     {
-        // SQL Server connection
-        private string connectionString =
-            @"Data Source=MIKEE-ESMERO\SQLEXPRESS;
-              Initial Catalog=UserModel;
-              Integrated Security=True;
-              TrustServerCertificate=True";
+        private readonly AdmissionController _controller = new AdmissionController();
 
-        // Temporary table for selected services
-        private DataTable serviceTable = new DataTable();
+        // The patient picked from the search results (null until the user double-clicks one).
+        private PatientRecord? _selectedPatient;
+
+        // Services chosen for this admission; the grid shows this list.
+        private readonly BindingList<ServiceItem> _selectedServices = new BindingList<ServiceItem>();
+
+        // True while dropdowns are being filled, so their change events are ignored.
+        private bool loading;
 
         public AdmitPatient()
         {
             InitializeComponent();
 
-            // Setup DataGridView
-            SetupServiceTable();
+            cmbRoomType.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRoom.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBed.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Load data from SQL Server
-            LoadDoctors();
-            LoadRooms();
-            LoadAdmissionTypes();
-            LoadServices();
+            SetupServiceGrid();
+            LoadLookups();
+            LoadRoomTypes();
+            LoadPatients();
+            ClearPatientLabels();
 
-            // Events
+            // Events (wired here, so do not also create them by double-clicking in the Designer)
+            btnSearch.Click += btnSearch_Click;
+            dgvPatientList.CellDoubleClick += dgvPatientList_CellDoubleClick;
             cmbService.SelectedIndexChanged += cmbService_SelectedIndexChanged;
             btnAddService.Click += btnAddService_Click;
+            cmbRoomType.SelectedIndexChanged += cmbRoomType_SelectedIndexChanged;
+            cmbRoom.SelectedIndexChanged += cmbRoom_SelectedIndexChanged;
         }
 
-
         // =====================================================
-        // SETUP DATAGRIDVIEW
+        // SETUP
         // =====================================================
 
-        private void SetupServiceTable()
+        private void SetupServiceGrid()
         {
-            serviceTable.Columns.Add("ServiceID", typeof(int));
-            serviceTable.Columns.Add("ServiceName", typeof(string));
-            serviceTable.Columns.Add("Price", typeof(decimal));
+            dgvServices.DataSource = _selectedServices;
 
-            dgvServices.DataSource = serviceTable;
+            dgvServices.Columns[nameof(ServiceItem.ServiceID)].Visible = false;
+            dgvServices.Columns[nameof(ServiceItem.ServiceName)].HeaderText = "Service";
+            dgvServices.Columns[nameof(ServiceItem.Price)].HeaderText = "Fee";
+            dgvServices.Columns[nameof(ServiceItem.Price)].DefaultCellStyle.Format = "₱#,##0.00";
 
-            // Hide ServiceID
-            dgvServices.Columns["ServiceID"].Visible = false;
-
-            // Column headers
-            dgvServices.Columns["ServiceName"].HeaderText = "Service";
-            dgvServices.Columns["Price"].HeaderText = "Fee";
-
-            // Currency format
-            dgvServices.Columns["Price"]
-                .DefaultCellStyle.Format = "₱#,##0.00";
-
-            // DataGridView settings
-            dgvServices.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-
+            dgvServices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvServices.AllowUserToAddRows = false;
             dgvServices.ReadOnly = true;
         }
 
-
-        // =====================================================
-        // LOAD DOCTORS
-        // =====================================================
-
-        private void LoadDoctors()
+        private void LoadLookups()
         {
             try
             {
-                using (SqlConnection con =
-                    new SqlConnection(connectionString))
-                {
-                    con.Open();
+                cmbDoctor.Items.Clear();
+                cmbDoctor.Items.AddRange(_controller.GetDoctors().ToArray());
 
-                    string query =
-                        "SELECT doctor_id, doctor_name, consultation_fee " +
-                        "FROM doctors " +
-                        "ORDER BY doctor_name";
+                cmbAdmissionType.Items.Clear();
+                cmbAdmissionType.Items.AddRange(_controller.GetAdmissionTypes().ToArray());
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
-                    {
-                        using (SqlDataReader reader =
-                            cmd.ExecuteReader())
-                        {
-                            cmbDoctor.Items.Clear();
-
-                            while (reader.Read())
-                            {
-                                DoctorItem doctor = new DoctorItem();
-
-                                doctor.DoctorID =
-                                    Convert.ToInt32(
-                                        reader["doctor_id"]);
-
-                                doctor.DoctorName =
-                                    reader["doctor_name"].ToString();
-
-                                doctor.ConsultationFee =
-                                    Convert.ToDecimal(
-                                        reader["consultation_fee"]);
-
-                                cmbDoctor.Items.Add(doctor);
-                            }
-                        }
-                    }
-                }
+                cmbService.Items.Clear();
+                cmbService.Items.AddRange(_controller.GetServices().ToArray());
 
                 cmbDoctor.SelectedIndex = -1;
+                cmbAdmissionType.SelectedIndex = -1;
+                cmbService.SelectedIndex = -1;
+                lblServiceFee.Text = "₱0.00";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error loading doctors:\n\n" +
-                    ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error loading data:\n\n" + ex.Message,
+                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void LoadRooms()
+        // =====================================================
+        // ROOM TYPE -> ROOM -> BED
+        // =====================================================
+
+        private void LoadRoomTypes()
         {
             try
             {
-                using (SqlConnection con =
-                    new SqlConnection(connectionString))
-                {
-                    con.Open();
+                loading = true;
+                cmbRoom.DataSource = null;
+                cmbBed.DataSource = null;
+                cmbRoomType.DataSource = _controller.GetRoomTypes();
+                cmbRoomType.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not load room types:\n\n" + ex.Message);
+            }
+            finally
+            {
+                loading = false;
+            }
+        }
 
-                    string query =
-                        "SELECT room_id, room_number, room_type, daily_rate " +
-                        "FROM rooms " +
-                        "ORDER BY room_number";
+        private void cmbRoomType_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (loading || cmbRoomType.SelectedItem is not string roomType) return;
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
-                    {
-                        using (SqlDataReader reader =
-                            cmd.ExecuteReader())
-                        {
-                            cmbRoom.Items.Clear();
-
-                            while (reader.Read())
-                            {
-                                RoomItem room = new RoomItem();
-
-                                room.RoomID =
-                                    Convert.ToInt32(
-                                        reader["room_id"]);
-
-                                room.RoomNumber =
-                                    reader["room_number"].ToString();
-
-                                room.RoomType =
-                                    reader["room_type"].ToString();
-
-                                room.DailyRate =
-                                    Convert.ToDecimal(
-                                        reader["daily_rate"]);
-
-                                cmbRoom.Items.Add(room);
-                            }
-                        }
-                    }
-                }
-
+            try
+            {
+                loading = true;
+                cmbBed.DataSource = null;
+                cmbRoom.DataSource = _controller.GetRooms(roomType);
+                cmbRoom.DisplayMember = nameof(RoomOption.RoomNumber);
+                cmbRoom.ValueMember = nameof(RoomOption.RoomID);
                 cmbRoom.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error loading rooms:\n\n" +
-                    ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Could not load rooms:\n\n" + ex.Message);
+            }
+            finally
+            {
+                loading = false;
             }
         }
 
-        private void LoadAdmissionTypes()
+        private void cmbRoom_SelectedIndexChanged(object? sender, EventArgs e)
         {
+            if (loading || cmbRoom.SelectedItem is not RoomOption room) return;
+
             try
             {
-                using (SqlConnection con =
-                    new SqlConnection(connectionString))
-                {
-                    con.Open();
-
-                    string query =
-                        "SELECT admission_type_id, admission_type_name " +
-                        "FROM admission_types " +
-                        "ORDER BY admission_type_id";
-
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
-                    {
-                        using (SqlDataReader reader =
-                            cmd.ExecuteReader())
-                        {
-                            cmbAdmissionType.Items.Clear();
-
-                            while (reader.Read())
-                            {
-                                AdmissionTypeItem type =
-                                    new AdmissionTypeItem();
-
-                                type.AdmissionTypeID =
-                                    Convert.ToInt32(
-                                        reader["admission_type_id"]);
-
-                                type.AdmissionTypeName =
-                                    reader["admission_type_name"]
-                                    .ToString();
-
-                                cmbAdmissionType.Items.Add(type);
-                            }
-                        }
-                    }
-                }
-
-                cmbAdmissionType.SelectedIndex = -1;
+                loading = true;
+                cmbBed.DataSource = _controller.GetBeds(room.RoomID);
+                cmbBed.DisplayMember = nameof(BedOption.BedNumber);
+                cmbBed.ValueMember = nameof(BedOption.BedID);
+                cmbBed.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error loading admission types:\n\n" +
-                    ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Could not load beds:\n\n" + ex.Message);
+            }
+            finally
+            {
+                loading = false;
             }
         }
 
-        private void LoadServices()
+        // =====================================================
+        // SEARCH PATIENT
+        // =====================================================
+
+        private void LoadPatients(string search = "")
         {
             try
             {
-                using (SqlConnection con =
-                    new SqlConnection(connectionString))
+                dgvPatientList.DataSource = _controller.SearchPatients(search);
+
+                dgvPatientList.ReadOnly = true;
+                dgvPatientList.AllowUserToAddRows = false;
+                dgvPatientList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvPatientList.MultiSelect = false;
+
+                // Show only the columns needed to pick the right patient.
+                string[] hidden =
                 {
-                    con.Open();
+                    nameof(PatientRecord.LastName), nameof(PatientRecord.FirstName),
+                    nameof(PatientRecord.MiddleName), nameof(PatientRecord.Suffix),
+                    nameof(PatientRecord.CivilStatus), nameof(PatientRecord.Address),
+                    nameof(PatientRecord.Weight), nameof(PatientRecord.Height),
+                    nameof(PatientRecord.CompanionName), nameof(PatientRecord.CompanionRelationship),
+                    nameof(PatientRecord.CompanionContact)
+                };
 
-                    string query =
-                        "SELECT ServiceID, ServiceName, Price " +
-                        "FROM Services " +
-                        "ORDER BY ServiceName";
-
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
-                    {
-                        using (SqlDataReader reader =
-                            cmd.ExecuteReader())
-                        {
-                            cmbService.Items.Clear();
-
-                            while (reader.Read())
-                            {
-                                ServiceItem service =
-                                    new ServiceItem();
-
-                                service.ServiceID =
-                                    Convert.ToInt32(
-                                        reader["ServiceID"]);
-
-                                service.ServiceName =
-                                    reader["ServiceName"].ToString();
-
-                                service.Price =
-                                    Convert.ToDecimal(
-                                        reader["Price"]);
-
-                                cmbService.Items.Add(service);
-                            }
-                        }
-                    }
+                foreach (string name in hidden)
+                {
+                    if (dgvPatientList.Columns.Contains(name))
+                        dgvPatientList.Columns[name].Visible = false;
                 }
-
-                cmbService.SelectedIndex = -1;
-
-                lblServiceFee.Text = "₱0.00";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error loading services:\n\n" +
-                    ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Could not load patients:\n\n" + ex.Message);
             }
         }
 
-        private void cmbService_SelectedIndexChanged(
-            object sender,
-            EventArgs e)
+        private void btnSearch_Click(object? sender, EventArgs e)
         {
-            if (cmbService.SelectedItem is ServiceItem service)
-            {
-                lblServiceFee.Text =
-                    "₱" + service.Price.ToString("N2");
-            }
-            else
-            {
-                lblServiceFee.Text = "₱0.00";
-            }
+            LoadPatients(txtSearch.Text.Trim());
         }
 
-        private void btnAddService_Click(object sender, EventArgs e)
+        // Double-click a row: copy that patient into the Personal Information labels.
+        private void dgvPatientList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if (cmbService.SelectedItem == null)
+            if (e.RowIndex < 0)
                 return;
 
-            ServiceItem service = (ServiceItem)cmbService.SelectedItem;
+            if (dgvPatientList.Rows[e.RowIndex].DataBoundItem is not PatientRecord patient)
+                return;
 
-            foreach (DataRow row in serviceTable.Rows)
+            _selectedPatient = patient;
+
+            lblFullName.Text = patient.FullName;
+            lblDateOfBirth.Text = patient.DateOfBirth.ToString("MMM dd, yyyy");
+            lblAge.Text = patient.Age.ToString();
+            lbl1.Text = patient.Sex;
+            lblCivilStatus.Text = patient.CivilStatus;
+            lblAddress.Text = patient.Address;
+            lblContactNumber.Text = patient.ContactNumber;
+        }
+
+        private void ClearPatientLabels()
+        {
+            _selectedPatient = null;
+
+            lblFullName.Text = string.Empty;
+            lblDateOfBirth.Text = string.Empty;
+            lblAge.Text = string.Empty;
+            lbl1.Text = string.Empty;
+            lblCivilStatus.Text = string.Empty;
+            lblAddress.Text = string.Empty;
+            lblContactNumber.Text = string.Empty;
+        }
+
+        // =====================================================
+        // SERVICES
+        // =====================================================
+
+        private void cmbService_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (cmbService.SelectedItem is ServiceItem service)
+                lblServiceFee.Text = "₱" + service.Price.ToString("N2");
+            else
+                lblServiceFee.Text = "₱0.00";
+        }
+
+        private void btnAddService_Click(object? sender, EventArgs e)
+        {
+            OperationResult result =
+                _controller.AddService(_selectedServices, cmbService.SelectedItem as ServiceItem);
+
+            if (!result.Success)
             {
-                if (Convert.ToInt32(row["ServiceID"]) == service.ServiceID)
-                {
-                    MessageBox.Show(
-                        "This service is already added.",
-                        "Duplicate Service",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
+                MessageBox.Show(result.Message, "Service",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-
-            serviceTable.Rows.Add(
-                service.ServiceID,
-                service.ServiceName,
-                service.Price
-            );
 
             cmbService.SelectedIndex = -1;
             lblServiceFee.Text = "₱0.00";
         }
 
-        private class DoctorItem
-        {
-            public int DoctorID { get; set; }
-
-            public string DoctorName { get; set; }
-
-            public decimal ConsultationFee { get; set; }
-
-            public override string ToString()
-            {
-                return DoctorName;
-            }
-        }
-
-        private class RoomItem
-        {
-            public int RoomID { get; set; }
-
-            public string RoomNumber { get; set; }
-
-            public string RoomType { get; set; }
-
-            public decimal DailyRate { get; set; }
-
-            public override string ToString()
-            {
-                return RoomNumber + " - " + RoomType;
-            }
-        }
-
-        private class AdmissionTypeItem
-        {
-            public int AdmissionTypeID { get; set; }
-
-            public string AdmissionTypeName { get; set; }
-
-            public override string ToString()
-            {
-                return AdmissionTypeName;
-            }
-        }
-
-
-
-        private class ServiceItem
-        {
-            public int ServiceID { get; set; }
-
-            public string ServiceName { get; set; }
-
-            public decimal Price { get; set; }
-
-            public override string ToString()
-            {
-                return ServiceName;
-            }
-        }
+        // =====================================================
+        // ADMIT
+        // =====================================================
 
         private void btnAdmitPatient_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            var request = new AdmissionRequest
             {
-                con.Open();
-                SqlTransaction tr = con.BeginTransaction();
+                PatientID = _selectedPatient?.PatientID ?? 0,
+                AdmissionDateTime = dtpAdmissionDateTime.Value,
+                Reason = txtReasonForAdmission.Text,
+                Doctor = cmbDoctor.SelectedItem as DoctorItem,
+                Room = cmbRoom.SelectedItem as RoomOption,
+                Bed = cmbBed.SelectedItem as BedOption,
+                AdmissionType = cmbAdmissionType.SelectedItem as AdmissionTypeItem,
+                Services = _selectedServices.ToList()
+            };
 
-                try
-                {
-                    string q1 = @"INSERT INTO Patient
-                (FullName, DateOfBirth, Sex, CivilStatus, Address, ContactNumber, Age)
-                VALUES (@name,@dob,@sex,@status,@address,@contact,@age);
-                SELECT SCOPE_IDENTITY();";
+            OperationResult result = _controller.AdmitPatient(request);
+            MessageBox.Show(result.Message);
 
-                    int patientID;
-
-                    using (SqlCommand cmd = new SqlCommand(q1, con, tr))
-                    {
-                        cmd.Parameters.AddWithValue("@name", txtFullName.Text);
-                        cmd.Parameters.AddWithValue("@dob", dtpDateOfBirth.Value.Date);
-                        cmd.Parameters.AddWithValue("@sex", cmbSex.Text);
-                        cmd.Parameters.AddWithValue("@status", cmbCivilStatus.Text);
-                        cmd.Parameters.AddWithValue("@address", txtAddress.Text);
-                        cmd.Parameters.AddWithValue("@contact", txtContactNumber.Text);
-                        cmd.Parameters.AddWithValue("@age", txtAge.Text);
-
-                        patientID = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
-
-                    DoctorItem doctor = (DoctorItem)cmbDoctor.SelectedItem;
-                    RoomItem room = (RoomItem)cmbRoom.SelectedItem;
-                    AdmissionTypeItem type =
-                        (AdmissionTypeItem)cmbAdmissionType.SelectedItem;
-
-                    string q2 = @"INSERT INTO admissions
-                (PatientID, admission_datetime, reason_for_admission,
-                 doctor_id, room_id, admission_type_id)
-                VALUES (@pid,@date,@reason,@doctor,@room,@type);
-                SELECT SCOPE_IDENTITY();";
-
-                    int admissionID;
-
-                    using (SqlCommand cmd = new SqlCommand(q2, con, tr))
-                    {
-                        cmd.Parameters.AddWithValue("@pid", patientID);
-                        cmd.Parameters.AddWithValue("@date", dtpAdmissionDateTime.Value);
-                        cmd.Parameters.AddWithValue("@reason", txtReasonForAdmission.Text);
-                        cmd.Parameters.AddWithValue("@doctor", doctor.DoctorID);
-                        cmd.Parameters.AddWithValue("@room", room.RoomID);
-                        cmd.Parameters.AddWithValue("@type", type.AdmissionTypeID);
-
-                        admissionID = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
-
-                    foreach (DataRow row in serviceTable.Rows)
-                    {
-                        string q3 = @"INSERT INTO admission_services
-                    (admission_id, ServiceID, Price)
-                    VALUES (@aid,@sid,@price)";
-
-                        using (SqlCommand cmd = new SqlCommand(q3, con, tr))
-                        {
-                            cmd.Parameters.AddWithValue("@aid", admissionID);
-                            cmd.Parameters.AddWithValue("@sid", row["ServiceID"]);
-                            cmd.Parameters.AddWithValue("@price", row["Price"]);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    tr.Commit();
-
-                    txtFullName.Clear();
-                    txtAge.Clear();
-                    txtAddress.Clear();
-                    txtContactNumber.Clear();
-                    txtReasonForAdmission.Clear();
-
-                    cmbSex.SelectedIndex = -1;
-                    cmbCivilStatus.SelectedIndex = -1;
-                    cmbDoctor.SelectedIndex = -1;
-                    cmbRoom.SelectedIndex = -1;
-                    cmbAdmissionType.SelectedIndex = -1;
-                    cmbService.SelectedIndex = -1;
-
-                    dtpDateOfBirth.Value = DateTime.Today;
-                    dtpAdmissionDateTime.Value = DateTime.Now;
-
-                    lblServiceFee.Text = "₱0.00";
-
-                    serviceTable.Rows.Clear();
-
-                    MessageBox.Show("Patient admitted successfully!");
-                }
-                catch (Exception ex)
-                {
-                    tr.Rollback();
-                    MessageBox.Show(ex.Message);
-                }
-
+            if (result.Success)
+            {
+                ClearAdmissionForm();
             }
         }
+
+        private void ClearAdmissionForm()
+        {
+            ClearPatientLabels();
+
+            txtReasonForAdmission.Clear();
+            cmbDoctor.SelectedIndex = -1;
+            cmbAdmissionType.SelectedIndex = -1;
+            cmbService.SelectedIndex = -1;
+
+            // Reload the room chain so the bed that was just taken no longer shows up.
+            LoadRoomTypes();
+
+            dtpAdmissionDateTime.Value = DateTime.Now;
+            lblServiceFee.Text = "₱0.00";
+
+            _selectedServices.Clear();
+
+            dgvPatientList.ClearSelection();
+        }
+
+        // =====================================================
+        // NAVIGATION
+        // =====================================================
 
         private void btnPatient_Click(object sender, EventArgs e)
         {

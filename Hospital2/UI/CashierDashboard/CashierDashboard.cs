@@ -1,15 +1,14 @@
 ﻿using HospitalPRAC;
-using Microsoft.Data.SqlClient;
+using HospitalPRAC.BusinessLogic.Controller;
+using HospitalPRAC.Model;
 using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace Hospital2.UI.CashierDashboard
 {
     public partial class CashierDashboard : Form
     {
-        private const string ConnStr =
-            @"Data Source=MIKEE-ESMERO\SQLEXPRESS;Initial Catalog=UserModel;Integrated Security=True;TrustServerCertificate=True;";
+        private readonly CashierController _controller = new CashierController();
 
         // ID ng napiling patient (-1 = wala pang napipili)
         private int selectedPatientId = -1;
@@ -47,7 +46,7 @@ namespace Hospital2.UI.CashierDashboard
         // ---------------------------------------------------------
         // 1. PAG-OPEN NG FORM: ilabas agad lahat ng patients
         // ---------------------------------------------------------
-        private void CashierDashboard_Load(object sender, EventArgs e)
+        private void CashierDashboard_Load(object? sender, EventArgs e)
         {
             LoadPatients("");
             ClearDetails();
@@ -68,7 +67,7 @@ namespace Hospital2.UI.CashierDashboard
         // ---------------------------------------------------------
         // 2. SEARCH
         // ---------------------------------------------------------
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object? sender, EventArgs e)
         {
             string kw = txtSearch.Text.Trim();
             LoadPatients(kw);
@@ -80,7 +79,7 @@ namespace Hospital2.UI.CashierDashboard
         }
 
         // Enter key sa textbox
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        private void txtSearch_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -92,34 +91,9 @@ namespace Hospital2.UI.CashierDashboard
         // Walang laman ang keyword = lahat ng patients
         private void LoadPatients(string keyword)
         {
-            const string sql = @"
-                SELECT PatientID, LastName, FirstName, MiddleName, Suffix,
-                       DateOfBirth, Age, Sex, Address, ContactNumber
-                FROM Patient
-                WHERE @kw = ''
-                   OR CAST(PatientID AS NVARCHAR(20)) LIKE @like
-                   OR LastName      LIKE @like
-                   OR FirstName     LIKE @like
-                   OR FullName      LIKE @like
-                   OR (LastName + ', ' + FirstName) LIKE @like
-                   OR ContactNumber LIKE @like
-                ORDER BY PatientID";
-
             try
             {
-                var dt = new DataTable();
-                using (var conn = new SqlConnection(ConnStr))
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@kw", keyword);
-                    cmd.Parameters.AddWithValue("@like", "%" + keyword + "%");
-                    using (var da = new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(dt);
-                    }
-                }
-
-                dgvPatients.DataSource = dt;
+                dgvPatients.DataSource = _controller.SearchPatients(keyword);
                 FormatGridColumns();
                 dgvPatients.ClearSelection();
             }
@@ -137,21 +111,35 @@ namespace Hospital2.UI.CashierDashboard
             dgvPatients.CurrentCell = null; // para hindi mag-error sa pag-hide ng column
 
             // Itago ang mga hindi kailangan sa list (lalabas sila sa details sa baba)
-            foreach (string hidden in new[] { "Suffix", "Age", "Sex", "Address" })
-                if (dgvPatients.Columns.Contains(hidden))
-                    dgvPatients.Columns[hidden].Visible = false;
+            string[] hidden =
+            {
+                nameof(PatientRecord.FullName), nameof(PatientRecord.Suffix),
+                nameof(PatientRecord.Age), nameof(PatientRecord.Sex),
+                nameof(PatientRecord.Address), nameof(PatientRecord.CivilStatus),
+                nameof(PatientRecord.Weight), nameof(PatientRecord.Height),
+                nameof(PatientRecord.CompanionName), nameof(PatientRecord.CompanionRelationship),
+                nameof(PatientRecord.CompanionContact)
+            };
 
-            dgvPatients.Columns["PatientID"].HeaderText = "Patient ID";
-            dgvPatients.Columns["LastName"].HeaderText = "Last Name";
-            dgvPatients.Columns["FirstName"].HeaderText = "First Name";
-            dgvPatients.Columns["MiddleName"].HeaderText = "Middle Name";
-            dgvPatients.Columns["DateOfBirth"].HeaderText = "Birthdate";
-            dgvPatients.Columns["DateOfBirth"].DefaultCellStyle.Format = "MMM dd, yyyy";
-            dgvPatients.Columns["ContactNumber"].HeaderText = "Contact No.";
+            foreach (string name in hidden)
+                if (dgvPatients.Columns.Contains(name))
+                    dgvPatients.Columns[name].Visible = false;
+
+            dgvPatients.Columns[nameof(PatientRecord.PatientID)].HeaderText = "Patient ID";
+            dgvPatients.Columns[nameof(PatientRecord.LastName)].HeaderText = "Last Name";
+            dgvPatients.Columns[nameof(PatientRecord.FirstName)].HeaderText = "First Name";
+            dgvPatients.Columns[nameof(PatientRecord.MiddleName)].HeaderText = "Middle Name";
+            dgvPatients.Columns[nameof(PatientRecord.DateOfBirth)].HeaderText = "Birthdate";
+            dgvPatients.Columns[nameof(PatientRecord.DateOfBirth)].DefaultCellStyle.Format = "MMM dd, yyyy";
+            dgvPatients.Columns[nameof(PatientRecord.ContactNumber)].HeaderText = "Contact No.";
 
             // Ayusin ang pagkakasunod-sunod ng columns
-            string[] order = { "PatientID", "LastName", "FirstName", "MiddleName",
-                               "DateOfBirth", "ContactNumber" };
+            string[] order =
+            {
+                nameof(PatientRecord.PatientID), nameof(PatientRecord.LastName),
+                nameof(PatientRecord.FirstName), nameof(PatientRecord.MiddleName),
+                nameof(PatientRecord.DateOfBirth), nameof(PatientRecord.ContactNumber)
+            };
             for (int i = 0; i < order.Length; i++)
                 dgvPatients.Columns[order[i]].DisplayIndex = i;
         }
@@ -159,132 +147,46 @@ namespace Hospital2.UI.CashierDashboard
         // ---------------------------------------------------------
         // 3. PAG PINILI ANG ROW -> PUNUIN ANG DETAILS
         // ---------------------------------------------------------
-        private void dgvPatients_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvPatients_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // header click
 
-            var drv = dgvPatients.Rows[e.RowIndex].DataBoundItem as DataRowView;
-            if (drv == null) return;
+            if (dgvPatients.Rows[e.RowIndex].DataBoundItem is not PatientRecord patient) return;
 
-            ShowDetails(drv.Row);
+            ShowDetails(patient);
         }
 
-        private void ShowDetails(DataRow row)
+        private void ShowDetails(PatientRecord patient)
         {
-            selectedPatientId = Convert.ToInt32(row["PatientID"]);
-
-            // --- Patient Information ---
-            string suffix = Val(row, "Suffix");
-            lblLastName.Text = Val(row, "LastName") + (suffix != "" ? " " + suffix : "");
-            lblFirstName.Text = Val(row, "FirstName");
-
-            string mid = Val(row, "MiddleName");
-            lblMI.Text = mid.Length > 0 ? mid.Substring(0, 1) + "." : "";
-
-            if (row["DateOfBirth"] != DBNull.Value)
-            {
-                DateTime dob = Convert.ToDateTime(row["DateOfBirth"]);
-                lblBirthdate.Text = dob.ToString("MMM dd, yyyy");
-                lblAge.Text = ComputeAge(dob).ToString();
-            }
-            else
-            {
-                lblBirthdate.Text = "";
-                lblAge.Text = Val(row, "Age"); // gamitin ang naka-save na Age
-            }
-
-            lblSex.Text = Val(row, "Sex");
-            lblAddress.Text = Val(row, "Address");
-            lblContactNo.Text = Val(row, "ContactNumber");
-
-            // --- Accompanying person at Bed Information ---
-            LoadCompanion(selectedPatientId);
-            LoadAdmission(selectedPatientId);
-        }
-
-        // Companion table -> Accompanying person
-        private void LoadCompanion(int patientId)
-        {
-            lblAccName.Text = "";
-            lblAccRelationship.Text = "";
-            lblAccContact.Text = "";
-
-            const string sql = @"
-                SELECT TOP 1 FullName, Relationship, ContactNumber
-                FROM Companion
-                WHERE PatientID = @id
-                ORDER BY CompanionID";
+            selectedPatientId = patient.PatientID;
 
             try
             {
-                using (var conn = new SqlConnection(ConnStr))
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", patientId);
-                    conn.Open();
-                    using (var r = cmd.ExecuteReader())
-                    {
-                        if (r.Read())
-                        {
-                            lblAccName.Text = r["FullName"].ToString();
-                            lblAccRelationship.Text = r["Relationship"].ToString();
-                            lblAccContact.Text = r["ContactNumber"].ToString();
-                        }
-                    }
-                }
+                PatientDetails d = _controller.GetDetails(patient);
+
+                // --- Patient Information ---
+                lblLastName.Text = d.LastName;
+                lblFirstName.Text = d.FirstName;
+                lblMI.Text = d.MiddleInitial;
+                lblBirthdate.Text = d.Birthdate;
+                lblAge.Text = d.Age;
+                lblSex.Text = d.Sex;
+                lblAddress.Text = d.Address;
+                lblContactNo.Text = d.ContactNo;
+
+                // --- Accompanying person ---
+                lblAccName.Text = d.AccName;
+                lblAccRelationship.Text = d.AccRelationship;
+                lblAccContact.Text = d.AccContact;
+
+                // --- Bed Information ---
+                lblRoomNo.Text = d.RoomNo;
+                lblBedNo.Text = d.BedNo;
+                lblAdmissionDate.Text = d.AdmissionDate;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng accompanying person:\n" + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // admissions + rooms + Beds -> Bed Information (pinakabagong admission)
-        private void LoadAdmission(int patientId)
-        {
-            lblRoomNo.Text = "N/A";
-            lblBedNo.Text = "N/A";
-            lblAdmissionDate.Text = "N/A";
-
-            const string sql = @"
-                SELECT TOP 1
-                       r.room_number,
-                       b.bed_number,
-                       ISNULL(a.admission_date, a.admission_datetime) AS AdmitDate
-                FROM admissions a
-                LEFT JOIN rooms r ON r.room_id = a.room_id
-                LEFT JOIN Beds  b ON b.bed_id  = a.bed_id
-                WHERE a.PatientID = @id
-                ORDER BY a.admission_datetime DESC, a.admission_id DESC";
-
-            try
-            {
-                using (var conn = new SqlConnection(ConnStr))
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", patientId);
-                    conn.Open();
-                    using (var r = cmd.ExecuteReader())
-                    {
-                        if (r.Read())
-                        {
-                            lblRoomNo.Text = r["room_number"] == DBNull.Value
-                                ? "N/A" : r["room_number"].ToString();
-
-                            lblBedNo.Text = r["bed_number"] == DBNull.Value
-                                ? "N/A" : r["bed_number"].ToString();
-
-                            lblAdmissionDate.Text = r["AdmitDate"] == DBNull.Value
-                                ? "N/A"
-                                : Convert.ToDateTime(r["AdmitDate"]).ToString("MMM dd, yyyy");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error sa pag-load ng bed information:\n" + ex.Message,
+                MessageBox.Show("Error sa pag-load ng details ng patient:\n" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -292,7 +194,7 @@ namespace Hospital2.UI.CashierDashboard
         // ---------------------------------------------------------
         // 4. VIEW BUTTON
         // ---------------------------------------------------------
-        private void btnView_Click(object sender, EventArgs e)
+        private void btnView_Click(object? sender, EventArgs e)
         {
             if (selectedPatientId < 0)
             {
@@ -333,20 +235,6 @@ namespace Hospital2.UI.CashierDashboard
             lblRoomNo.Text = "";
             lblBedNo.Text = "";
             lblAdmissionDate.Text = "";
-        }
-
-        // Ligtas na pagkuha ng text (walang error kapag NULL)
-        private static string Val(DataRow row, string col)
-        {
-            return row[col] == DBNull.Value ? "" : row[col].ToString().Trim();
-        }
-
-        private static int ComputeAge(DateTime birthdate)
-        {
-            DateTime today = DateTime.Today;
-            int age = today.Year - birthdate.Year;
-            if (birthdate.Date > today.AddYears(-age)) age--;
-            return age;
         }
     }
 }

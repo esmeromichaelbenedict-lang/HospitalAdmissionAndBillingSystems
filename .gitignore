@@ -8,3 +8,15 @@
 /HospitalDB/bin/Debug
 /HospitalDB/obj/Debug
 /Hospital2/HospitalPRAC.csproj.user
+/BusinessLogic/bin/Debug/net10.0
+/BusinessLogic/obj
+/Hospital2/bin/Debug/net10.0-windows
+
+# All build output and user files
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+
+*.dbmdl
+*.jfm

@@ -1,35 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+using HospitalPRAC.BusinessLogic.Controller;
+using HospitalPRAC.Model;
 
 // PAALALA: dapat TUMUGMA ang namespace at class name sa Payment.Designer.cs
 namespace HospitalPRAC
 {
     public partial class Payment : Form
     {
-        private const string ConnStr =
-            @"Data Source=MIKEE-ESMERO\SQLEXPRESS;Initial Catalog=UserModel;Integrated Security=True;TrustServerCertificate=True;";
-
-        private const string TypeDownpayment = "Downpayment";
-        private const string TypePayment = "Payment";
+        private readonly BillingController _controller = new BillingController();
 
         private readonly int patientId;
-        private int admissionId = -1;
-        private decimal totalBill = 0m;
-        private decimal paid = 0m;
-        private bool busy = false;                  // iwas double-click sa Pay button
+        private BillSummary _bill = new BillSummary();   // ang kasalukuyang bill (kasama ang mga dating room)
+        private bool busy = false;                       // iwas double-click sa Pay button
 
-        private DataTable charges;
-        private DataTable paymentRows;
         private readonly Dictionary<string, string> info = new Dictionary<string, string>();
 
-        private DataGridView grid;
-        private Button btnPayControl;
-        private Font balanceFont;
+        private DataGridView grid = null!;
+        private Button? btnPayControl;
+        private Font balanceFont = null!;
 
         // Mga detalye ng pinakahuling bayad (para sa receipt)
         private decimal lastPaidNow = 0m;
@@ -47,6 +39,11 @@ namespace HospitalPRAC
             public bool Center;
             public bool Rule;       // linya lang
         }
+
+        // Kinukuha sa bill ang mga ito
+        private int admissionId => _bill.AdmissionId;
+        private decimal totalBill => _bill.TotalBill;
+        private decimal paid => _bill.Paid;
 
         // Para hindi mag-error ang Designer
         public Payment() : this(-1)
@@ -104,15 +101,14 @@ namespace HospitalPRAC
             }
         }
 
-        private T FindByName<T>(params string[] names) where T : Control
+        private T? FindByName<T>(params string[] names) where T : Control
         {
             foreach (string n in names)
             {
                 Control[] found = Controls.Find(n, true);
                 foreach (Control c in found)
                 {
-                    T typed = c as T;
-                    if (typed != null) return typed;
+                    if (c is T typed) return typed;
                 }
             }
             return null;
@@ -120,13 +116,12 @@ namespace HospitalPRAC
 
         private DataGridView FindOrCreateGrid()
         {
-            DataGridView g = FindByName<DataGridView>("dgvBreakdown", "dgvPayment", "dgvBills", "dgvPaymentBreakdown");
+            DataGridView? g = FindByName<DataGridView>("dgvBreakdown", "dgvPayment", "dgvBills", "dgvPaymentBreakdown");
             if (g != null) return g;
 
             foreach (Control c in AllControls(this))
             {
-                g = c as DataGridView;
-                if (g != null) return g;
+                if (c is DataGridView found) return found;
             }
 
             // Walang grid sa Designer: gumawa sa lugar ng kulay-abong kahon
@@ -161,12 +156,11 @@ namespace HospitalPRAC
         private void WireButtons()
         {
             // Back button
-            Button back = FindByName<Button>("btnBack", "btnBackPayment");
+            Button? back = FindByName<Button>("btnBack", "btnBackPayment");
             if (back == null)
                 foreach (Control c in AllControls(this))
                 {
-                    Button b = c as Button;
-                    if (b != null && b.Text.Trim().Equals("Back", StringComparison.OrdinalIgnoreCase))
+                    if (c is Button b && b.Text.Trim().Equals("Back", StringComparison.OrdinalIgnoreCase))
                     { back = b; break; }
                 }
             if (back != null)
@@ -180,8 +174,7 @@ namespace HospitalPRAC
             if (btnPayControl == null)
                 foreach (Control c in AllControls(this))
                 {
-                    Button b = c as Button;
-                    if (b != null && b != back && b.Text.IndexOf("Pay", StringComparison.OrdinalIgnoreCase) >= 0)
+                    if (c is Button b && b != back && b.Text.IndexOf("Pay", StringComparison.OrdinalIgnoreCase) >= 0)
                     { btnPayControl = b; break; }
                 }
             if (btnPayControl != null)
@@ -194,25 +187,23 @@ namespace HospitalPRAC
         // Ilalagay ang value sa label sa tabi ng caption (hal. "Last Name:")
         private void SetField(string value, string caption, params string[] names)
         {
-            Label target = FindByName<Label>(names);
+            Label? target = FindByName<Label>(names);
 
             if (target == null)
             {
-                Label cap = null;
+                Label? cap = null;
                 foreach (Control c in AllControls(this))
                 {
-                    Label l = c as Label;
-                    if (l != null && l.Text.Trim().Equals(caption, StringComparison.OrdinalIgnoreCase))
+                    if (c is Label l && l.Text.Trim().Equals(caption, StringComparison.OrdinalIgnoreCase))
                     { cap = l; break; }
                 }
 
-                if (cap != null)
+                if (cap != null && cap.Parent != null)
                 {
                     int bestLeft = int.MaxValue;
                     foreach (Control c in cap.Parent.Controls)
                     {
-                        Label l = c as Label;
-                        if (l == null || l == cap) continue;
+                        if (c is not Label l || l == cap) continue;
                         if (l.Text.Trim().EndsWith(":")) continue;           // caption ito, hindi value
                         if (Math.Abs(l.Top - cap.Top) > 12) continue;       // dapat nasa parehong row
                         if (l.Left <= cap.Left) continue;                   // dapat nasa kanan
@@ -246,206 +237,44 @@ namespace HospitalPRAC
 
         private string Get(string key)
         {
-            string v;
-            return info.TryGetValue(key, out v) ? v : "";
+            return info.TryGetValue(key, out string? v) ? v : "";
         }
 
         // ---------------------------------------------------------
-        // 3. PAG-LOAD NG DATA MULA SA DATABASE
+        // 3. PAG-LOAD NG DATA (galing sa BillingController)
         // ---------------------------------------------------------
         private bool LoadAll()
         {
             info.Clear();
-            charges = NewBillTable();
-            paymentRows = NewBillTable();
-            totalBill = 0m;
-            paid = 0m;
-            admissionId = -1;
-
-            const string sqlPatient = @"
-                SELECT LastName, FirstName, MiddleName, Suffix, DateOfBirth, Age,
-                       Sex, Address, ContactNumber
-                FROM Patient
-                WHERE PatientID = @id";
-
-            const string sqlAdmission = @"
-                SELECT TOP 1
-                       a.admission_id,
-                       ISNULL(a.admission_date, a.admission_datetime) AS AdmitDate,
-                       d.doctor_name,
-                       d.consultation_fee,
-                       t.admission_type_name,
-                       r.room_number,
-                       b.bed_number,
-                       ISNULL(b.daily_rate, r.daily_rate) AS DailyRate
-                FROM admissions a
-                LEFT JOIN doctors d          ON d.doctor_id = a.doctor_id
-                LEFT JOIN admission_types t  ON t.admission_type_id = a.admission_type_id
-                LEFT JOIN rooms r            ON r.room_id = a.room_id
-                LEFT JOIN Beds  b            ON b.bed_id  = a.bed_id
-                WHERE a.PatientID = @id
-                ORDER BY a.admission_datetime DESC, a.admission_id DESC";
-
-            const string sqlServices = @"
-                SELECT s.ServiceName, x.price
-                FROM admission_services x
-                LEFT JOIN Services s ON s.ServiceID = x.ServiceID
-                WHERE x.admission_id = @aid
-                ORDER BY x.admission_service_id";
-
-            const string sqlPayments = @"
-                SELECT payment_type, amount, payment_datetime
-                FROM payments
-                WHERE admission_id = @aid
-                ORDER BY payment_datetime, payment_id";
 
             try
             {
-                using (var conn = new SqlConnection(ConnStr))
+                PatientDetails? d = _controller.GetPatientDetails(patientId);
+                _bill = _controller.GetBill(patientId);
+
+                if (d != null)
                 {
-                    conn.Open();
+                    info["LastName"] = d.LastName;
+                    info["FirstName"] = d.FirstName;
+                    info["MI"] = d.MiddleInitial;
+                    info["Birthdate"] = d.Birthdate;
+                    info["Age"] = d.Age;
+                    info["Sex"] = d.Sex;
+                    info["Address"] = d.Address;
+                    info["Contact"] = d.ContactNo;
+                }
 
-                    // --- Patient ---
-                    using (var cmd = new SqlCommand(sqlPatient, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", patientId);
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            if (r.Read())
-                            {
-                                string suffix = Str(r, "Suffix");
-                                info["LastName"] = Str(r, "LastName") + (suffix != "" ? " " + suffix : "");
-                                info["FirstName"] = Str(r, "FirstName");
+                info["AdmissionId"] = _bill.HasAdmission ? _bill.AdmissionId.ToString() : "N/A";
+                info["AdmissionDate"] = _bill.AdmissionDate;
+                info["Doctor"] = _bill.Doctor;
+                info["AdmissionType"] = _bill.AdmissionType;
+                info["Room"] = _bill.RoomNo;
+                info["Bed"] = _bill.BedNo;
 
-                                string mid = Str(r, "MiddleName");
-                                info["MI"] = mid.Length > 0 ? mid.Substring(0, 1) + "." : "";
-
-                                if (r["DateOfBirth"] != DBNull.Value)
-                                {
-                                    DateTime dob = Convert.ToDateTime(r["DateOfBirth"]);
-                                    info["Birthdate"] = dob.ToString("MMM dd, yyyy");
-                                    info["Age"] = ComputeAge(dob).ToString();
-                                }
-                                else
-                                {
-                                    info["Birthdate"] = "";
-                                    info["Age"] = Str(r, "Age");
-                                }
-
-                                info["Sex"] = Str(r, "Sex");
-                                info["Address"] = Str(r, "Address");
-                                info["Contact"] = Str(r, "ContactNumber");
-                            }
-                        }
-                    }
-
-                    // --- Admission ---
-                    DateTime admitDate = DateTime.Today;
-                    string doctor = "";
-                    decimal fee = 0m;
-                    decimal rate = 0m;
-                    string room = "";
-                    string bed = "";
-
-                    using (var cmd = new SqlCommand(sqlAdmission, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", patientId);
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            if (r.Read())
-                            {
-                                admissionId = Convert.ToInt32(r["admission_id"]);
-
-                                if (r["AdmitDate"] != DBNull.Value)
-                                    admitDate = Convert.ToDateTime(r["AdmitDate"]);
-
-                                doctor = Str(r, "doctor_name");
-                                fee = r["consultation_fee"] == DBNull.Value
-                                    ? 0m : Convert.ToDecimal(r["consultation_fee"]);
-                                room = Str(r, "room_number");
-                                bed = Str(r, "bed_number");
-                                rate = r["DailyRate"] == DBNull.Value
-                                    ? 0m : Convert.ToDecimal(r["DailyRate"]);
-
-                                string type = Str(r, "admission_type_name");
-
-                                info["AdmissionId"] = admissionId.ToString();
-                                info["AdmissionDate"] = admitDate.ToString("MMM dd, yyyy");
-                                info["Doctor"] = doctor != "" ? doctor : "N/A";
-                                info["AdmissionType"] = type != "" ? type : "N/A";
-                                info["Room"] = room != "" ? room : "N/A";
-                                info["Bed"] = bed != "" ? bed : "N/A";
-                            }
-                        }
-                    }
-
-                    if (admissionId < 0)
-                    {
-                        info["AdmissionId"] = "N/A";
-                        info["AdmissionDate"] = "N/A";
-                        info["Doctor"] = "N/A";
-                        info["AdmissionType"] = "N/A";
-                        info["Room"] = "N/A";
-                        info["Bed"] = "N/A";
-                        return true;
-                    }
-
-                    // --- Mga singil (pareho ng Billing form) ---
-                    int days = Math.Max(1, (DateTime.Today - admitDate.Date).Days);
-                    if (rate > 0)
-                    {
-                        decimal roomCharge = days * rate;
-                        charges.Rows.Add("Room & Bed",
-                            "Room " + room + ", Bed " + bed + " - " + days + " day(s) x " + Money(rate),
-                            roomCharge);
-                        totalBill += roomCharge;
-                    }
-
-                    if (fee > 0)
-                    {
-                        charges.Rows.Add("Consultation", doctor != "" ? doctor : "Attending doctor", fee);
-                        totalBill += fee;
-                    }
-
-                    using (var cmd = new SqlCommand(sqlServices, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@aid", admissionId);
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            while (r.Read())
-                            {
-                                decimal price = r["price"] == DBNull.Value
-                                    ? 0m : Convert.ToDecimal(r["price"]);
-                                string name = Str(r, "ServiceName");
-                                charges.Rows.Add("Service", name != "" ? name : "(unknown service)", price);
-                                totalBill += price;
-                            }
-                        }
-                    }
-
-                    // --- Mga bayad na ---
-                    using (var cmd = new SqlCommand(sqlPayments, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@aid", admissionId);
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            while (r.Read())
-                            {
-                                decimal amt = r["amount"] == DBNull.Value
-                                    ? 0m : Convert.ToDecimal(r["amount"]);
-
-                                string label = IsDownpayment(Str(r, "payment_type"))
-                                    ? TypeDownpayment : TypePayment;
-
-                                string when = r["payment_datetime"] == DBNull.Value
-                                    ? "" : Convert.ToDateTime(r["payment_datetime"])
-                                             .ToString("MMM dd, yyyy h:mm tt");
-
-                                paid += amt;
-                                paymentRows.Rows.Add(label, when, -amt);
-                            }
-                        }
-                    }
+                if (!string.IsNullOrEmpty(_bill.PaymentsWarning))
+                {
+                    MessageBox.Show(_bill.PaymentsWarning, "Payments",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 return true;
@@ -461,18 +290,16 @@ namespace HospitalPRAC
         // ---------------------------------------------------------
         // 4. GRID (PAYMENT BREAKDOWN)
         // ---------------------------------------------------------
+        // Mga singil (dating room muna) + Total Bill + mga bayad (negatibo) + Balance
         private void BindGrid()
         {
-            DataTable view = charges.Copy();
+            var view = new List<BillLine>(_bill.Charges);
 
-            if (admissionId >= 0)
+            if (_bill.HasAdmission)
             {
-                view.Rows.Add("Total Bill", "", totalBill);
-
-                foreach (DataRow row in paymentRows.Rows)
-                    view.ImportRow(row);
-
-                view.Rows.Add("Balance", "Remaining balance", Math.Max(0m, totalBill - paid));
+                view.Add(new BillLine("Total Bill", "", totalBill));
+                view.AddRange(_bill.PaymentLines);
+                view.Add(new BillLine(BillingController.ItemBalance, "Remaining balance", Math.Max(0m, totalBill - paid)));
             }
 
             grid.DataSource = null;
@@ -480,14 +307,14 @@ namespace HospitalPRAC
             grid.AutoGenerateColumns = true;
             grid.DataSource = view;
 
-            if (grid.Columns.Contains("Amount"))
+            if (grid.Columns.Contains(nameof(BillLine.Amount)))
             {
-                grid.Columns["Amount"].DefaultCellStyle.Format = "N2";
-                grid.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                grid.Columns["Amount"].FillWeight = 25;
+                grid.Columns[nameof(BillLine.Amount)].DefaultCellStyle.Format = "N2";
+                grid.Columns[nameof(BillLine.Amount)].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                grid.Columns[nameof(BillLine.Amount)].FillWeight = 25;
             }
-            if (grid.Columns.Contains("Item")) grid.Columns["Item"].FillWeight = 25;
-            if (grid.Columns.Contains("Details")) grid.Columns["Details"].FillWeight = 50;
+            if (grid.Columns.Contains(nameof(BillLine.Item))) grid.Columns[nameof(BillLine.Item)].FillWeight = 25;
+            if (grid.Columns.Contains(nameof(BillLine.Details))) grid.Columns[nameof(BillLine.Details)].FillWeight = 50;
 
             foreach (DataGridViewColumn col in grid.Columns)
                 col.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -495,31 +322,28 @@ namespace HospitalPRAC
             grid.ClearSelection();
         }
 
-        private void Grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void Grid_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= grid.Rows.Count) return;
 
-            var drv = grid.Rows[e.RowIndex].DataBoundItem as DataRowView;
-            if (drv == null) return;
+            if (grid.Rows[e.RowIndex].DataBoundItem is not BillLine line) return;
 
-            string item = drv["Item"] as string ?? "";
-
-            if (item == TypeDownpayment || item == TypePayment)
+            if (line.Item == BillingController.TypeDownpayment || line.Item == BillingController.TypePayment)
                 e.CellStyle.ForeColor = Color.Green;
-            else if (item == "Balance" || item == "Total Bill")
+            else if (line.Item == BillingController.ItemBalance || line.Item == "Total Bill")
                 e.CellStyle.Font = balanceFont;
         }
 
         // ---------------------------------------------------------
         // 5. BUTTONS
         // ---------------------------------------------------------
-        private void BtnBack_Click(object sender, EventArgs e)
+        private void BtnBack_Click(object? sender, EventArgs e)
         {
             Close();
         }
 
         // Pay (kung may balance pa) at i-print ang receipt
-        private void BtnPay_Click(object sender, EventArgs e)
+        private void BtnPay_Click(object? sender, EventArgs e)
         {
             if (busy) return;
             busy = true;
@@ -575,73 +399,31 @@ namespace HospitalPRAC
                 "Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
-            // Transaction: ulit na tsek ng balance bago mag-save (iwas sobra ang bayad)
-            bool saved = false;
-            bool tooMuch = false;
-            DateTime now = DateTime.Now;
+            // Ang controller ang nag-save (may ulit na tsek ng balance sa loob ng transaction)
+            PayResult result = _controller.PayRemaining(_bill, DateTime.Now);
 
-            try
+            if (result.BalanceChanged)
             {
-                using (var conn = new SqlConnection(ConnStr))
-                {
-                    conn.Open();
-                    using (var tx = conn.BeginTransaction(IsolationLevel.Serializable))
-                    {
-                        decimal alreadyPaid;
-                        using (var cmd = new SqlCommand(
-                            "SELECT ISNULL(SUM(amount), 0) FROM payments WITH (UPDLOCK, HOLDLOCK) WHERE admission_id = @aid",
-                            conn, tx))
-                        {
-                            cmd.Parameters.AddWithValue("@aid", admissionId);
-                            alreadyPaid = Convert.ToDecimal(cmd.ExecuteScalar());
-                        }
-
-                        if (Math.Round(totalBill - alreadyPaid, 2) < remaining)
-                        {
-                            tooMuch = true;   // may ibang nag-save na; wala pang na-insert
-                        }
-                        else
-                        {
-                            using (var cmd = new SqlCommand(
-                                "INSERT INTO payments (admission_id, payment_type, amount, payment_datetime) " +
-                                "VALUES (@aid, @type, @amt, @dt)", conn, tx))
-                            {
-                                cmd.Parameters.AddWithValue("@aid", admissionId);
-                                cmd.Parameters.AddWithValue("@type", TypePayment);
-                                cmd.Parameters.AddWithValue("@amt", remaining);
-                                cmd.Parameters.AddWithValue("@dt", now);
-                                cmd.ExecuteNonQuery();
-                            }
-                            tx.Commit();
-                            saved = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hindi na-save ang payment:\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (tooMuch)
-            {
-                MessageBox.Show("Nagbago ang balance ng bill (may ibang nag-save ng bayad).\n" +
+                MessageBox.Show(result.Message + "\n" +
                     "Na-refresh na ang screen, subukan ulit.", "Payment",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Reload();
                 return;
             }
 
-            if (!saved) return;
+            if (!result.Success)
+            {
+                MessageBox.Show("Hindi na-save ang payment:\n" + result.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            lastPaidNow = remaining;
-            lastPaidTime = now;
+            lastPaidNow = result.Amount;
+            lastPaidTime = result.PaidAt;
 
             Reload();   // lalabas na ang bagong bayad at Balance 0.00
 
-            MessageBox.Show("Payment na " + Money(remaining) + " ay na-save.", "Payment",
+            MessageBox.Show("Payment na " + Money(result.Amount) + " ay na-save.", "Payment",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             PrintReceipt();
@@ -669,19 +451,19 @@ namespace HospitalPRAC
             add("Room " + Get("Room") + " / Bed " + Get("Bed"), "", false);
             receiptLines.Add(new ReceiptLine { Rule = true });
 
+            // Kasama dito ang mga "Previous Room" na singil
             add("CHARGES", "AMOUNT", true);
-            foreach (DataRow row in charges.Rows)
-                add(row["Item"] + " - " + row["Details"], Money(Convert.ToDecimal(row["Amount"])), false);
+            foreach (BillLine row in _bill.Charges)
+                add(row.Item + " - " + row.Details, Money(row.Amount), false);
 
             receiptLines.Add(new ReceiptLine { Rule = true });
             add("TOTAL BILL", Money(totalBill), true);
 
-            if (paymentRows.Rows.Count > 0)
+            if (_bill.PaymentLines.Count > 0)
             {
                 add("PAYMENTS", "", true);
-                foreach (DataRow row in paymentRows.Rows)
-                    add(row["Item"] + " (" + row["Details"] + ")",
-                        Money(-Convert.ToDecimal(row["Amount"])), false);
+                foreach (BillLine row in _bill.PaymentLines)
+                    add(row.Item + " (" + row.Details + ")", Money(-row.Amount), false);
             }
 
             receiptLines.Add(new ReceiptLine { Rule = true });
@@ -728,13 +510,15 @@ namespace HospitalPRAC
             }
         }
 
-        private void Doc_BeginPrint(object sender, PrintEventArgs e)
+        private void Doc_BeginPrint(object? sender, PrintEventArgs e)
         {
             printIndex = 0;
         }
 
-        private void Doc_PrintPage(object sender, PrintPageEventArgs e)
+        private void Doc_PrintPage(object? sender, PrintPageEventArgs e)
         {
+            if (e.Graphics == null) return;
+
             float x = e.MarginBounds.Left;
             float width = e.MarginBounds.Width;
             float y = e.MarginBounds.Top;
@@ -788,37 +572,9 @@ namespace HospitalPRAC
         // ---------------------------------------------------------
         // 7. Helpers
         // ---------------------------------------------------------
-        private static DataTable NewBillTable()
-        {
-            var dt = new DataTable();
-            dt.Columns.Add("Item", typeof(string));
-            dt.Columns.Add("Details", typeof(string));
-            dt.Columns.Add("Amount", typeof(decimal));
-            return dt;
-        }
-
-        private static bool IsDownpayment(string type)
-        {
-            return string.Equals(type, "Deposit", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(type, TypeDownpayment, StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static string Str(SqlDataReader r, string col)
-        {
-            return r[col] == DBNull.Value ? "" : r[col].ToString().Trim();
-        }
-
         private static string Money(decimal value)
         {
-            return "₱" + value.ToString("N2");
-        }
-
-        private static int ComputeAge(DateTime birthdate)
-        {
-            DateTime today = DateTime.Today;
-            int age = today.Year - birthdate.Year;
-            if (birthdate.Date > today.AddYears(-age)) age--;
-            return age;
+            return BillingController.Money(value);
         }
     }
 }

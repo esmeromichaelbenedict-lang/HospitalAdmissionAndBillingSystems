@@ -1,5 +1,5 @@
-using Hospital2.BusinessLogic.Controller;
-using Hospital2.Model;
+using BusinessLogic.Controller;
+using Model;
 using Hospital2.UI;
 using Hospital2.UI.CashierDashboard;
 

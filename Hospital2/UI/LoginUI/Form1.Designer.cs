@@ -131,7 +131,7 @@
             // 
             // pictureBoxHospital
             // 
-            pictureBoxHospital.Image = HospitalPRAC.Properties.Resources.login1;
+            pictureBoxHospital.Image = HospitalUI.Properties.Resources.login1;
             pictureBoxHospital.Location = new Point(-6, -3);
             pictureBoxHospital.Margin = new Padding(2);
             pictureBoxHospital.Name = "pictureBoxHospital";
