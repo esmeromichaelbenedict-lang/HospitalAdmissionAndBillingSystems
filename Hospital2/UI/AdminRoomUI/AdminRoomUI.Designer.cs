@@ -74,12 +74,16 @@
             label18 = new Label();
             btnEdit = new Button();
             btnCancel = new Button();
+            dgvRoomHistory = new DataGridView();
+            label6 = new Label();
+            label10 = new Label();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRoomHistory).BeginInit();
             SuspendLayout();
             // 
             // panel4
@@ -227,23 +231,23 @@
             // dgvPatients
             // 
             dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPatients.Location = new Point(303, 141);
+            dgvPatients.Location = new Point(150, 157);
             dgvPatients.Name = "dgvPatients";
-            dgvPatients.Size = new Size(900, 227);
+            dgvPatients.Size = new Size(560, 227);
             dgvPatients.TabIndex = 13;
             // 
             // txtSearch
             // 
             txtSearch.Location = new Point(150, 87);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(363, 23);
+            txtSearch.Size = new Size(422, 23);
             txtSearch.TabIndex = 14;
             // 
             // btnSearch
             // 
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSearch.Location = new Point(531, 80);
+            btnSearch.Location = new Point(592, 80);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(118, 33);
             btnSearch.TabIndex = 15;
@@ -266,9 +270,9 @@
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(196, 404);
+            panel2.Location = new Point(150, 404);
             panel2.Name = "panel2";
-            panel2.Size = new Size(514, 291);
+            panel2.Size = new Size(560, 291);
             panel2.TabIndex = 18;
             // 
             // lblAdmitted
@@ -420,7 +424,7 @@
             panel3.Controls.Add(label18);
             panel3.Location = new Point(767, 404);
             panel3.Name = "panel3";
-            panel3.Size = new Size(508, 291);
+            panel3.Size = new Size(537, 291);
             panel3.TabIndex = 36;
             // 
             // cboRoomType
@@ -576,11 +580,42 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             // 
+            // dgvRoomHistory
+            // 
+            dgvRoomHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRoomHistory.Location = new Point(767, 157);
+            dgvRoomHistory.Name = "dgvRoomHistory";
+            dgvRoomHistory.Size = new Size(537, 227);
+            dgvRoomHistory.TabIndex = 39;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(748, 125);
+            label6.Name = "label6";
+            label6.Size = new Size(136, 25);
+            label6.TabIndex = 42;
+            label6.Text = "Room History";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(122, 125);
+            label10.Name = "label10";
+            label10.Size = new Size(118, 25);
+            label10.TabIndex = 43;
+            label10.Text = "Patient Lists";
+            // 
             // AdminRoomUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 749);
+            Controls.Add(label10);
+            Controls.Add(label6);
+            Controls.Add(dgvRoomHistory);
             Controls.Add(btnCancel);
             Controls.Add(btnEdit);
             Controls.Add(panel3);
@@ -602,6 +637,7 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRoomHistory).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -659,5 +695,8 @@
         private Label lblRoomNo;
         private Label lblPatientName;
         private Button button3;
+        private DataGridView dgvRoomHistory;
+        private Label label6;
+        private Label label10;
     }
 }

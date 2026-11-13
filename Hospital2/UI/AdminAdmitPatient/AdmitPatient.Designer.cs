@@ -42,12 +42,20 @@
             btnAdmitPatient = new Button();
             label1 = new Label();
             panel3 = new Panel();
-            comboBox1 = new ComboBox();
+            cmbRoomType = new ComboBox();
+            label20 = new Label();
+            btnAddService = new Button();
+            label18 = new Label();
+            cmbBed = new ComboBox();
+            lblServiceFee = new Label();
+            cmbService = new ComboBox();
             label6 = new Label();
+            label22 = new Label();
             cmbAdmissionType = new ComboBox();
             cmbRoom = new ComboBox();
             cmbDoctor = new ComboBox();
             txtReasonForAdmission = new TextBox();
+            label23 = new Label();
             dtpAdmissionDateTime = new DateTimePicker();
             label15 = new Label();
             label14 = new Label();
@@ -55,39 +63,35 @@
             label12 = new Label();
             label11 = new Label();
             label3 = new Label();
-            panel2 = new Panel();
-            dtpDateOfBirth = new DateTimePicker();
-            txtContactNumber = new TextBox();
-            txtAddress = new TextBox();
-            cmbCivilStatus = new ComboBox();
-            cmbSex = new ComboBox();
+            lbl1 = new Panel();
+            lblContactNumber = new Label();
+            lblAddress = new Label();
+            lblCivilStatus = new Label();
+            lblSex = new Label();
+            lblAge = new Label();
+            lblDateOfBirth = new Label();
+            lblFullName = new Label();
             label17 = new Label();
-            txtAge = new TextBox();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
             label7 = new Label();
             label5 = new Label();
-            txtFullName = new TextBox();
             label4 = new Label();
             label2 = new Label();
             dgvServices = new DataGridView();
-            panel7 = new Panel();
-            btnAddService = new Button();
-            textBox1 = new TextBox();
-            cmbService = new ComboBox();
-            lblServiceFee = new Label();
-            label19 = new Label();
-            label22 = new Label();
-            label23 = new Label();
+            txtSearch = new TextBox();
+            btnSearch = new Button();
             label24 = new Label();
+            dgvPatientList = new DataGridView();
+            label19 = new Label();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
-            panel2.SuspendLayout();
+            lbl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
-            panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPatientList).BeginInit();
             SuspendLayout();
             // 
             // panel4
@@ -103,7 +107,7 @@
             panel4.Controls.Add(btnDashboard);
             panel4.Location = new Point(1, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(116, 583);
+            panel4.Size = new Size(116, 752);
             panel4.TabIndex = 12;
             // 
             // button1
@@ -219,7 +223,7 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(116, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1076, 70);
+            panel1.Size = new Size(1257, 70);
             panel1.TabIndex = 11;
             // 
             // btnAdmitPatient
@@ -227,7 +231,7 @@
             btnAdmitPatient.BackColor = Color.Lime;
             btnAdmitPatient.FlatStyle = FlatStyle.Flat;
             btnAdmitPatient.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdmitPatient.Location = new Point(934, 12);
+            btnAdmitPatient.Location = new Point(1124, 20);
             btnAdmitPatient.Name = "btnAdmitPatient";
             btnAdmitPatient.Size = new Size(118, 33);
             btnAdmitPatient.TabIndex = 12;
@@ -248,12 +252,20 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Controls.Add(comboBox1);
+            panel3.Controls.Add(cmbRoomType);
+            panel3.Controls.Add(label20);
+            panel3.Controls.Add(btnAddService);
+            panel3.Controls.Add(label18);
+            panel3.Controls.Add(cmbBed);
+            panel3.Controls.Add(lblServiceFee);
+            panel3.Controls.Add(cmbService);
             panel3.Controls.Add(label6);
+            panel3.Controls.Add(label22);
             panel3.Controls.Add(cmbAdmissionType);
             panel3.Controls.Add(cmbRoom);
             panel3.Controls.Add(cmbDoctor);
             panel3.Controls.Add(txtReasonForAdmission);
+            panel3.Controls.Add(label23);
             panel3.Controls.Add(dtpAdmissionDateTime);
             panel3.Controls.Add(label15);
             panel3.Controls.Add(label14);
@@ -261,33 +273,102 @@
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(661, 300);
+            panel3.Location = new Point(813, 332);
             panel3.Name = "panel3";
-            panel3.Size = new Size(520, 251);
+            panel3.Size = new Size(520, 390);
             panel3.TabIndex = 14;
             // 
-            // comboBox1
+            // cmbRoomType
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(181, 166);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(218, 23);
-            comboBox1.TabIndex = 33;
+            cmbRoomType.FormattingEnabled = true;
+            cmbRoomType.Location = new Point(181, 137);
+            cmbRoomType.Name = "cmbRoomType";
+            cmbRoomType.Size = new Size(218, 23);
+            cmbRoomType.TabIndex = 36;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label20.Location = new Point(99, 139);
+            label20.Name = "label20";
+            label20.Size = new Size(76, 16);
+            label20.TabIndex = 35;
+            label20.Text = "Room Type:";
+            // 
+            // btnAddService
+            // 
+            btnAddService.BackColor = Color.Lime;
+            btnAddService.FlatStyle = FlatStyle.Flat;
+            btnAddService.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddService.Location = new Point(181, 319);
+            btnAddService.Name = "btnAddService";
+            btnAddService.Size = new Size(206, 33);
+            btnAddService.TabIndex = 13;
+            btnAddService.Text = "Add Service";
+            btnAddService.UseVisualStyleBackColor = false;
+            btnAddService.Click += btnAddService_Click;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(15, 251);
+            label18.Name = "label18";
+            label18.Size = new Size(75, 23);
+            label18.TabIndex = 34;
+            label18.Text = "Services";
+            // 
+            // cmbBed
+            // 
+            cmbBed.FormattingEnabled = true;
+            cmbBed.Location = new Point(181, 195);
+            cmbBed.Name = "cmbBed";
+            cmbBed.Size = new Size(218, 23);
+            cmbBed.TabIndex = 33;
+            // 
+            // lblServiceFee
+            // 
+            lblServiceFee.AutoSize = true;
+            lblServiceFee.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblServiceFee.Location = new Point(247, 300);
+            lblServiceFee.Name = "lblServiceFee";
+            lblServiceFee.Size = new Size(14, 16);
+            lblServiceFee.TabIndex = 24;
+            lblServiceFee.Text = "0";
+            // 
+            // cmbService
+            // 
+            cmbService.FormattingEnabled = true;
+            cmbService.Location = new Point(181, 272);
+            cmbService.Name = "cmbService";
+            cmbService.Size = new Size(191, 23);
+            cmbService.TabIndex = 32;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(92, 171);
+            label6.Location = new Point(92, 197);
             label6.Name = "label6";
             label6.Size = new Size(83, 16);
             label6.TabIndex = 32;
             label6.Text = "Bed Number:";
             // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(96, 300);
+            label22.Name = "label22";
+            label22.Size = new Size(79, 16);
+            label22.TabIndex = 11;
+            label22.Text = "Service Fee:";
+            // 
             // cmbAdmissionType
             // 
             cmbAdmissionType.FormattingEnabled = true;
-            cmbAdmissionType.Location = new Point(181, 199);
+            cmbAdmissionType.Location = new Point(181, 224);
             cmbAdmissionType.Name = "cmbAdmissionType";
             cmbAdmissionType.Size = new Size(218, 23);
             cmbAdmissionType.TabIndex = 31;
@@ -295,7 +376,7 @@
             // cmbRoom
             // 
             cmbRoom.FormattingEnabled = true;
-            cmbRoom.Location = new Point(181, 137);
+            cmbRoom.Location = new Point(181, 166);
             cmbRoom.Name = "cmbRoom";
             cmbRoom.Size = new Size(218, 23);
             cmbRoom.TabIndex = 30;
@@ -315,6 +396,16 @@
             txtReasonForAdmission.Size = new Size(325, 23);
             txtReasonForAdmission.TabIndex = 24;
             // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Location = new Point(81, 274);
+            label23.Name = "label23";
+            label23.Size = new Size(94, 16);
+            label23.TabIndex = 2;
+            label23.Text = "Select Service:";
+            // 
             // dtpAdmissionDateTime
             // 
             dtpAdmissionDateTime.CustomFormat = "MMM dd, yyyy hh:mm tt";
@@ -328,7 +419,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(72, 201);
+            label15.Location = new Point(72, 226);
             label15.Name = "label15";
             label15.Size = new Size(103, 16);
             label15.TabIndex = 28;
@@ -338,7 +429,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label14.Location = new Point(130, 142);
+            label14.Location = new Point(130, 168);
             label14.Name = "label14";
             label14.Size = new Size(45, 16);
             label14.TabIndex = 27;
@@ -384,67 +475,98 @@
             label3.TabIndex = 2;
             label3.Text = "Admission Details";
             // 
-            // panel2
+            // lbl1
             // 
-            panel2.BackColor = Color.White;
-            panel2.Controls.Add(dtpDateOfBirth);
-            panel2.Controls.Add(txtContactNumber);
-            panel2.Controls.Add(txtAddress);
-            panel2.Controls.Add(cmbCivilStatus);
-            panel2.Controls.Add(cmbSex);
-            panel2.Controls.Add(label17);
-            panel2.Controls.Add(txtAge);
-            panel2.Controls.Add(label10);
-            panel2.Controls.Add(label9);
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(txtFullName);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(label2);
-            panel2.Location = new Point(124, 300);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(514, 251);
-            panel2.TabIndex = 13;
+            lbl1.BackColor = Color.White;
+            lbl1.Controls.Add(lblContactNumber);
+            lbl1.Controls.Add(lblAddress);
+            lbl1.Controls.Add(lblCivilStatus);
+            lbl1.Controls.Add(lblSex);
+            lbl1.Controls.Add(lblAge);
+            lbl1.Controls.Add(lblDateOfBirth);
+            lbl1.Controls.Add(lblFullName);
+            lbl1.Controls.Add(label17);
+            lbl1.Controls.Add(label10);
+            lbl1.Controls.Add(label9);
+            lbl1.Controls.Add(label8);
+            lbl1.Controls.Add(label7);
+            lbl1.Controls.Add(label5);
+            lbl1.Controls.Add(label4);
+            lbl1.Controls.Add(label2);
+            lbl1.Location = new Point(144, 364);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(613, 269);
+            lbl1.TabIndex = 13;
             // 
-            // dtpDateOfBirth
+            // lblContactNumber
             // 
-            dtpDateOfBirth.CustomFormat = "yyyy-MM-dd";
-            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
-            dtpDateOfBirth.Location = new Point(102, 79);
-            dtpDateOfBirth.Name = "dtpDateOfBirth";
-            dtpDateOfBirth.Size = new Size(185, 23);
-            dtpDateOfBirth.TabIndex = 32;
+            lblContactNumber.AutoSize = true;
+            lblContactNumber.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblContactNumber.Location = new Point(171, 206);
+            lblContactNumber.Name = "lblContactNumber";
+            lblContactNumber.Size = new Size(14, 16);
+            lblContactNumber.TabIndex = 31;
+            lblContactNumber.Text = "0";
             // 
-            // txtContactNumber
+            // lblAddress
             // 
-            txtContactNumber.Location = new Point(128, 204);
-            txtContactNumber.Name = "txtContactNumber";
-            txtContactNumber.Size = new Size(142, 23);
-            txtContactNumber.TabIndex = 35;
+            lblAddress.AutoSize = true;
+            lblAddress.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAddress.Location = new Point(256, 173);
+            lblAddress.Name = "lblAddress";
+            lblAddress.Size = new Size(14, 16);
+            lblAddress.TabIndex = 30;
+            lblAddress.Text = "0";
             // 
-            // txtAddress
+            // lblCivilStatus
             // 
-            txtAddress.Location = new Point(102, 171);
-            txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(392, 23);
-            txtAddress.TabIndex = 34;
+            lblCivilStatus.AutoSize = true;
+            lblCivilStatus.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCivilStatus.Location = new Point(171, 144);
+            lblCivilStatus.Name = "lblCivilStatus";
+            lblCivilStatus.Size = new Size(14, 16);
+            lblCivilStatus.TabIndex = 29;
+            lblCivilStatus.Text = "0";
             // 
-            // cmbCivilStatus
+            // lblSex
             // 
-            cmbCivilStatus.FormattingEnabled = true;
-            cmbCivilStatus.Location = new Point(102, 142);
-            cmbCivilStatus.Name = "cmbCivilStatus";
-            cmbCivilStatus.Size = new Size(142, 23);
-            cmbCivilStatus.TabIndex = 33;
+            lblSex.AutoSize = true;
+            lblSex.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSex.Location = new Point(171, 112);
+            lblSex.Name = "lblSex";
+            lblSex.Size = new Size(14, 16);
+            lblSex.TabIndex = 28;
+            lblSex.Text = "0";
             // 
-            // cmbSex
+            // lblAge
             // 
-            cmbSex.FormattingEnabled = true;
-            cmbSex.Location = new Point(102, 110);
-            cmbSex.Name = "cmbSex";
-            cmbSex.Size = new Size(142, 23);
-            cmbSex.TabIndex = 32;
+            lblAge.AutoSize = true;
+            lblAge.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAge.Location = new Point(343, 81);
+            lblAge.Name = "lblAge";
+            lblAge.Size = new Size(14, 16);
+            lblAge.TabIndex = 27;
+            lblAge.Text = "0";
+            // 
+            // lblDateOfBirth
+            // 
+            lblDateOfBirth.AutoSize = true;
+            lblDateOfBirth.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDateOfBirth.Location = new Point(171, 81);
+            lblDateOfBirth.Name = "lblDateOfBirth";
+            lblDateOfBirth.Size = new Size(14, 16);
+            lblDateOfBirth.TabIndex = 26;
+            lblDateOfBirth.Text = "0";
+            // 
+            // lblFullName
+            // 
+            lblFullName.AutoSize = true;
+            lblFullName.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFullName.Location = new Point(256, 50);
+            lblFullName.Name = "lblFullName";
+            lblFullName.Size = new Size(14, 16);
+            lblFullName.TabIndex = 25;
+            lblFullName.Text = "0";
             // 
             // label17
             // 
@@ -455,13 +577,6 @@
             label17.Size = new Size(34, 16);
             label17.TabIndex = 24;
             label17.Text = "Sex:";
-            // 
-            // txtAge
-            // 
-            txtAge.Location = new Point(333, 79);
-            txtAge.Name = "txtAge";
-            txtAge.Size = new Size(161, 23);
-            txtAge.TabIndex = 23;
             // 
             // label10
             // 
@@ -513,13 +628,6 @@
             label5.TabIndex = 11;
             label5.Text = "Date of Birth:";
             // 
-            // txtFullName
-            // 
-            txtFullName.Location = new Point(102, 50);
-            txtFullName.Name = "txtFullName";
-            txtFullName.Size = new Size(392, 23);
-            txtFullName.TabIndex = 10;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -543,114 +651,68 @@
             // dgvServices
             // 
             dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServices.Location = new Point(124, 81);
+            dgvServices.Location = new Point(813, 124);
             dgvServices.Name = "dgvServices";
-            dgvServices.Size = new Size(512, 199);
+            dgvServices.Size = new Size(520, 191);
             dgvServices.TabIndex = 15;
             // 
-            // panel7
+            // txtSearch
             // 
-            panel7.BackColor = Color.White;
-            panel7.Controls.Add(btnAddService);
-            panel7.Controls.Add(textBox1);
-            panel7.Controls.Add(cmbService);
-            panel7.Controls.Add(lblServiceFee);
-            panel7.Controls.Add(label19);
-            panel7.Controls.Add(label22);
-            panel7.Controls.Add(label23);
-            panel7.Controls.Add(label24);
-            panel7.Location = new Point(664, 81);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(517, 199);
-            panel7.TabIndex = 36;
+            txtSearch.Location = new Point(131, 93);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(370, 23);
+            txtSearch.TabIndex = 37;
             // 
-            // btnAddService
+            // btnSearch
             // 
-            btnAddService.BackColor = Color.Lime;
-            btnAddService.FlatStyle = FlatStyle.Flat;
-            btnAddService.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAddService.Location = new Point(79, 127);
-            btnAddService.Name = "btnAddService";
-            btnAddService.Size = new Size(206, 33);
-            btnAddService.TabIndex = 13;
-            btnAddService.Text = "Add Service";
-            btnAddService.UseVisualStyleBackColor = false;
-            btnAddService.Click += btnAddService_Click;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(128, 204);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(142, 23);
-            textBox1.TabIndex = 35;
-            // 
-            // cmbService
-            // 
-            cmbService.FormattingEnabled = true;
-            cmbService.Location = new Point(120, 43);
-            cmbService.Name = "cmbService";
-            cmbService.Size = new Size(191, 23);
-            cmbService.TabIndex = 32;
-            // 
-            // lblServiceFee
-            // 
-            lblServiceFee.AutoSize = true;
-            lblServiceFee.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblServiceFee.Location = new Point(163, 85);
-            lblServiceFee.Name = "lblServiceFee";
-            lblServiceFee.Size = new Size(14, 16);
-            lblServiceFee.TabIndex = 24;
-            lblServiceFee.Text = "0";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label19.Location = new Point(17, 206);
-            label19.Name = "label19";
-            label19.Size = new Size(105, 16);
-            label19.TabIndex = 21;
-            label19.Text = "Contact Number:";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label22.Location = new Point(20, 85);
-            label22.Name = "label22";
-            label22.Size = new Size(79, 16);
-            label22.TabIndex = 11;
-            label22.Text = "Service Fee:";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label23.Location = new Point(20, 45);
-            label23.Name = "label23";
-            label23.Size = new Size(94, 16);
-            label23.TabIndex = 2;
-            label23.Text = "Select Service:";
+            btnSearch.Location = new Point(520, 86);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(98, 43);
+            btnSearch.TabIndex = 38;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
             // 
             // label24
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label24.Location = new Point(12, 12);
+            label24.Location = new Point(778, 98);
             label24.Name = "label24";
             label24.Size = new Size(75, 23);
-            label24.TabIndex = 1;
+            label24.TabIndex = 39;
             label24.Text = "Services";
+            // 
+            // dgvPatientList
+            // 
+            dgvPatientList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPatientList.Location = new Point(144, 179);
+            dgvPatientList.Name = "dgvPatientList";
+            dgvPatientList.Size = new Size(613, 162);
+            dgvPatientList.TabIndex = 40;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(123, 140);
+            label19.Name = "label19";
+            label19.Size = new Size(103, 23);
+            label19.TabIndex = 41;
+            label19.Text = "Patient Lists";
             // 
             // AdmitPatient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1193, 582);
-            Controls.Add(panel7);
+            ClientSize = new Size(1370, 749);
+            Controls.Add(label19);
+            Controls.Add(dgvPatientList);
+            Controls.Add(label24);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearch);
             Controls.Add(dgvServices);
             Controls.Add(panel3);
-            Controls.Add(panel2);
+            Controls.Add(lbl1);
             Controls.Add(panel4);
             Controls.Add(panel1);
             Name = "AdmitPatient";
@@ -663,12 +725,12 @@
             panel1.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            lbl1.ResumeLayout(false);
+            lbl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPatientList).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -697,34 +759,38 @@
         private Label label12;
         private Label label11;
         private Label label3;
-        private Panel panel2;
-        private DateTimePicker dtpDateOfBirth;
-        private TextBox txtContactNumber;
-        private TextBox txtAddress;
-        private ComboBox cmbCivilStatus;
-        private ComboBox cmbSex;
+        private Panel lbl1;
         private Label label17;
-        private TextBox txtAge;
         private Label label10;
         private Label label9;
         private Label label8;
         private Label label7;
         private Label label5;
-        private TextBox txtFullName;
         private Label label4;
         private Label label2;
         private DataGridView dgvServices;
-        private Panel panel7;
         private Button btnAddService;
-        private TextBox textBox1;
         private ComboBox cmbService;
         private Label lblServiceFee;
-        private Label label19;
         private Label label22;
         private Label label23;
-        private Label label24;
-        private ComboBox comboBox1;
+        private ComboBox cmbBed;
         private Label label6;
         private Button button1;
+        private TextBox txtSearch;
+        private Button btnSearch;
+        private Label label18;
+        private Label label24;
+        private DataGridView dgvPatientList;
+        private Label label19;
+        private Label lblSex;
+        private Label lblAge;
+        private Label lblDateOfBirth;
+        private Label lblFullName;
+        private Label lblAddress;
+        private Label lblCivilStatus;
+        private Label lblContactNumber;
+        private ComboBox cmbRoomType;
+        private Label label20;
     }
 }

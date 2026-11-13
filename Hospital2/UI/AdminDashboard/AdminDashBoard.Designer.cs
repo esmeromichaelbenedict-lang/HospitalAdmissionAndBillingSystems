@@ -253,7 +253,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = HospitalPRAC.Properties.Resources._4564982;
+            pictureBox1.Image = HospitalUI.Properties.Resources._4564982;
             pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
             pictureBox1.Location = new Point(21, 45);
             pictureBox1.Name = "pictureBox1";
@@ -295,8 +295,8 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = HospitalPRAC.Properties.Resources.add;
-            pictureBox2.InitialImage = HospitalPRAC.Properties.Resources.download__1_;
+            pictureBox2.Image = HospitalUI.Properties.Resources.add;
+            pictureBox2.InitialImage = HospitalUI.Properties.Resources.download__1_;
             pictureBox2.Location = new Point(34, 47);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(56, 53);
@@ -341,8 +341,8 @@
             // 
             pictureBox3.BackColor = Color.Transparent;
             pictureBox3.BackgroundImageLayout = ImageLayout.Center;
-            pictureBox3.Image = HospitalPRAC.Properties.Resources.user;
-            pictureBox3.InitialImage = HospitalPRAC.Properties.Resources.download__1_;
+            pictureBox3.Image = HospitalUI.Properties.Resources.user;
+            pictureBox3.InitialImage = HospitalUI.Properties.Resources.download__1_;
             pictureBox3.Location = new Point(31, 47);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(56, 53);
