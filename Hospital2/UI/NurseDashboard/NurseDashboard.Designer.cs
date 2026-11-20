@@ -65,6 +65,7 @@
             panel3 = new Panel();
             label6 = new Label();
             dgvPatients = new DataGridView();
+            btnLogout = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -74,11 +75,12 @@
             // panel1
             // 
             panel1.BackColor = Color.DarkGreen;
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(-1, -1);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1375, 44);
+            panel1.Size = new Size(1375, 58);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -130,7 +132,7 @@
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(10, 65);
+            txtSearch.Location = new Point(10, 71);
             txtSearch.Margin = new Padding(3, 2, 3, 2);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(562, 23);
@@ -138,7 +140,7 @@
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(578, 61);
+            btnSearch.Location = new Point(578, 71);
             btnSearch.Margin = new Padding(3, 2, 3, 2);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(114, 28);
@@ -223,12 +225,11 @@
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
-            panel2.Location = new Point(39, 372);
+            panel2.Location = new Point(39, 398);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
             panel2.Size = new Size(571, 292);
             panel2.TabIndex = 12;
-            panel2.Paint += panel2_Paint;
             // 
             // lblBed
             // 
@@ -424,7 +425,7 @@
             panel3.Controls.Add(label3);
             panel3.Controls.Add(cmbAnalgesics);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(701, 372);
+            panel3.Location = new Point(701, 398);
             panel3.Margin = new Padding(3, 2, 3, 2);
             panel3.Name = "panel3";
             panel3.Size = new Size(630, 292);
@@ -435,7 +436,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(210, 101);
+            label6.Location = new Point(209, 118);
             label6.Name = "label6";
             label6.Size = new Size(88, 20);
             label6.TabIndex = 15;
@@ -445,10 +446,23 @@
             // 
             dgvPatients.BackgroundColor = Color.White;
             dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPatients.Location = new Point(226, 124);
+            dgvPatients.Location = new Point(230, 141);
             dgvPatients.Name = "dgvPatients";
             dgvPatients.Size = new Size(875, 223);
             dgvPatients.TabIndex = 16;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1263, 13);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(87, 32);
+            btnLogout.TabIndex = 17;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // NurseDashboard
             // 
@@ -515,5 +529,6 @@
         private Label lblRoom;
         private Label lblRoomType;
         private Label label23;
+        private Button btnLogout;
     }
 }

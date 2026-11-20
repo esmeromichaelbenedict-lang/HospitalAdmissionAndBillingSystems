@@ -1,4 +1,5 @@
-﻿using Hospital2.UI;
+﻿using Hospital2;
+using Hospital2.UI;
 using HospitalPRAC.BusinessLogic.Controller;
 using HospitalPRAC.Model;
 using HospitalPRAC.UI.AdminPatient;
@@ -322,6 +323,14 @@ namespace HospitalPRAC.UI.AdminAdmitPatient
             AdminDashBoard dashboardForm = new AdminDashBoard();
             dashboardForm.FormClosed += (s, args) => this.Close();
             dashboardForm.Show();
+            this.Hide();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Form1 loginForm = new Form1();
+            loginForm.FormClosed += (s, args) => this.Close();
+            loginForm.Show();
             this.Hide();
         }
     }

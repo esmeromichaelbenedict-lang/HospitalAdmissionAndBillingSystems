@@ -128,8 +128,8 @@ namespace HospitalPRAC.BusinessLogic.Controller
             }
             catch (SqlException ex)
             {
-                bill.PaymentsWarning = "Hindi mabasa ang payments table.\n" +
-                    "I-run muna ang create_payments_table.sql sa SSMS.\n\n" + ex.Message;
+                bill.PaymentsWarning = "Unable to read the payments table.\n" +
+                    "Please run the first create_payments_table.sql in SSMS.\n\n" + ex.Message;
             }
 
             decimal total = charges.Sum(c => c.Amount);
@@ -157,28 +157,28 @@ namespace HospitalPRAC.BusinessLogic.Controller
             BillSummary bill = GetBill(patientId);
 
             if (!bill.HasAdmission)
-                return Fail("Walang admission ang patient na ito, kaya walang mababayaran.");
+                return Fail("This patient has no admission record, so no payment is required.");
 
             string text = (amountText ?? string.Empty).Replace("₱", "").Trim();
 
             if (!decimal.TryParse(text, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal amount))
-                return Fail("Maglagay ng tamang amount (numero lang).");
+                return Fail("Please enter a valid amount (numbers only)");
 
             amount = Math.Round(amount, 2);
             if (amount <= 0m)
-                return Fail("Ang amount ay dapat higit sa 0.");
+                return Fail("The amount must be greater than 0.");
 
             decimal remaining = bill.TotalBill - bill.Paid;
 
             if (remaining <= 0m)
             {
-                var done = Fail("Bayad na ang bill na ito.");
+                var done = Fail("The bill for this patient has already been fully paid.");
                 done.AlreadyPaid = true;
                 return done;
             }
 
             if (amount > remaining)
-                return Fail("Hindi pwedeng lumampas sa remaining balance (" + Money(remaining) + ").");
+                return Fail("The amount exceeds the remaining balance (" + Money(remaining) + ").");
 
             return new PaymentCheck
             {
@@ -194,7 +194,7 @@ namespace HospitalPRAC.BusinessLogic.Controller
             try
             {
                 _repository.AddPayment(admissionId, paymentType, amount);
-                return OperationResult.Ok(paymentType + " na " + Money(amount) + " ay na-save.");
+                return OperationResult.Ok(paymentType + " is " + Money(amount) + " saved.");
             }
             catch (Exception ex)
             {
@@ -211,10 +211,10 @@ namespace HospitalPRAC.BusinessLogic.Controller
             decimal remaining = Math.Round(bill.TotalBill - bill.Paid, 2);
 
             if (!bill.HasAdmission)
-                return new PayResult { Message = "Walang admission ang patient na ito, kaya walang mababayaran." };
+                return new PayResult { Message = "This patient has no admission record, so no payment is required." };
 
             if (remaining <= 0m)
-                return new PayResult { Message = "Bayad na ang bill na ito." };
+                return new PayResult { Message = "The bill for this patient has already been fully paid." };
 
             try
             {
@@ -226,7 +226,7 @@ namespace HospitalPRAC.BusinessLogic.Controller
                     return new PayResult
                     {
                         BalanceChanged = true,
-                        Message = "Nagbago ang balance ng bill (may ibang nag-save ng bayad)."
+                        Message = "The bill balance has changed (another user may have saved a payment)."
                     };
                 }
 

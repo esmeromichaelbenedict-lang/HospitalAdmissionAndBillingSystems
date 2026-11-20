@@ -1,8 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using Hospital2;
 using HospitalPRAC.BusinessLogic.Controller;
 using HospitalPRAC.Model;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 // PAALALA: dapat TUMUGMA ang namespace at class name sa
 // Patient_Bill_List_Downpayment.Designer.cs
@@ -57,7 +58,7 @@ namespace HospitalPRAC
 
             if (patientId < 0)
             {
-                MessageBox.Show("Walang napiling patient. Buksan ito mula sa Cashier Dashboard (View button).",
+                MessageBox.Show("No patient selected. Please open this from the Cashier Dashboard (View button).",
                     "Billing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 SetPaymentControls(false);
                 return;
@@ -106,7 +107,7 @@ namespace HospitalPRAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng patient:\n" + ex.Message, "Error",
+                MessageBox.Show("Error loading patient:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -122,7 +123,7 @@ namespace HospitalPRAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng admission at bill:\n" + ex.Message, "Error",
+                MessageBox.Show("Error loading admission and bill:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -219,7 +220,7 @@ namespace HospitalPRAC
 
             if (patientId < 0 || !_bill.HasAdmission)
             {
-                MessageBox.Show("Walang admission ang patient na ito, kaya walang mababayaran.",
+                MessageBox.Show("This patient has no admission record, so there is no payment due.",
                     "Payment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -235,7 +236,7 @@ namespace HospitalPRAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hindi mabuksan ang Payment form:\n" + ex.Message, "Error",
+                MessageBox.Show("Unable to open the Payment form:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -271,8 +272,8 @@ namespace HospitalPRAC
 
             // 2. Tanungin muna bago i-save
             var confirm = MessageBox.Show(
-                "I-save ang " + type + " na " + BillingController.Money(check.Amount) + "?\n\n" +
-                "Remaining balance pagkatapos: " + BillingController.Money(check.Remaining - check.Amount),
+                "Save " + type + " the " + BillingController.Money(check.Amount) + "?\n\n" +
+                "Remaining balance after: " + BillingController.Money(check.Remaining - check.Amount),
                 type, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
@@ -281,7 +282,7 @@ namespace HospitalPRAC
 
             if (!result.Success)
             {
-                MessageBox.Show("Hindi na-save ang " + type + ":\n" + result.Message, "Error",
+                MessageBox.Show("Failed to save the " + type + ":\n" + result.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -326,6 +327,14 @@ namespace HospitalPRAC
             lblRemainingBalance.Text = BillingController.Money(0m);
 
             txtAmount.Clear();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Form1 loginForm = new Form1();
+            loginForm.FormClosed += (s, args) => this.Close();
+            loginForm.Show();
+            this.Hide();
         }
     }
 }

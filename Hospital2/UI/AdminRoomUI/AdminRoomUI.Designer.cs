@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            button3 = new Button();
+            btnLogout = new Button();
             panel5 = new Panel();
             label16 = new Label();
             panel6 = new Panel();
@@ -89,7 +89,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(0, 0, 64);
-            panel4.Controls.Add(button3);
+            panel4.Controls.Add(btnLogout);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(button6);
@@ -102,18 +102,19 @@
             panel4.Size = new Size(116, 750);
             panel4.TabIndex = 11;
             // 
-            // button3
+            // btnLogout
             // 
-            button3.BackColor = Color.FromArgb(192, 0, 0);
-            button3.FlatStyle = FlatStyle.Popup;
-            button3.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(-1, 656);
-            button3.Name = "button3";
-            button3.Size = new Size(117, 41);
-            button3.TabIndex = 39;
-            button3.Text = "Logout";
-            button3.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(-1, 656);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(117, 41);
+            btnLogout.TabIndex = 39;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // panel5
             // 
@@ -694,7 +695,7 @@
         private Label lblRoomType;
         private Label lblRoomNo;
         private Label lblPatientName;
-        private Button button3;
+        private Button btnLogout;
         private DataGridView dgvRoomHistory;
         private Label label6;
         private Label label10;

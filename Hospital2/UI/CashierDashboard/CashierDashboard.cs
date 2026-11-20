@@ -74,7 +74,7 @@ namespace Hospital2.UI.CashierDashboard
             ClearDetails();
 
             if (kw != "" && dgvPatients.Rows.Count == 0)
-                MessageBox.Show("Walang nahanap na patient.", "Search",
+                MessageBox.Show("No patient found", "Search",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -99,7 +99,7 @@ namespace Hospital2.UI.CashierDashboard
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng patients:\n" + ex.Message, "Error",
+                MessageBox.Show("Error loading patients:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -186,7 +186,7 @@ namespace Hospital2.UI.CashierDashboard
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng details ng patient:\n" + ex.Message,
+                MessageBox.Show("Error loading patient details:\n" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -199,7 +199,7 @@ namespace Hospital2.UI.CashierDashboard
             if (selectedPatientId < 0)
             {
                 MessageBox.Show(
-                    "Pumili muna ng patient sa list.",
+                    "Please select a patient from the list first.",
                     "View",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -235,6 +235,14 @@ namespace Hospital2.UI.CashierDashboard
             lblRoomNo.Text = "";
             lblBedNo.Text = "";
             lblAdmissionDate.Text = "";
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Form1 loginForm = new Form1();
+            loginForm.FormClosed += (s, args) => this.Close();
+            loginForm.Show();
+            this.Hide();
         }
     }
 }

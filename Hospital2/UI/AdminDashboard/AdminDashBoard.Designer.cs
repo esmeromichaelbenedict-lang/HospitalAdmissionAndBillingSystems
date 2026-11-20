@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashBoard));
             button1 = new Button();
             panel1 = new Panel();
-            button7 = new Button();
+            btnLogout = new Button();
             panel4 = new Panel();
             label3 = new Label();
             panel2 = new Panel();
@@ -84,7 +84,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 0, 64);
-            panel1.Controls.Add(button7);
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(button5);
@@ -97,18 +97,19 @@
             panel1.Size = new Size(116, 759);
             panel1.TabIndex = 0;
             // 
-            // button7
+            // btnLogout
             // 
-            button7.BackColor = Color.FromArgb(192, 0, 0);
-            button7.FlatStyle = FlatStyle.Popup;
-            button7.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.White;
-            button7.Location = new Point(-1, 656);
-            button7.Name = "button7";
-            button7.Size = new Size(117, 41);
-            button7.TabIndex = 3;
-            button7.Text = "Logout";
-            button7.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(-1, 656);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(117, 41);
+            btnLogout.TabIndex = 3;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // panel4
             // 
@@ -430,7 +431,7 @@
         private PictureBox pictureBox3;
         private Label label9;
         private Label label10;
-        private Button button7;
+        private Button btnLogout;
         private DataGridView dgvRecentAdmissions;
     }
 }
