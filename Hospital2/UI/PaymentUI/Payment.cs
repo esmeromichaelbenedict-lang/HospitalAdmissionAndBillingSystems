@@ -70,7 +70,7 @@ namespace HospitalPRAC
 
             if (patientId < 0)
             {
-                MessageBox.Show("Walang napiling patient. Buksan ito mula sa Billing form (Payment button).",
+                MessageBox.Show("No patient selected. Open this from the Billing form (Payment button).",
                     "Payment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (btnPayControl != null) btnPayControl.Enabled = false;
                 return;
@@ -281,7 +281,7 @@ namespace HospitalPRAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error sa pag-load ng payment data:\n" + ex.Message, "Error",
+                MessageBox.Show("Error loading payment data:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -355,7 +355,7 @@ namespace HospitalPRAC
             }
             catch (Exception ex)
             {
-                MessageBox.Show("May error:\n" + ex.Message, "Payment",
+                MessageBox.Show("There is an error:\n" + ex.Message, "Payment",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -369,7 +369,7 @@ namespace HospitalPRAC
         {
             if (admissionId < 0)
             {
-                MessageBox.Show("Walang admission ang patient na ito, kaya walang mababayaran.",
+                MessageBox.Show("This patient has no admission record, so there is no payment due..",
                     "Payment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -384,7 +384,7 @@ namespace HospitalPRAC
             // Bayad na lahat: receipt na lang ang i-print
             if (remaining <= 0m)
             {
-                var again = MessageBox.Show("Bayad na ang bill na ito.\nI-print ang receipt?",
+                var again = MessageBox.Show("This bill has already been paid.\nWould you like to print the receipt?",
                     "Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (again == DialogResult.Yes)
                 {
@@ -395,7 +395,7 @@ namespace HospitalPRAC
             }
 
             var confirm = MessageBox.Show(
-                "Bayaran ang buong remaining balance na " + Money(remaining) + "?",
+                "Pay the full remaining balance of " + Money(remaining) + "?",
                 "Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
@@ -405,7 +405,7 @@ namespace HospitalPRAC
             if (result.BalanceChanged)
             {
                 MessageBox.Show(result.Message + "\n" +
-                    "Na-refresh na ang screen, subukan ulit.", "Payment",
+                    "The screen has been refreshed. Please try again.", "Payment",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Reload();
                 return;
@@ -413,7 +413,7 @@ namespace HospitalPRAC
 
             if (!result.Success)
             {
-                MessageBox.Show("Hindi na-save ang payment:\n" + result.Message, "Error",
+                MessageBox.Show("Payment was not saved:\n" + result.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -423,7 +423,7 @@ namespace HospitalPRAC
 
             Reload();   // lalabas na ang bagong bayad at Balance 0.00
 
-            MessageBox.Show("Payment na " + Money(result.Amount) + " ay na-save.", "Payment",
+            MessageBox.Show("Payment " + Money(result.Amount) + " saved successfully.", "Payment",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             PrintReceipt();

@@ -67,7 +67,9 @@
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
+            btnLogout = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
+            panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -243,7 +245,7 @@
             label15.AutoSize = true;
             label15.Location = new Point(34, 114);
             label15.Name = "label15";
-            label15.Size = new Size(28, 15);
+            label15.Size = new Size(27, 15);
             label15.TabIndex = 17;
             label15.Text = "Sex:";
             // 
@@ -428,6 +430,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.Controls.Add(btnLogout);
             panel1.Location = new Point(2, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1371, 88);
@@ -481,6 +484,19 @@
             panel3.Size = new Size(310, 195);
             panel3.TabIndex = 88;
             // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1258, 28);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(87, 32);
+            btnLogout.TabIndex = 89;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
             // CashierDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -498,6 +514,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CashierDashboard";
             ((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
+            panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
@@ -548,5 +565,6 @@
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
+        private Button btnLogout;
     }
 }

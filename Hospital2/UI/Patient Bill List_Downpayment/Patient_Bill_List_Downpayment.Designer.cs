@@ -81,6 +81,7 @@
             btnBack = new Button();
             panel2 = new Panel();
             panel3 = new Panel();
+            btnLogout = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBills).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -186,7 +187,7 @@
             label15.AutoSize = true;
             label15.Location = new Point(21, 124);
             label15.Name = "label15";
-            label15.Size = new Size(28, 15);
+            label15.Size = new Size(27, 15);
             label15.TabIndex = 49;
             label15.Text = "Sex:";
             // 
@@ -445,7 +446,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(34, 249);
             label9.Name = "label9";
-            label9.Size = new Size(51, 15);
+            label9.Size = new Size(52, 15);
             label9.TabIndex = 72;
             label9.Text = "Total Bill";
             // 
@@ -490,7 +491,7 @@
             label18.AutoSize = true;
             label18.Location = new Point(26, 548);
             label18.Name = "label18";
-            label18.Size = new Size(99, 15);
+            label18.Size = new Size(100, 15);
             label18.TabIndex = 77;
             label18.Text = "Admission Type:  ";
             // 
@@ -551,6 +552,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(btnBack);
             panel1.Location = new Point(-1, -1);
             panel1.Name = "panel1";
@@ -618,6 +620,19 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(490, 511);
             panel3.TabIndex = 86;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1237, 31);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(106, 29);
+            btnLogout.TabIndex = 1;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // Patient_Bill_List_Downpayment
             // 
@@ -708,5 +723,6 @@
         private Panel panel2;
         private Panel panel3;
         private Button btnBack;
+        private Button btnLogout;
     }
 }

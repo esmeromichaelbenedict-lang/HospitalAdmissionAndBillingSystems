@@ -224,5 +224,13 @@ namespace Hospital2.UI.NurseDashboard
             lblRoom.Text = "";
             lblBed.Text = "";
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Form1 loginForm = new Form1();
+            loginForm.FormClosed += (s, args) => this.Close();
+            loginForm.Show();
+            this.Hide();
+        }
     }
 }

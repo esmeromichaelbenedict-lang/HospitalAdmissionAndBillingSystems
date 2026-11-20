@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            button1 = new Button();
+            btnLogout = new Button();
             panel5 = new Panel();
             label16 = new Label();
             panel6 = new Panel();
@@ -97,7 +97,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(0, 0, 64);
-            panel4.Controls.Add(button1);
+            panel4.Controls.Add(btnLogout);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(button6);
@@ -110,18 +110,19 @@
             panel4.Size = new Size(116, 752);
             panel4.TabIndex = 12;
             // 
-            // button1
+            // btnLogout
             // 
-            button1.BackColor = Color.FromArgb(192, 0, 0);
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 542);
-            button1.Name = "button1";
-            button1.Size = new Size(116, 41);
-            button1.TabIndex = 3;
-            button1.Text = "Logout";
-            button1.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(0, 542);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(116, 41);
+            btnLogout.TabIndex = 3;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // panel5
             // 
@@ -776,7 +777,7 @@
         private Label label23;
         private ComboBox cmbBed;
         private Label label6;
-        private Button button1;
+        private Button btnLogout;
         private TextBox txtSearch;
         private Button btnSearch;
         private Label label18;

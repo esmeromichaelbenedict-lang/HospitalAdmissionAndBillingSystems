@@ -74,7 +74,7 @@
             label11 = new Label();
             label3 = new Label();
             panel4 = new Panel();
-            button7 = new Button();
+            btnLogout = new Button();
             panel5 = new Panel();
             label16 = new Label();
             panel6 = new Panel();
@@ -228,14 +228,14 @@
             panel2.Controls.Add(label2);
             panel2.Location = new Point(159, 327);
             panel2.Name = "panel2";
-            panel2.Size = new Size(676, 399);
+            panel2.Size = new Size(717, 399);
             panel2.TabIndex = 8;
             // 
             // txtMI
             // 
-            txtMI.Location = new Point(615, 50);
+            txtMI.Location = new Point(669, 50);
             txtMI.Name = "txtMI";
-            txtMI.Size = new Size(48, 23);
+            txtMI.Size = new Size(36, 23);
             txtMI.TabIndex = 49;
             // 
             // txtLastName
@@ -256,17 +256,17 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label23.Location = new Point(583, 52);
+            label23.Location = new Point(572, 52);
             label23.Name = "label23";
-            label23.Size = new Size(26, 17);
+            label23.Size = new Size(91, 17);
             label23.TabIndex = 46;
-            label23.Text = "M.I";
+            label23.Text = "Middle Name:";
             // 
             // txtSuffix
             // 
             txtSuffix.Location = new Point(529, 50);
             txtSuffix.Name = "txtSuffix";
-            txtSuffix.Size = new Size(48, 23);
+            txtSuffix.Size = new Size(35, 23);
             txtSuffix.TabIndex = 45;
             // 
             // label22
@@ -481,7 +481,7 @@
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(867, 327);
+            panel3.Location = new Point(903, 327);
             panel3.Name = "panel3";
             panel3.Size = new Size(438, 399);
             panel3.TabIndex = 9;
@@ -550,7 +550,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(0, 0, 64);
-            panel4.Controls.Add(button7);
+            panel4.Controls.Add(btnLogout);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(button6);
@@ -563,18 +563,19 @@
             panel4.Size = new Size(116, 751);
             panel4.TabIndex = 10;
             // 
-            // button7
+            // btnLogout
             // 
-            button7.BackColor = Color.FromArgb(192, 0, 0);
-            button7.FlatStyle = FlatStyle.Popup;
-            button7.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.White;
-            button7.Location = new Point(-1, 656);
-            button7.Name = "button7";
-            button7.Size = new Size(117, 41);
-            button7.TabIndex = 14;
-            button7.Text = "Logout";
-            button7.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.FromArgb(192, 0, 0);
+            btnLogout.FlatStyle = FlatStyle.Popup;
+            btnLogout.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(-1, 656);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(117, 41);
+            btnLogout.TabIndex = 14;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // panel5
             // 
@@ -797,6 +798,6 @@
         private TextBox txtCompanionName;
         private TextBox txtCompanionContact;
         private TextBox txtCompanionRelationship;
-        private Button button7;
+        private Button btnLogout;
     }
 }
